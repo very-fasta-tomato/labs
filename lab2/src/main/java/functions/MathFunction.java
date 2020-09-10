@@ -1,7 +1,7 @@
 package functions;
 
 public interface MathFunction {
-    double apply(double x) {
+    default double apply(double x) {
         return x;
     }
 }
