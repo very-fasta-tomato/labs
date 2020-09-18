@@ -13,6 +13,6 @@ public class ConstantFunction implements MathFunction{
 
     @Override
     public double apply(double x) {
-        return 0;
+        return constant;
     }
 }
