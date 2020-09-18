@@ -8,7 +8,8 @@ public class SqrFunctionTest {
 
     @Test
     public void testApply() {
-        assertEquals(java.lang.Math.pow(2, 2),4.0);
-        assertNotEquals(java.lang.Math.pow(2, 2),2.0);
+        SqrFunction testFunction= new SqrFunction();
+        assertEquals(testFunction.apply(2),4.0);
+        assertNotEquals(testFunction.apply(2),2.0);
     }
 }
