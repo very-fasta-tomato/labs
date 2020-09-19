@@ -1,6 +1,6 @@
 package ru.ssau.tk.lab2.functions;
 
-public class PowFunction implements MathFunction{
+public class PowFunction implements MathFunction {
 
     @Override
     public double apply(double x) {

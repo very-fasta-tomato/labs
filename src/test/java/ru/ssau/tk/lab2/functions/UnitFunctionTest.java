@@ -9,7 +9,9 @@ public class UnitFunctionTest {
 
     @Test
     public void testGetConstant() {
-        assertEquals(testFunction.apply(10), 1.0);
+        assertEquals(testFunction.apply(10), 1.0, 0.001);
+        assertEquals(testFunction.apply(0), 1.0, 0.001);
+        assertEquals(testFunction.apply(-10), 1.0, 0.001);
     }
 
     @Test

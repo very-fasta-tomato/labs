@@ -12,9 +12,9 @@ public class CompositeFunctionTest {
         MathFunction secondFunction = new TanFunction();
         MathFunction thirdFunction = new PowFunction();
         CompositeFunction firstCompositeFunction = new CompositeFunction(secondFunction, thirdFunction);
-        assertEquals(firstCompositeFunction.apply(0.0),0);
+        assertEquals(firstCompositeFunction.apply(0.0), 0);
         CompositeFunction secondCompositeFunction = new CompositeFunction(firstFunction, thirdFunction);
-        assertEquals(secondCompositeFunction.apply(9),27);
+        assertEquals(secondCompositeFunction.apply(9), 27);
     }
 
 }

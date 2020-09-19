@@ -9,8 +9,8 @@ public class TanFunctionTest {
     @Test
     public void testTanFunction() {
         TanFunction testTanFunction = new TanFunction();
-        assertEquals(testTanFunction.apply(0),0);
-        assertNotEquals(testTanFunction.apply(1),2.4);
+        assertEquals(testTanFunction.apply(0), 0);
+        assertNotEquals(testTanFunction.apply(1), 2.4);
     }
 
 }
