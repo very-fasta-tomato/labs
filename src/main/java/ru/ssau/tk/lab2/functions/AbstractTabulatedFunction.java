@@ -1,6 +1,6 @@
 package ru.ssau.tk.lab2.functions;
 
-public abstract class AbstractTabulatedFunction {
+public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     protected int count;
 
     protected abstract int floorIndexOfX(double x);
