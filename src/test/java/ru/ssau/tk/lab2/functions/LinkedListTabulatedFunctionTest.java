@@ -87,6 +87,9 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateLeft() {
+        for (int i = 0; i < 20; i++){
+            assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
+        }
     }
 
     @Test
