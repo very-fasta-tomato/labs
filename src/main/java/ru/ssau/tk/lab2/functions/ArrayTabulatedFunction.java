@@ -101,4 +101,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         }
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
+    @Override
+    protected double interpolate(double x, int floorIndex) {
+        if (count == 1) {
+            return x;
+        }
+        return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
+    }
 }
