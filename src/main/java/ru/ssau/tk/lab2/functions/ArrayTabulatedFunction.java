@@ -27,6 +27,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
             xMomentValue += step;
         }
     }
+
     @Override
     public int getCount() {
         return (count);
@@ -46,6 +47,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     public void setY(int index, double value) {
         yValues[index] = value;
     }
+
     @Override
     public double leftBound() {
         return xValues[0];
@@ -55,6 +57,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     public double rightBound() {
         return xValues[count - 1];
     }
+
     @Override
     public int indexOfX(double x) {
         for (int i = 0; i < count; i++) {
@@ -74,6 +77,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         }
         return -1;
     }
+
     @Override
     protected int floorIndexOfX(double x) {
         if (x < xValues[0]) {
@@ -86,6 +90,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         }
         return count;
     }
+
     @Override
     protected double extrapolateLeft(double x) {
         if (count == 1) {

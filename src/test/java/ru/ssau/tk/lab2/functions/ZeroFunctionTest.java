@@ -6,7 +6,7 @@ import static org.testng.Assert.*;
 
 public class ZeroFunctionTest {
 
-    ZeroFunction testFunction = new ZeroFunction();
+    private ZeroFunction testFunction = new ZeroFunction();
 
     @Test
     public void testGetConstant() {

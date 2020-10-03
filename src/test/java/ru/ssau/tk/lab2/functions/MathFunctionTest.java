@@ -5,10 +5,10 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class MathFunctionTest {
-    MathFunction X = new PowFunction();
-    MathFunction sqrX = new SqrFunction();
-    MathFunction one = new UnitFunction();
-    MathFunction testFunction = sqrX.andThen(X);
+    private MathFunction X = new PowFunction();
+    private MathFunction sqrX = new SqrFunction();
+    private MathFunction one = new UnitFunction();
+    private MathFunction testFunction = sqrX.andThen(X);
 
     @Test
     public void testAndThen() {
