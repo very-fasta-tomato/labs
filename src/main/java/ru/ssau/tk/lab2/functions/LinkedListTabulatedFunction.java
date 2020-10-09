@@ -122,7 +122,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         if (count == 1) {
             return x;
         }
-        return interpolate(x, getNode(0).x, getNode(1).x, getNode(0).y, getNode(1).y);
+        return interpolate(x, head.x, head.next.x, head.y, head.next.y);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         if (count == 1) {
             return x;
         }
-        return interpolate(x, getNode(count - 2).x, getNode(count - 1).x, getNode(count - 2).y, getNode(count - 1).y);
+        return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
     }
 
     @Override
