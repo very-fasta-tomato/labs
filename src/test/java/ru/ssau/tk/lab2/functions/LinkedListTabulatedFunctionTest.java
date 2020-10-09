@@ -80,14 +80,12 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testFloorIndexOfX() {
-        assertEquals(definedThroughList.floorIndexOfX(30.), 9);
-        for (int i = -2; i < 5; i++) {
-            assertEquals(definedThroughList.floorIndexOfX(i - 0.5), i + 2);
-        }
-        assertEquals(definedThroughMathFunction.floorIndexOfX(20.1), 1000);
-        for (int i = 0; i < 999; i++) {
-            assertEquals(definedThroughMathFunction.floorIndexOfX(20. * i / 999), i);
-        }
+        assertEquals(definedThroughList.floorIndexOfX(30.), 7);
+        assertEquals(definedThroughList.floorIndexOfX(-1.7), 1);
+        assertEquals(definedThroughList.floorIndexOfX(2.5), 5);
+        assertEquals(definedThroughMathFunction.floorIndexOfX(30.), 15);
+        assertEquals(definedThroughMathFunction.floorIndexOfX(5.), 3);
+        assertEquals(definedThroughMathFunction.floorIndexOfX(10.8), 7);
     }
 
     @Test
