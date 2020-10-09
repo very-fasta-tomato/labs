@@ -90,21 +90,28 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateLeft() {
-        for (int i = 1; i < 20; i++){
-            //assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
-            System.out.println(i);
-            System.out.println(definedThroughMathFunction.extrapolateLeft(i));
-            System.out.println(tanFunc.apply(i));
-        }
+        assertEquals(definedThroughList.extrapolateLeft(-4.0), -1.9655, delta);
+        assertEquals(definedThroughList.extrapolateLeft(-5.0), -3.853, delta);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(-1.0), -4.924, delta);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(-3.0), -14.657, delta);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(-5.0), -24.439, delta);
     }
 
     @Test
     public void testExtrapolateRight() {
-        for (int i = 1; i < 20; i++){
-            //assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
-            System.out.println(i);
-            System.out.println(definedThroughMathFunction.extrapolateRight(i));
-            System.out.println(tanFunc.apply(i));
-        }
+        assertEquals(definedThroughList.extrapolateLeft(4.0), 14.439, delta);
+        assertEquals(definedThroughList.extrapolateLeft(5.0), 16.486, delta);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(22.0), 107.542, delta);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(25.0), 122.296, delta);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(30.0), 146.637, delta);
+    }
+
+    @Test
+    public void testInterlateRight() {
+        assertEquals(definedThroughList.interpolate(-1.5, 0), 3.2, delta);
+        assertEquals(definedThroughList.interpolate(0.5, 3), 0.78, delta);
+        assertEquals(definedThroughMathFunction.interpolate(14.9, 10), -3.81, delta);
+        assertEquals(definedThroughMathFunction.interpolate(1.3, 0), 6.34, delta);
+        assertEquals(definedThroughMathFunction.interpolate(10.8, 8), -3.19, delta);
     }
 }
