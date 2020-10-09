@@ -61,11 +61,11 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testIndexOfX() {
-        assertEquals(definedThroughList.indexOfX(1.), 3);
+        assertEquals(definedThroughList.indexOfX(1.), 4);
         assertEquals(definedThroughList.indexOfX(-2.), 1);
         assertEquals(definedThroughList.indexOfX(1.1), -1);
         assertEquals(definedThroughMathFunction.indexOfX(0.), 0);
-        assertEquals(definedThroughMathFunction.indexOfX(1.421), 1);
+        assertEquals(definedThroughMathFunction.indexOfX(10), 7);
         assertEquals(definedThroughMathFunction.indexOfX(0.1), -1);
     }
 
@@ -74,7 +74,7 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(definedThroughList.indexOfY(2.185), 1);
         assertEquals(definedThroughList.indexOfY(5.0), -1);
         assertEquals(definedThroughList.indexOfY(-2.185), 5);
-        assertEquals(definedThroughMathFunction.indexOfY(6.983), 1);
+        assertEquals(definedThroughMathFunction.indexOfY(6.), -1);
         assertEquals(definedThroughMathFunction.indexOfY(0.1), -1);
     }
 

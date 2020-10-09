@@ -84,6 +84,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             if(getNode(iterator).x==x){
                 return iterator;
             }
+            iterator++;
         }
         return -1;
     }
@@ -95,6 +96,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             if(getNode(iterator).y==y){
                 return iterator;
             }
+            iterator++;
         }
         return -1;
     }
