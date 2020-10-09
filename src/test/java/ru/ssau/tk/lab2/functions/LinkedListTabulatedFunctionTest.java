@@ -5,35 +5,37 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class LinkedListTabulatedFunctionTest {
-    private final double[] valuesX = new double[]{-3., -2., -1., 0, 1., 2., 3.};
-    private final double[] valuesY = new double[]{9., 4., 1., 0, 1., 4, 9.};
-    private MathFunction sqrFunc = new SqrFunction();
-    private LinkedListTabulatedFunction definedThroughList = new LinkedListTabulatedFunction(valuesX, valuesY);
-    private LinkedListTabulatedFunction definedThroughMathFunction = new LinkedListTabulatedFunction(sqrFunc, 20, 0, 1000);
+    private final double[] valuesX = new double[]{-3., -2., -1., 0., 1., 2., 3.};
+    private final double[] valuesY = new double[]{0.143, 2.185, -1.557, 0., 1.557, -2.185, -0.143};
+    private MathFunction tanFunc = new TanFunction();
+    private final LinkedListTabulatedFunction definedThroughList = new LinkedListTabulatedFunction(valuesX, valuesY);
+    private final LinkedListTabulatedFunction definedThroughMathFunction = new LinkedListTabulatedFunction(tanFunc, 0, 20, 15);
+
+    private final double delta = 0.1;
 
     @Test
     public void testGetCount() {
-        assertEquals(definedThroughList.getCount(), 9, 0.001);
-        assertEquals(definedThroughMathFunction.getCount(), 1000, 0.001);
+        assertEquals(definedThroughList.getCount(), 7, delta);
+        assertEquals(definedThroughMathFunction.getCount(), 15, delta);
     }
 
     @Test
     public void testGetX() {
-        for (int i = 0; i < 9; i++) {
-            assertEquals(definedThroughList.getX(i), i - 3., 0.001);
+        for (int i = 0; i < 7; i++) {
+            assertEquals(definedThroughList.getX(i), i - 3, delta);
         }
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 999,0.001);
+        for (int i = 0; i < 15; i++) {
+            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 14, delta);
         }
     }
 
     @Test
     public void testGetY() {
-        for (int i = 0; i < 9; i++) {
-            assertEquals(definedThroughList.getY(i), Math.pow(i - 3., 2), 0.001);
+        for (int i = 0; i < 7; i++) {
+            assertEquals(definedThroughList.getY(i), Math.tan(i - 3), delta);
         }
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(definedThroughMathFunction.getY(i), Math.pow(i * 20. / 999, 2), 0.001);
+        for (int i = 0; i < 15; i++) {
+            assertEquals(definedThroughMathFunction.getY(i), Math.tan(i * 20. / 14), delta);
         }
     }
 
@@ -91,15 +93,17 @@ public class LinkedListTabulatedFunctionTest {
             //assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
             System.out.println(i);
             System.out.println(definedThroughMathFunction.extrapolateLeft(i));
+            System.out.println(tanFunc.apply(i));
         }
     }
 
     @Test
     public void testExtrapolateRight() {
-        for (int i = 1; i < 1000; i++){
+        for (int i = 1; i < 20; i++){
             //assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
             System.out.println(i);
             System.out.println(definedThroughMathFunction.extrapolateRight(i));
+            System.out.println(tanFunc.apply(i));
         }
     }
 }

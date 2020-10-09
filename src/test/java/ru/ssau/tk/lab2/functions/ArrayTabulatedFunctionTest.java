@@ -88,16 +88,17 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testExtrapolateLeft() {
         assertEquals(definedThroughArrays.extrapolateLeft(-2.5), 11.5, 0.001);
-        assertEquals(definedThroughMathFunction.extrapolateLeft());
+        //assertEquals(definedThroughMathFunction.extrapolateLeft());
     }
 
     @Test
     public void testExtrapolateRight() {
         assertEquals(definedThroughArrays.extrapolateRight(2.5),6.5, 0.001 );
-        assertEquals(definedThroughMathFunction.extrapolateRight());
+        //assertEquals(definedThroughMathFunction.extrapolateRight());
     }
 
     @Test
     public void testInterpolate() {
     }
+
 }

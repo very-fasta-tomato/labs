@@ -13,41 +13,36 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             head = newNode;
         }
         else {
-            newNode.x=x;
-            newNode.y=y;
-            Node last = head.prev;
-            last.next = newNode;
-            head.prev = newNode;
-            newNode.prev = last;
             newNode.next = head;
+            newNode.prev = head.prev;
+            newNode.x = x;
+            newNode.y = y;
+            head.prev.next = newNode;
+            head.prev = newNode;
         }
-        count++;
     }
+
     LinkedListTabulatedFunction(double[] xValues, double[] yValues){
+        this.count = xValues.length;
         for (int iterator=0; iterator<count; iterator++){
-            addNode(xValues[iterator], yValues[iterator]);
+            this.addNode(xValues[iterator], yValues[iterator]);
         }
     }
+
     LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count){
         this.count=count;
         double step = (xTo - xFrom) / (count - 1);
         double xMomentValue = xFrom;
         for (int iterator=0; iterator<count; iterator++){
-            addNode(xMomentValue, source.apply(xMomentValue));
+            this.addNode(xMomentValue, source.apply(xMomentValue));
             xMomentValue+=step;
         }
     }
+
     Node getNode(int index){
         Node currentNode=head;
-        if (index<=count/2) {
-            for (int iterator = 0; iterator < index; iterator++) {
-                currentNode = currentNode.next;
-            }
-        }
-        else{
-            for (int iterator = 0; iterator <= count-index; iterator++) {
-                currentNode = currentNode.prev;
-            }
+        for (int iterator = 0; iterator < index; iterator++) {
+            currentNode = currentNode.next;
         }
         return currentNode;
     }
