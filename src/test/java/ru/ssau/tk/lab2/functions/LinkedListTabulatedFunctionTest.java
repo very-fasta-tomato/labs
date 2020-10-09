@@ -87,12 +87,19 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateLeft() {
-        for (int i = 0; i < 20; i++){
-            assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
+        for (int i = 1; i < 20; i++){
+            //assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
+            System.out.println(i);
+            System.out.println(definedThroughMathFunction.extrapolateLeft(i));
         }
     }
 
     @Test
     public void testExtrapolateRight() {
+        for (int i = 1; i < 1000; i++){
+            //assertEquals(definedThroughMathFunction.extrapolateLeft(i), sqrFunc.apply(i));
+            System.out.println(i);
+            System.out.println(definedThroughMathFunction.extrapolateRight(i));
+        }
     }
 }
