@@ -23,7 +23,7 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(definedThroughArrays.getX(i), i - 3., 0.001);
         }
         for (int i = 0; i < 21; i++) {
-            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 20,0.001);
+            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 20, 0.001);
         }
     }
 
@@ -89,8 +89,8 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateRight() {
-        assertEquals(definedThroughArrays.extrapolateRight(4.),14., 0.001 );
-        assertEquals(definedThroughArrays.extrapolateRight(4.8),18., 0.001 );
+        assertEquals(definedThroughArrays.extrapolateRight(4.), 14., 0.001);
+        assertEquals(definedThroughArrays.extrapolateRight(4.8), 18., 0.001);
         assertEquals(definedThroughMathFunction.extrapolateRight(4.), -224., 0.001);
         assertEquals(definedThroughMathFunction.extrapolateRight(4.8), -192.799, 0.001);
     }
@@ -103,8 +103,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.interpolate(1.3, 1), 1.9, 0.001);
         assertEquals(definedThroughMathFunction.interpolate(10.8, 8), 111.6, 0.001);
     }
+
     @Test
-    public void testCombinedFunctions(){
+    public void testCombinedFunctions() {
         double xFrom = 5;
         double xTo = 10;
         int count = 64;

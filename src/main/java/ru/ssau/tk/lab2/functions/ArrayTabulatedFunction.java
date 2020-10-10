@@ -2,18 +2,18 @@ package ru.ssau.tk.lab2.functions;
 
 import java.util.Arrays;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     private final double[] xValues;
     private final double[] yValues;
 
-    ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
-    ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         this.count = count;
         xValues = new double[count];
         yValues = new double[count];
@@ -106,6 +106,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         }
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
+
     @Override
     protected double interpolate(double x, int floorIndex) {
         if (count == 1) {
