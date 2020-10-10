@@ -7,9 +7,7 @@ import static org.testng.Assert.*;
 public class ArrayTabulatedFunctionTest {
     private final double[] valuesX = new double[]{-3., -2., -1., 0, 1., 2., 3.};
     private final double[] valuesY = new double[]{9., 4., 1., 0, 1., 4, 9.};
-    private MathFunction sqrFunc = new SqrFunction();
-    private ArrayTabulatedFunction definedThroughArrays = new ArrayTabulatedFunction(valuesX, valuesY);
-    private ArrayTabulatedFunction definedThroughMathFunction = new ArrayTabulatedFunction(sqrFunc, 0, 20, 21);
+    private final MathFunction sqrFunc = new SqrFunction();
 
     @Test
     public void testGetCount() {
@@ -129,18 +127,15 @@ public class ArrayTabulatedFunctionTest {
     }
 
     @Test
-    public void testCombinedFunctions() {
-        double xFrom = 5;
-        double xTo = 10;
-        int count = 64;
-        MathFunction sqr = new SqrFunction();
-        MathFunction sin = new PowFunction();
-        MathFunction ten = new TanFunction();
-        ArrayTabulatedFunction f = new ArrayTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
-        LinkedListTabulatedFunction g = new LinkedListTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
-        assertEquals(f.getY(0), g.getY(0), 0.001);
-        assertEquals(f.getY(1), g.getY(1), 0.001);
-        assertEquals(f.getY(2), g.getY(2), 0.001);
+    public void testApply() {
+        ArrayTabulatedFunction definedThroughArrays = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(valuesX, valuesY);
+        ArrayTabulatedFunction definedThroughMathFunction = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunc, 0, 20, 21);
+        assertEquals(definedThroughArrays.apply(-1.5), 2.5, 0.001);
+        assertEquals(definedThroughMathFunction.apply(14.9), 222.1, 0.001);
+        assertEquals(definedThroughArrays.apply(4.0), 14.0, 0.001);
+        assertEquals(definedThroughMathFunction.apply(22.0), 478.0, 0.001);
+        assertEquals(definedThroughArrays.apply(-4.0), 14.0, 0.001);
+        assertEquals(definedThroughMathFunction.apply(-5.0), -5.0, 0.001);
     }
 
 }
