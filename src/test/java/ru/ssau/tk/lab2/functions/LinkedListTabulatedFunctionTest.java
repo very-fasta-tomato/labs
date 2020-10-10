@@ -151,40 +151,5 @@ public class LinkedListTabulatedFunctionTest {
 
 
     }
-/*
-    @Test
-    public void testCombinedFunctions() {
-        final double[] valuesX = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9.};
-        final double[] valuesY = new double[10];
-        for (int i = 0; i < 10; i++) {
-            valuesY[i] = tanFunc.apply(powFunc.apply(valuesX[i]));
-        }
-        final LinkedListTabulatedFunction combinedFunctionList = new LinkedListTabulatedFunction(valuesX, valuesY);
-        assertEquals(combinedFunctionList.extrapolateLeft(-1.), -1.55, delta);
-        assertEquals(combinedFunctionList.extrapolateLeft(-2.), -3.11, delta);
-        assertEquals(combinedFunctionList.extrapolateLeft(-4.), -6.22, delta);
-        assertEquals(combinedFunctionList.extrapolateRight(10.), -7.28, delta);
-        assertEquals(combinedFunctionList.extrapolateRight(11.), -11.29, delta);
-        assertEquals(combinedFunctionList.extrapolateRight(12.), -15.31, delta);
-        assertEquals(combinedFunctionList.interpolate(2.5, 1), -1.26, delta);
-        assertEquals(combinedFunctionList.interpolate(6.9, 4), -2.59, delta);
-        assertEquals(combinedFunctionList.interpolate(8.2, 7), 1, delta);
-
-        for (int i = 0; i < 10; i++) {
-            combinedFunctionList.setY(i, sqrFunc.apply(tanFunc.apply(valuesX[i])));
-            assertEquals(combinedFunctionList.getY(i), sqrFunc.apply(tanFunc.apply(valuesX[i])));
-        }
-
-        assertEquals(combinedFunctionList.extrapolateLeft(-1.), -2.42, delta);
-        assertEquals(combinedFunctionList.extrapolateLeft(-2.), -4.85, delta);
-        assertEquals(combinedFunctionList.extrapolateLeft(-4.), -9.71, delta);
-        assertEquals(combinedFunctionList.extrapolateRight(10.), -45.82, delta);
-        assertEquals(combinedFunctionList.extrapolateRight(11.), -91.85, delta);
-        assertEquals(combinedFunctionList.extrapolateRight(12.), -137.88, delta);
-        assertEquals(combinedFunctionList.interpolate(2.5, 1), 5.94, delta);
-        assertEquals(combinedFunctionList.interpolate(6.9, 4), 30.59, delta);
-        assertEquals(combinedFunctionList.interpolate(8.2, 7), 55.33, delta);
-    }
-    */
 
 }
