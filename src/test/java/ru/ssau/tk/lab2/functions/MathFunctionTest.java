@@ -24,9 +24,10 @@ public class MathFunctionTest {
         final double[] valuesX = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9.};
         final double[] valuesY = new double[10];
         for (int i = 0; i < 10; i++) {
-            valuesY[i] = sqrX.andThen(tanFunction).apply(valuesX[i]);
+            valuesY[i] = tanFunction.apply(valuesX[i]);
         }
-
+        LinkedListTabulatedFunction combinedFunctionList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunction, -9.0, 9.0, 100);
+        //ArrayTabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.
     }
 
 }
