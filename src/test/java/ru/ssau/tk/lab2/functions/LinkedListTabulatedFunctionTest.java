@@ -139,5 +139,15 @@ public class LinkedListTabulatedFunctionTest {
             combinedFunctionList.setY(i, sqrFunc.apply(tanFunc.apply(valuesX[i])));
             assertEquals(combinedFunctionList.getY(i), sqrFunc.apply(tanFunc.apply(valuesX[i])));
         }
+
+        assertEquals(combinedFunctionList.extrapolateLeft(-1.), -2.42, delta);
+        assertEquals(combinedFunctionList.extrapolateLeft(-2.), -4.85, delta);
+        assertEquals(combinedFunctionList.extrapolateLeft(-4.), -9.71, delta);
+        assertEquals(combinedFunctionList.extrapolateRight(10.), -45.82, delta);
+        assertEquals(combinedFunctionList.extrapolateRight(11.), -91.85, delta);
+        assertEquals(combinedFunctionList.extrapolateRight(12.), -137.88, delta);
+        assertEquals(combinedFunctionList.interpolate(2.5, 1), 5.94, delta);
+        assertEquals(combinedFunctionList.interpolate(6.9, 4), 30.59, delta);
+        assertEquals(combinedFunctionList.interpolate(8.2, 7), 55.33, delta);
     }
 }
