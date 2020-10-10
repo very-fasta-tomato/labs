@@ -103,5 +103,19 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.interpolate(1.3, 1), 1.9, 0.001);
         assertEquals(definedThroughMathFunction.interpolate(10.8, 8), 111.6, 0.001);
     }
+    @Test
+    public void testCombinedFunctions(){
+        double xFrom = 5;
+        double xTo = 10;
+        int count = 64;
+        MathFunction sqr = new SqrFunction();
+        MathFunction sin = new PowFunction();
+        MathFunction ten = new TanFunction();
+        ArrayTabulatedFunction f = new ArrayTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
+        LinkedListTabulatedFunction g = new LinkedListTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
+        assertEquals(f.getY(0), g.getY(0), 0.001);
+        assertEquals(f.getY(1), g.getY(1), 0.001);
+        assertEquals(f.getY(2), g.getY(2), 0.001);
+    }
 
 }
