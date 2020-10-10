@@ -17,4 +17,5 @@ public class MathFunctionTest {
         assertEquals(testFunction.andThen(sqrX).apply(2), 64.0, 0.001);
         assertEquals(testFunction.andThen(sqrX).apply(2.5), 244.140, 0.001);
     }
+
 }

@@ -118,13 +118,13 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testCombinedFunctions(){
+    public void testCombinedFunctions() {
         final double[] valuesX = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9.};
         final double[] valuesY = new double[10];
-        for (int i=0; i<10; i++){
+        for (int i = 0; i < 10; i++) {
             valuesY[i] = tanFunc.apply(powFunc.apply(valuesX[i]));
         }
-        final LinkedListTabulatedFunction combinedFunctionList = new LinkedListTabulatedFunction(valuesX,valuesY);
+        final LinkedListTabulatedFunction combinedFunctionList = new LinkedListTabulatedFunction(valuesX, valuesY);
         assertEquals(combinedFunctionList.extrapolateLeft(-1.), -1.55, delta);
         assertEquals(combinedFunctionList.extrapolateLeft(-2.), -3.11, delta);
         assertEquals(combinedFunctionList.extrapolateLeft(-4.), -6.22, delta);
@@ -135,7 +135,7 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(combinedFunctionList.interpolate(6.9, 4), -2.59, delta);
         assertEquals(combinedFunctionList.interpolate(8.2, 7), 1, delta);
 
-        for (int i=0; i<10; i++){
+        for (int i = 0; i < 10; i++) {
             combinedFunctionList.setY(i, sqrFunc.apply(tanFunc.apply(valuesX[i])));
             assertEquals(combinedFunctionList.getY(i), sqrFunc.apply(tanFunc.apply(valuesX[i])));
         }
