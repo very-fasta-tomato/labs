@@ -28,13 +28,13 @@ public class MathFunctionTest {
         for (int i = 0; i < 10; i++) {
             valuesY[i] = sqrX.apply(valuesX[i]);
         }
-        LinkedListTabulatedFunction combinedFunctionList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunction, -9.0, 9.0, 100);
+        TabulatedFunction combinedFunctionList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunction, -9.0, 9.0, 100);
         assertEquals(combinedFunctionList.andThen(sqrX).apply(-8.56), 1.43, delta);
         assertEquals(combinedFunctionList.andThen(sqrX).apply(-3.45), 0.10, delta);
         assertEquals(combinedFunctionList.andThen(sqrX).apply(1), 2.42, delta);
         assertEquals(combinedFunctionList.andThen(sqrX).apply(2.35), 1.02, delta);
         assertEquals(combinedFunctionList.andThen(sqrX).apply(9), 0.2, delta);
-        ArrayTabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunction, -9.0, 9.0, 100);
+        TabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunction, -9.0, 9.0, 100);
         assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(-8.56), 7215.9, delta);
         assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(-3.45), 11.6, delta);
         assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(1), 2.4, delta);
