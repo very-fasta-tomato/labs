@@ -10,9 +10,6 @@ public class LinkedListTabulatedFunctionTest {
     private final MathFunction tanFunc = new TanFunction();
     private final MathFunction powFunc = new PowFunction();
     private final MathFunction sqrFunc = new SqrFunction();
-    private final LinkedListTabulatedFunction definedThroughList = new LinkedListTabulatedFunction(valuesX, valuesY);
-    private final LinkedListTabulatedFunction definedThroughMathFunction = new LinkedListTabulatedFunction(tanFunc, 0, 20, 15);
-
     private final double delta = 0.1;
 
     @Test
@@ -154,7 +151,7 @@ public class LinkedListTabulatedFunctionTest {
 
 
     }
-
+/*
     @Test
     public void testCombinedFunctions() {
         final double[] valuesX = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9.};
@@ -188,4 +185,6 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(combinedFunctionList.interpolate(6.9, 4), 30.59, delta);
         assertEquals(combinedFunctionList.interpolate(8.2, 7), 55.33, delta);
     }
+    */
+
 }

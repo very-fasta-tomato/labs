@@ -9,6 +9,7 @@ public class MathFunctionTest {
     private MathFunction sqrX = new SqrFunction();
     private MathFunction one = new UnitFunction();
     private MathFunction testFunction = sqrX.andThen(X);
+    private MathFunction tanFunction = new TanFunction();
 
     @Test
     public void testAndThen() {
@@ -16,6 +17,16 @@ public class MathFunctionTest {
         assertEquals(testFunction.andThen(one).apply(10), 1.0, 0.001);
         assertEquals(testFunction.andThen(sqrX).apply(2), 64.0, 0.001);
         assertEquals(testFunction.andThen(sqrX).apply(2.5), 244.140, 0.001);
+    }
+
+    @Test
+    public void tabulatedCombinedFunctionsTest(){
+        final double[] valuesX = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9.};
+        final double[] valuesY = new double[10];
+        for (int i = 0; i < 10; i++) {
+            valuesY[i] = sqrX.andThen(tanFunction).apply(valuesX[i]);
+        }
+
     }
 
 }
