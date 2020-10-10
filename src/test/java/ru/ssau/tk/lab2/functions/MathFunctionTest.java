@@ -10,6 +10,7 @@ public class MathFunctionTest {
     private final MathFunction one = new UnitFunction();
     private final MathFunction testFunction = sqrX.andThen(X);
     private final MathFunction tanFunction = new TanFunction();
+    private final MathFunction sqrFunction=new SqrFunction();
     private final double delta = 0.1;
 
     @Test
@@ -33,7 +34,12 @@ public class MathFunctionTest {
         assertEquals(combinedFunctionList.andThen(sqrX).apply(1), 2.42, delta);
         assertEquals(combinedFunctionList.andThen(sqrX).apply(2.35), 1.02, delta);
         assertEquals(combinedFunctionList.andThen(sqrX).apply(9), 0.2, delta);
-        //ArrayTabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.
+        ArrayTabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunction, -9.0, 9.0, 100);
+        assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(-8.56), 7215.9, delta);
+        assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(-3.45), 11.6, delta);
+        assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(1), 2.4, delta);
+        assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(2.35), 0.8, delta);
+        assertEquals(combinedFunctionArray.andThen(combinedFunctionList).andThen(sqrX).apply(9), 9063.2, delta);
     }
 
 }
