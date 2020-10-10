@@ -83,14 +83,16 @@ public class ArrayTabulatedFunctionTest {
     public void testExtrapolateLeft() {
         assertEquals(definedThroughArrays.extrapolateLeft(-4), 14., 0.001);
         assertEquals(definedThroughArrays.extrapolateLeft(-4.5), 16.5, 0.001);
-        //assertEquals(definedThroughMathFunction.extrapolateLeft());
+        assertEquals(definedThroughMathFunction.extrapolateLeft(-4), -0.08, 0.001);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(-4.3), -0.086, 0.001);
     }
 
     @Test
     public void testExtrapolateRight() {
         assertEquals(definedThroughArrays.extrapolateRight(4.),14., 0.001 );
         assertEquals(definedThroughArrays.extrapolateRight(4.8),18., 0.001 );
-        //assertEquals(definedThroughMathFunction.extrapolateRight());
+        assertEquals(definedThroughMathFunction.extrapolateRight(4.), -239.679, 0.001);
+        assertEquals(definedThroughMathFunction.extrapolateRight(4.8), -207.695, 0.001);
     }
 
     @Test
