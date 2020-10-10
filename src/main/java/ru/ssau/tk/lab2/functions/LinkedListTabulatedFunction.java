@@ -79,11 +79,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     public int indexOfX(double x) {
         int iterator = 0;
+        Node currentNode = head;
         while (iterator < count) {
-            if (getNode(iterator).x == x) {
+            if (currentNode.x == x) {
                 return iterator;
             }
             iterator++;
+            currentNode = currentNode.next;
         }
         return -1;
     }
@@ -91,11 +93,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     public int indexOfY(double y) {
         int iterator = 0;
+        Node currentNode = head;
         while (iterator < count) {
-            if (getNode(iterator).y == y) {
+            if (currentNode.y == y) {
                 return iterator;
             }
             iterator++;
+            currentNode = currentNode.next;
         }
         return -1;
     }
