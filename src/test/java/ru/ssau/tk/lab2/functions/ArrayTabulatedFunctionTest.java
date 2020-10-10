@@ -9,12 +9,12 @@ public class ArrayTabulatedFunctionTest {
     private final double[] valuesY = new double[]{9., 4., 1., 0, 1., 4, 9.};
     private MathFunction sqrFunc = new SqrFunction();
     private ArrayTabulatedFunction definedThroughArrays = new ArrayTabulatedFunction(valuesX, valuesY);
-    private ArrayTabulatedFunction definedThroughMathFunction = new ArrayTabulatedFunction(sqrFunc, 0, 20, 1000);
+    private ArrayTabulatedFunction definedThroughMathFunction = new ArrayTabulatedFunction(sqrFunc, 0, 20, 21);
 
     @Test
     public void testGetCount() {
         assertEquals(definedThroughArrays.getCount(), 7, 0.001);
-        assertEquals(definedThroughMathFunction.getCount(), 1000, 0.001);
+        assertEquals(definedThroughMathFunction.getCount(), 21, 0.001);
     }
 
     @Test
@@ -22,8 +22,8 @@ public class ArrayTabulatedFunctionTest {
         for (int i = 0; i < 7; i++) {
             assertEquals(definedThroughArrays.getX(i), i - 3., 0.001);
         }
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 999,0.001);
+        for (int i = 0; i < 21; i++) {
+            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 20,0.001);
         }
     }
 
@@ -32,8 +32,8 @@ public class ArrayTabulatedFunctionTest {
         for (int i = 0; i < 7; i++) {
             assertEquals(definedThroughArrays.getY(i), Math.pow(i - 3., 2), 0.001);
         }
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(definedThroughMathFunction.getY(i), Math.pow(i * 20. / 999, 2), 0.001);
+        for (int i = 0; i < 21; i++) {
+            assertEquals(definedThroughMathFunction.getY(i), Math.pow(i * 20. / 20, 2), 0.001);
         }
     }
 
@@ -76,27 +76,32 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testFloorIndexOfX() {
         assertEquals(definedThroughArrays.floorIndexOfX(30.), 7);
-        assertEquals(definedThroughMathFunction.floorIndexOfX(20.1), 1000);
+        assertEquals(definedThroughMathFunction.floorIndexOfX(20.1), 21);
     }
 
     @Test
     public void testExtrapolateLeft() {
         assertEquals(definedThroughArrays.extrapolateLeft(-4), 14., 0.001);
         assertEquals(definedThroughArrays.extrapolateLeft(-4.5), 16.5, 0.001);
-        //assertEquals(definedThroughMathFunction.extrapolateLeft());
+        assertEquals(definedThroughMathFunction.extrapolateLeft(-4), -4., 0.001);
+        assertEquals(definedThroughMathFunction.extrapolateLeft(-4.3), -4.3, 0.001);
     }
 
     @Test
     public void testExtrapolateRight() {
         assertEquals(definedThroughArrays.extrapolateRight(4.),14., 0.001 );
         assertEquals(definedThroughArrays.extrapolateRight(4.8),18., 0.001 );
-        //assertEquals(definedThroughMathFunction.extrapolateRight());
+        assertEquals(definedThroughMathFunction.extrapolateRight(4.), -224., 0.001);
+        assertEquals(definedThroughMathFunction.extrapolateRight(4.8), -192.799, 0.001);
     }
 
     @Test
     public void testInterpolate() {
         assertEquals(definedThroughArrays.interpolate(-1.5, 1), 2.5, 0.001);
         assertEquals(definedThroughArrays.interpolate(0.5, 3), 0.5, 0.001);
+        assertEquals(definedThroughMathFunction.interpolate(14.9, 14), 222.1, 0.001);
+        assertEquals(definedThroughMathFunction.interpolate(1.3, 1), 1.9, 0.001);
+        assertEquals(definedThroughMathFunction.interpolate(10.8, 8), 111.6, 0.001);
     }
 
 }
