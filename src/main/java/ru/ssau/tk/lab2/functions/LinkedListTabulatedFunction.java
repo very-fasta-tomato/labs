@@ -3,16 +3,15 @@ package ru.ssau.tk.lab2.functions;
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
 
-    private void addNode(double x, double y){
+    private void addNode(double x, double y) {
         Node newNode = new Node();
-        if (head==null){
-            newNode.x=x;
-            newNode.y=y;
-            newNode.next=newNode;
-            newNode.prev=newNode;
+        if (head == null) {
+            newNode.x = x;
+            newNode.y = y;
+            newNode.next = newNode;
+            newNode.prev = newNode;
             head = newNode;
-        }
-        else {
+        } else {
             newNode.next = head;
             newNode.prev = head.prev;
             newNode.x = x;
@@ -22,25 +21,25 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         }
     }
 
-    LinkedListTabulatedFunction(double[] xValues, double[] yValues){
+    public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         this.count = xValues.length;
-        for (int iterator=0; iterator<count; iterator++){
+        for (int iterator = 0; iterator < count; iterator++) {
             this.addNode(xValues[iterator], yValues[iterator]);
         }
     }
 
-    LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count){
-        this.count=count;
+    public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        this.count = count;
         double step = (xTo - xFrom) / (count - 1);
         double xMomentValue = xFrom;
-        for (int iterator=0; iterator<count; iterator++){
+        for (int iterator = 0; iterator < count; iterator++) {
             this.addNode(xMomentValue, source.apply(xMomentValue));
-            xMomentValue+=step;
+            xMomentValue += step;
         }
     }
 
-    Node getNode(int index){
-        Node currentNode=head;
+    private Node getNode(int index) {
+        Node currentNode = head;
         for (int iterator = 0; iterator < index; iterator++) {
             currentNode = currentNode.next;
         }
@@ -48,7 +47,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    public int getCount(){
+    public int getCount() {
         return count;
     }
 
@@ -58,30 +57,30 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    public double leftBound(){
+    public double leftBound() {
         return head.x;
     }
 
     @Override
-    public double getX(int index){
+    public double getX(int index) {
         return getNode(index).x;
     }
 
     @Override
-    public double getY(int index){
+    public double getY(int index) {
         return getNode(index).y;
     }
 
     @Override
-    public void setY(int index, double value){
+    public void setY(int index, double value) {
         getNode(index).y = value;
     }
 
     @Override
     public int indexOfX(double x) {
         int iterator = 0;
-        while (iterator<count){
-            if(getNode(iterator).x==x){
+        while (iterator < count) {
+            if (getNode(iterator).x == x) {
                 return iterator;
             }
             iterator++;
@@ -92,8 +91,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     public int indexOfY(double y) {
         int iterator = 0;
-        while (iterator<count){
-            if(getNode(iterator).y==y){
+        while (iterator < count) {
+            if (getNode(iterator).y == y) {
                 return iterator;
             }
             iterator++;
@@ -131,11 +130,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    public double interpolate (double x, int floorIndex){
+    public double interpolate(double x, int floorIndex) {
         if (count == 1) {
             return x;
         }
-        return interpolate(x, getNode(floorIndex).x, getNode(floorIndex+1).x, getNode(floorIndex).y, getNode(floorIndex+1).y);
+        return interpolate(x, getNode(floorIndex).x, getNode(floorIndex + 1).x, getNode(floorIndex).y, getNode(floorIndex + 1).y);
     }
 
 }
