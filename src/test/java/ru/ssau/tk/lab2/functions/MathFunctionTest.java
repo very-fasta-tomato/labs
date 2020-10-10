@@ -27,7 +27,7 @@ public class MathFunctionTest {
             valuesY[i] = tanFunction.apply(valuesX[i]);
         }
         LinkedListTabulatedFunction combinedFunctionList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunction, -9.0, 9.0, 100);
-        //ArrayTabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.
+        ArrayTabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunction, -9.0, 9.0, 100);
     }
 
 }
