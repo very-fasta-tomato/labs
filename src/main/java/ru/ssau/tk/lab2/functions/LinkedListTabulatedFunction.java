@@ -143,11 +143,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         return interpolate(x, getNode(floorIndex).x, getNode(floorIndex + 1).x, getNode(floorIndex).y, getNode(floorIndex + 1).y);
     }
 
-    public static LinkedListTabulatedFunction createTabulatedFunctionDefinedThroughList(double[] valuesX, double[] valuesY){
+    public static LinkedListTabulatedFunction createTabulatedFunctionDefinedThroughList(double[] valuesX, double[] valuesY) {
         return new LinkedListTabulatedFunction(valuesX, valuesY);
     }
 
-    public static LinkedListTabulatedFunction createTabulatedFunctionDefinedThroughMathFunction(MathFunction source, double xFrom, double xTo, int count){
+    public static LinkedListTabulatedFunction createTabulatedFunctionDefinedThroughMathFunction(MathFunction source, double xFrom, double xTo, int count) {
         return new LinkedListTabulatedFunction(source, xFrom, xTo, count);
     }
 

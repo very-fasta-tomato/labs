@@ -10,7 +10,7 @@ public class MathFunctionTest {
     private final MathFunction one = new UnitFunction();
     private final MathFunction testFunction = sqrX.andThen(X);
     private final MathFunction tanFunction = new TanFunction();
-    private final MathFunction sqrFunction=new SqrFunction();
+    private final MathFunction sqrFunction = new SqrFunction();
     private final double delta = 0.1;
 
     @Test
