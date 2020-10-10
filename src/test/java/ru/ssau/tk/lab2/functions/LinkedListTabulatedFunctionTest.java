@@ -8,8 +8,6 @@ public class LinkedListTabulatedFunctionTest {
     private final double[] valuesX = new double[]{-3., -2., -1., 0., 1., 2., 3.};
     private final double[] valuesY = new double[]{0.143, 2.185, -1.557, 0., 1.557, -2.185, -0.143};
     private final MathFunction tanFunc = new TanFunction();
-    private final MathFunction powFunc = new PowFunction();
-    private final MathFunction sqrFunc = new SqrFunction();
     private final double delta = 0.1;
 
     @Test
