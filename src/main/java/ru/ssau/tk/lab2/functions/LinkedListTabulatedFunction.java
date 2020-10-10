@@ -105,10 +105,12 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         if (x < head.x) {
             return 0;
         }
+        Node currentNode = head;
         for (int iterator = 0; iterator + 1 < count; iterator++) {
-            if (getNode(iterator).next.x > x) {
+            if (currentNode.next.x > x) {
                 return iterator;
             }
+            currentNode = currentNode.next;
         }
         return count;
     }
