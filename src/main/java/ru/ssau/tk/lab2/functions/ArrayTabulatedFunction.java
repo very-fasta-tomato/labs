@@ -114,4 +114,12 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
+
+    public static ArrayTabulatedFunction createTabulatedFunctionDefinedThroughArray(double[] valuesX, double[] valuesY) {
+        return new ArrayTabulatedFunction(valuesX, valuesY);
+    }
+
+    public static ArrayTabulatedFunction createTabulatedFunctionDefinedThroughMathFunction(MathFunction source, double xFrom, double xTo, int count) {
+        return new ArrayTabulatedFunction(source, xFrom, xTo, count);
+    }
 }
