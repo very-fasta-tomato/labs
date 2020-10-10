@@ -5,11 +5,12 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class MathFunctionTest {
-    private MathFunction X = new PowFunction();
-    private MathFunction sqrX = new SqrFunction();
-    private MathFunction one = new UnitFunction();
-    private MathFunction testFunction = sqrX.andThen(X);
-    private MathFunction tanFunction = new TanFunction();
+    private final MathFunction X = new PowFunction();
+    private final MathFunction sqrX = new SqrFunction();
+    private final MathFunction one = new UnitFunction();
+    private final MathFunction testFunction = sqrX.andThen(X);
+    private final MathFunction tanFunction = new TanFunction();
+    private final double delta = 0.1;
 
     @Test
     public void testAndThen() {
@@ -24,9 +25,14 @@ public class MathFunctionTest {
         final double[] valuesX = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9.};
         final double[] valuesY = new double[10];
         for (int i = 0; i < 10; i++) {
-            valuesY[i] = tanFunction.apply(valuesX[i]);
+            valuesY[i] = sqrX.apply(valuesX[i]);
         }
         LinkedListTabulatedFunction combinedFunctionList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunction, -9.0, 9.0, 100);
+        assertEquals(combinedFunctionList.andThen(sqrX).apply(-8.56), 1.43, delta);
+        assertEquals(combinedFunctionList.andThen(sqrX).apply(-3.45), 0.10, delta);
+        assertEquals(combinedFunctionList.andThen(sqrX).apply(1), 2.42, delta);
+        assertEquals(combinedFunctionList.andThen(sqrX).apply(2.35), 1.02, delta);
+        assertEquals(combinedFunctionList.andThen(sqrX).apply(9), 0.2, delta);
         //ArrayTabulatedFunction combinedFunctionArray = ArrayTabulatedFunction.
     }
 
