@@ -3,6 +3,13 @@ package ru.ssau.tk.lab2.functions;
 import ru.ssau.tk.lab2.exceptions.*;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+    private static class Node{
+        public Node next;
+        public Node prev;
+        public double x;
+        public double y;
+    }
+
     private Node head;
 
     private void addNode(double x, double y) {
@@ -141,7 +148,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double interpolate(double x, int floorIndex) {
-        if (x < leftNode.x || x > rightNode.x) {
+        if (x < head.x || x > head.prev.x) {
             throw new InterpolationException("X is out of bounds of interpolation");
         }
         if (count == 1) {
