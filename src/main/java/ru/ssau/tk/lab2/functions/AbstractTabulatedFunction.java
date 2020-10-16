@@ -1,5 +1,7 @@
 package ru.ssau.tk.lab2.functions;
 
+import ru.ssau.tk.lab2.exceptions.*;
+
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     protected int count;
 
@@ -28,5 +30,19 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
             return (getY(index));
         }
         return (interpolate(x, floorIndexOfX(x)));
+    }
+
+    protected static void checkLengthIsTheSame(double[] xValues, double[] yValues) {
+        if (xValues.length != yValues.length) {
+            throw new DifferentLengthOfArraysException("Lengths of arrays are different");
+        }
+    }
+
+    protected static void checkSorted(double[] xValues) {
+        for (int i = 0; i < xValues.length - 1; i++) {
+            if (xValues[i] > xValues[i + 1]) {
+                throw new ArrayIsNotSortedException("xValues array isn't sorted");
+            }
+        }
     }
 }
