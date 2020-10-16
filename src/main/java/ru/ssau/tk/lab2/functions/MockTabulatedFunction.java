@@ -1,10 +1,18 @@
 package ru.ssau.tk.lab2.functions;
 
+import java.util.Iterator;
+
 public class MockTabulatedFunction extends AbstractTabulatedFunction {
     private final double x0 = 0.;
     private final double x1 = 1.;
     private final double y0 = 0.;
     private final double y1 = 1.;
+
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public int getCount() {

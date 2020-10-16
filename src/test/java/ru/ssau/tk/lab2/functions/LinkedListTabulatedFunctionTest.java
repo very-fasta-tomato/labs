@@ -11,6 +11,16 @@ public class LinkedListTabulatedFunctionTest {
     private final double delta = 0.1;
 
     @Test
+    public void testConstructor() {
+        assertThrows(IllegalArgumentException.class, ()-> {TabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[] {1}, new double[] {1});});
+        assertThrows(IllegalArgumentException.class, ()-> {TabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[] {}, new double[] {});});
+        assertThrows(IllegalArgumentException.class, ()-> {TabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[] {1, 5}, new double[] {1});});
+        assertThrows(IllegalArgumentException.class, ()-> {TabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 10, 5, 15);});
+        assertThrows(IllegalArgumentException.class, ()-> {TabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 5, 6, 1);});
+        assertThrows(IllegalArgumentException.class, ()-> {TabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 5, 5, 2);});
+    }
+
+    @Test
     public void testGetCount() {
         TabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(valuesX, valuesY);
         TabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 0, 20, 15);
@@ -28,6 +38,10 @@ public class LinkedListTabulatedFunctionTest {
         for (int i = 0; i < 15; i++) {
             assertEquals(definedThroughMathFunction.getX(i), i * 20. / 14, delta);
         }
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getX(9));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getX(-1));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getX(18));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getX(-1));
     }
 
     @Test
@@ -40,6 +54,10 @@ public class LinkedListTabulatedFunctionTest {
         for (int i = 0; i < 15; i++) {
             assertEquals(definedThroughMathFunction.getY(i), Math.tan(i * 20. / 14), delta);
         }
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getY(9));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getY(-1));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getY(18));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getY(-1));
     }
 
     @Test
@@ -50,6 +68,10 @@ public class LinkedListTabulatedFunctionTest {
         definedThroughMathFunction.setY(0, 1009.);
         assertEquals(definedThroughList.getY(5), 100500., delta);
         assertEquals(definedThroughMathFunction.getY(0), 1009., delta);
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.setY(9, 100500));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.setY(-1, 100500));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.setY(18, 100500));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.setY(-1, 100500));
     }
 
     @Test
@@ -101,6 +123,11 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.floorIndexOfX(30.), 15);
         assertEquals(definedThroughMathFunction.floorIndexOfX(5.), 3);
         assertEquals(definedThroughMathFunction.floorIndexOfX(10.8), 7);
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.floorIndexOfX(-4.0));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.floorIndexOfX(-18.98));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.floorIndexOfX(-13.69));
+        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.floorIndexOfX(-1));
+
     }
 
     @Test

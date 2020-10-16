@@ -13,7 +13,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     private Node head;
-    RuntimeException IllegalArgumentException = new UnsupportedOperationException("Illegal list index");
+    RuntimeException IllegalArgumentException = new IllegalArgumentException("Illegal list index");
 
     private void addNode(double x, double y) {
         Node newNode = new Node();
@@ -35,7 +35,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         if ((xValues.length<2) || (yValues.length<2)){
-            throw IllegalArgumentException = new UnsupportedOperationException("List length less, than minimal");
+            throw IllegalArgumentException = new IllegalArgumentException("List length less, than minimal");
         }
         checkLengthIsTheSame(xValues, yValues);
         checkSorted(xValues);
@@ -46,8 +46,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
-        if (xFrom>=xTo){
-            throw IllegalArgumentException = new UnsupportedOperationException("Max X is less, than min X");
+        if ((xFrom>=xTo) || (count<2)){
+            throw IllegalArgumentException = new IllegalArgumentException("Max X is less, than min X");
         }
         this.count = count;
         double step = (xTo - xFrom) / (count - 1);
