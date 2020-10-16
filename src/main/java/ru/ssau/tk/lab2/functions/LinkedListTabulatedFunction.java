@@ -2,8 +2,10 @@ package ru.ssau.tk.lab2.functions;
 
 import ru.ssau.tk.lab2.exceptions.*;
 
+import java.util.Iterator;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
-    private static class Node{
+    private static class Node {
         public Node next;
         public Node prev;
         public double x;
@@ -167,6 +169,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     public static LinkedListTabulatedFunction createTabulatedFunctionDefinedThroughMathFunction(MathFunction source, double xFrom, double xTo, int count) {
         return new LinkedListTabulatedFunction(source, xFrom, xTo, count);
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 
 }
