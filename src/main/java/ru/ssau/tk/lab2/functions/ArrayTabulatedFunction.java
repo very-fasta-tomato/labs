@@ -1,6 +1,7 @@
 package ru.ssau.tk.lab2.functions;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import ru.ssau.tk.lab2.exceptions.*;
 
@@ -128,5 +129,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     public static ArrayTabulatedFunction createTabulatedFunctionDefinedThroughMathFunction(MathFunction source, double xFrom, double xTo, int count) {
         return new ArrayTabulatedFunction(source, xFrom, xTo, count);
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }
