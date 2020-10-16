@@ -1,5 +1,7 @@
 package ru.ssau.tk.lab2.functions;
 
+import ru.ssau.tk.lab2.exceptions.*;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
 
@@ -22,6 +24,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         this.count = xValues.length;
         for (int iterator = 0; iterator < count; iterator++) {
             this.addNode(xValues[iterator], yValues[iterator]);
@@ -137,6 +141,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double interpolate(double x, int floorIndex) {
+        if (x < leftNode.x || x > rightNode.x) {
+            throw new InterpolationException("X is out of bounds of interpolation");
+        }
         if (count == 1) {
             return x;
         }

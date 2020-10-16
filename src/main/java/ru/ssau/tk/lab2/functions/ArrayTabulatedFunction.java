@@ -2,12 +2,16 @@ package ru.ssau.tk.lab2.functions;
 
 import java.util.Arrays;
 
+import ru.ssau.tk.lab2.exceptions.*;
+
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     private final double[] xValues;
     private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
@@ -109,6 +113,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double interpolate(double x, int floorIndex) {
+        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]) {
+            throw new InterpolationException("X is out of bounds of interpolation");
+        }
         if (count == 1) {
             return x;
         }
