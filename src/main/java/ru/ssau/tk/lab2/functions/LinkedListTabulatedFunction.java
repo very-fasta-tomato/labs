@@ -3,6 +3,7 @@ package ru.ssau.tk.lab2.functions;
 import ru.ssau.tk.lab2.exceptions.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private static class Node {
@@ -35,7 +36,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         if ((xValues.length<2) || (yValues.length<2)){
-            throw IllegalArgumentException = new IllegalArgumentException("List length less, than minimal");
+            throw new IllegalArgumentException("List length less, than minimal");
         }
         checkLengthIsTheSame(xValues, yValues);
         checkSorted(xValues);
@@ -47,7 +48,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if ((xFrom>=xTo) || (count<2)){
-            throw IllegalArgumentException = new IllegalArgumentException("Max X is less, than min X");
+            throw new IllegalArgumentException("Max X is less, than min X");
         }
         this.count = count;
         double step = (xTo - xFrom) / (count - 1);
@@ -173,7 +174,25 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
+        return new Iterator<>() {
+            private Node node = head;
+
+            public boolean hasNext(){
+                return (node != null);
+            }
+
+            @Override
+            public Point next() {
+                if (hasNext()) {
+                    Point point = new Point(node.x, node.y);
+                    node = (node != head.prev) ? node.next : null;
+                    return point;
+                }
+                else {
+                    throw new NoSuchElementException();
+                }
+            }
+        };
     }
 
 }
