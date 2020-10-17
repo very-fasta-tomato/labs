@@ -158,6 +158,10 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.interpolate(14.9, 14), 222.1, 0.001);
         assertEquals(definedThroughMathFunction.interpolate(1.3, 1), 1.9, 0.001);
         assertEquals(definedThroughMathFunction.interpolate(10.8, 10), 116.8, 0.001);
+        assertThrows(InterpolationException.class, () -> definedThroughArrays.interpolate(-4., 0));
+        assertThrows(InterpolationException.class, () -> definedThroughArrays.interpolate(9., 0));
+        assertThrows(InterpolationException.class, () -> definedThroughMathFunction.interpolate(-4, 0));
+        assertThrows(InterpolationException.class, () -> definedThroughMathFunction.interpolate(-20.36, 0));
     }
 
     @Test
