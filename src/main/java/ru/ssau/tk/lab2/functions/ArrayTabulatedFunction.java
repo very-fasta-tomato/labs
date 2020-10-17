@@ -23,11 +23,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
-        if (count < 2) {
-            throw new IllegalArgumentException("Length less than 2 points");
+        if (xFrom >= xTo) {
+            throw new IllegalArgumentException("Incorrect parametr values");
         }
-        if ((xFrom >= xTo) || (xFrom < 0) | (xTo < 0)) {
-            throw new IllegalArgumentException("Incorrect parameter values");
+        if (count < 2) {
+            throw new IllegalArgumentException("List length less, than minimal");
         }
         this.count = count;
         xValues = new double[count];
