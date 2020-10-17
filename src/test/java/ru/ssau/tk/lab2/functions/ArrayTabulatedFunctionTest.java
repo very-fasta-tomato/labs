@@ -123,6 +123,10 @@ public class ArrayTabulatedFunctionTest {
         ArrayTabulatedFunction definedThroughMathFunction = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunc, 0, 20, 21);
         assertEquals(definedThroughArrays.floorIndexOfX(30.), 7);
         assertEquals(definedThroughMathFunction.floorIndexOfX(20.1), 21);
+        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.floorIndexOfX(-4.0));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.floorIndexOfX(-18.98));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.floorIndexOfX(-13.69));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.floorIndexOfX(-1));
     }
 
     @Test
