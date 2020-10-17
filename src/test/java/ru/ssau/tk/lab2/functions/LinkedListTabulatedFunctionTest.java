@@ -195,13 +195,13 @@ public class LinkedListTabulatedFunctionTest {
             Point point = iterator.next();
             assertEquals(point.x, definedThroughList.getX(i++));
         }
-        assertEquals(i,7);
+        assertEquals(i, 7);
         assertThrows(NoSuchElementException.class, () -> iterator.next());
         i = 0;
         for (Point point : definedThroughList) {
             assertEquals(point.x, definedThroughList.getX(i++));
         }
-        assertEquals(i,7);
+        assertEquals(i, 7);
         assertThrows(NoSuchElementException.class, () -> iterator.next());
     }
 
