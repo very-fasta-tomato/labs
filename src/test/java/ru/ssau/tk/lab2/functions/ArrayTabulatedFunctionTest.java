@@ -2,7 +2,10 @@ package ru.ssau.tk.lab2.functions;
 
 import org.testng.annotations.Test;
 
+import java.util.Iterator;
+
 import static org.testng.Assert.*;
+
 
 public class ArrayTabulatedFunctionTest {
     private final double[] valuesX = new double[]{-3., -2., -1., 0, 1., 2., 3.};
@@ -138,4 +141,45 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.apply(-5.0), -5.0, 0.001);
     }
 
+    @Test
+    public void testIteratorWhile() {
+        ArrayTabulatedFunction DefinedThroughArrays = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(valuesX, valuesY);
+        Iterator<Point> myIterator = DefinedThroughArrays.iterator();
+        int i = 0;
+        while (myIterator.hasNext()) {
+            Point myPoint = myIterator.next();
+            assertEquals(DefinedThroughArrays.getX(i), myPoint.x, 0.001);
+            assertEquals(DefinedThroughArrays.getY(i++), myPoint.y, 0.001);
+        }
+        assertEquals(DefinedThroughArrays.getCount(), i);
+
+        ArrayTabulatedFunction DefinedThroughMathFunction = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(valuesX, valuesY);
+        myIterator = DefinedThroughMathFunction.iterator();
+        i = 0;
+        while (myIterator.hasNext()) {
+            Point myPoint = myIterator.next();
+            assertEquals(DefinedThroughMathFunction.getX(i), myPoint.x, 0.001);
+            assertEquals(DefinedThroughMathFunction.getY(i++), myPoint.y, 0.001);
+        }
+        assertEquals(DefinedThroughMathFunction.getCount(), i);
+    }
+
+    @Test
+    public void testIteratorForEach() {
+        ArrayTabulatedFunction DefinedThroughArrays = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(valuesX, valuesY);
+        int i = 0;
+        for (Point myPoint : DefinedThroughArrays) {
+            assertEquals(myPoint.x, DefinedThroughArrays.getX(i), 0.001);
+            assertEquals(myPoint.y, DefinedThroughArrays.getY(i++), 0.001);
+        }
+        assertEquals(DefinedThroughArrays.getCount(), i);
+
+        ArrayTabulatedFunction testDefinedThroughMathFunction = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(valuesX, valuesY);
+        i = 0;
+        for (Point myPoint : testDefinedThroughMathFunction) {
+            assertEquals(myPoint.x, testDefinedThroughMathFunction.getX(i), 0.001);
+            assertEquals(myPoint.y, testDefinedThroughMathFunction.getY(i++), 0.001);
+        }
+        assertEquals(testDefinedThroughMathFunction.getCount(), i);
+    }
 }
