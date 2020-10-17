@@ -14,7 +14,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     private Node head;
-    RuntimeException IllegalArgumentException = new IllegalArgumentException("Illegal list index");
 
     private void addNode(double x, double y) {
         Node newNode = new Node();
@@ -35,7 +34,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
-        if ((xValues.length<2) || (yValues.length<2)){
+        if ((xValues.length < 2) || (yValues.length < 2)) {
             throw new IllegalArgumentException("List length less, than minimal");
         }
         checkLengthIsTheSame(xValues, yValues);
@@ -47,8 +46,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
-        if ((xFrom>=xTo) || (count<2)){
+        if (xFrom >= xTo) {
             throw new IllegalArgumentException("Max X is less, than min X");
+        }
+        if (count < 2) {
+            throw new IllegalArgumentException("List length less, than minimal");
         }
         this.count = count;
         double step = (xTo - xFrom) / (count - 1);
@@ -60,14 +62,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     private Node getNode(int index) {
-        if (index<0){
-            throw IllegalArgumentException;
+        if (index < 0) {
+            throw new IllegalArgumentException();
         }
         Node currentNode = head;
         for (int iterator = 0; iterator < index; iterator++) {
             currentNode = currentNode.next;
-            if (currentNode==head){
-                throw IllegalArgumentException;
+            if (currentNode == head) {
+                throw new IllegalArgumentException();
             }
         }
         return currentNode;
@@ -134,7 +136,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     public int floorIndexOfX(double x) {
         if (x < head.x) {
-            throw IllegalArgumentException;
+            throw new IllegalArgumentException();
         }
         Node currentNode = head;
         for (int iterator = 0; iterator + 1 < count; iterator++) {
@@ -177,7 +179,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         return new Iterator<>() {
             private Node node = head;
 
-            public boolean hasNext(){
+            public boolean hasNext() {
                 return (node != null);
             }
 
@@ -187,8 +189,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
                     Point point = new Point(node.x, node.y);
                     node = (node != head.prev) ? node.next : null;
                     return point;
-                }
-                else {
+                } else {
                     throw new NoSuchElementException();
                 }
             }
