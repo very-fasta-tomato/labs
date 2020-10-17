@@ -12,6 +12,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        if (xValues.length < 2) {
+            throw new IllegalArgumentException("Length less than 2 points");
+        }
         checkLengthIsTheSame(xValues, yValues);
         checkSorted(xValues);
         count = xValues.length;
@@ -20,6 +23,12 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (count < 2) {
+            throw new IllegalArgumentException("Length less than 2 points");
+        }
+        if ((xFrom >= xTo) || (xFrom < 0) | (xTo < 0)) {
+            throw new IllegalArgumentException("Incorrect parameter values");
+        }
         this.count = count;
         xValues = new double[count];
         yValues = new double[count];
