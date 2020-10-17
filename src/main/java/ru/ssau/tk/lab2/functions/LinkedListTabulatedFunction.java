@@ -62,7 +62,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     private Node getNode(int index) {
-        if (index < 0) {
+        if ((index < 0) || (index >= count)) {
             throw new IllegalArgumentException();
         }
         Node currentNode = head;
@@ -149,17 +149,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     @Override
-    public double extrapolateLeft(double x) {
+    protected double extrapolateLeft(double x) {
         return interpolate(x, head.x, head.next.x, head.y, head.next.y);
     }
 
     @Override
-    public double extrapolateRight(double x) {
+    protected double extrapolateRight(double x) {
         return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
     }
 
     @Override
-    public double interpolate(double x, int floorIndex) {
+    protected double interpolate(double x, int floorIndex) {
         if (x < head.x || x > head.prev.x) {
             throw new InterpolationException("X is out of bounds of interpolation");
         }

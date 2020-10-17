@@ -1,6 +1,7 @@
 package ru.ssau.tk.lab2.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.lab2.exceptions.InterpolationException;
 
 import static org.testng.Assert.*;
 
@@ -15,12 +16,12 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testConstructor() {
-        assertThrows(IllegalArgumentException.class, ()-> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[] {1}, new double[] {1}));
-        assertThrows(IllegalArgumentException.class, ()-> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[] {}, new double[] {}));
-        assertThrows(IllegalArgumentException.class, ()-> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[] {1, 5}, new double[] {1}));
-        assertThrows(IllegalArgumentException.class, ()-> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 10, 5, 15));
-        assertThrows(IllegalArgumentException.class, ()-> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 5, 6, 1));
-        assertThrows(IllegalArgumentException.class, ()-> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 5, 5, 2));
+        assertThrows(IllegalArgumentException.class, () -> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[]{1}, new double[]{1}));
+        assertThrows(IllegalArgumentException.class, () -> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[]{}, new double[]{}));
+        assertThrows(IllegalArgumentException.class, () -> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(new double[]{1, 5}, new double[]{1}));
+        assertThrows(IllegalArgumentException.class, () -> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 10, 5, 15));
+        assertThrows(IllegalArgumentException.class, () -> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 5, 6, 1));
+        assertThrows(IllegalArgumentException.class, () -> LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 5, 5, 2));
     }
 
     @Test
@@ -41,10 +42,10 @@ public class LinkedListTabulatedFunctionTest {
         for (int i = 0; i < 15; i++) {
             assertEquals(definedThroughMathFunction.getX(i), i * 20. / 14, delta);
         }
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getX(9));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getX(-1));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getX(18));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getX(-1));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.getX(9));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.getX(-1));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getX(18));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getX(-1));
     }
 
     @Test
@@ -57,10 +58,10 @@ public class LinkedListTabulatedFunctionTest {
         for (int i = 0; i < 15; i++) {
             assertEquals(definedThroughMathFunction.getY(i), Math.tan(i * 20. / 14), delta);
         }
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getY(9));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.getY(-1));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getY(18));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.getY(-1));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.getY(9));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.getY(-1));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getY(18));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getY(-1));
     }
 
     @Test
@@ -69,16 +70,13 @@ public class LinkedListTabulatedFunctionTest {
         TabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 0, 20, 15);
 
         definedThroughList.setY(5, 100500.);
-        definedThroughList.setY(7, 100500.);
         definedThroughMathFunction.setY(0, 1009.);
-        definedThroughMathFunction.setY(14, 1009.);
-
         assertEquals(definedThroughList.getY(5), 100500., delta);
         assertEquals(definedThroughMathFunction.getY(0), 1009., delta);
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.setY(9, 100500));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.setY(-1, 100500));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.setY(18, 100500));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.setY(-1, 100500));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.setY(9, 100500));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.setY(-1, 100500));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.setY(18, 100500));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.setY(-1, 100500));
     }
 
     @Test
@@ -130,10 +128,10 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.floorIndexOfX(30.), 15);
         assertEquals(definedThroughMathFunction.floorIndexOfX(5.), 3);
         assertEquals(definedThroughMathFunction.floorIndexOfX(10.8), 7);
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.floorIndexOfX(-4.0));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughList.floorIndexOfX(-18.98));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.floorIndexOfX(-13.69));
-        assertThrows(IllegalArgumentException.class, ()-> definedThroughMathFunction.floorIndexOfX(-1));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.floorIndexOfX(-4.0));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughList.floorIndexOfX(-18.98));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.floorIndexOfX(-13.69));
+        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.floorIndexOfX(-1));
 
     }
 
@@ -160,7 +158,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testInterlateRight() {
+    public void testInterlate() {
         LinkedListTabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(valuesX, valuesY);
         LinkedListTabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 0, 20, 15);
         assertEquals(definedThroughList.interpolate(-1.5, 0), 3.2, delta);
@@ -168,10 +166,14 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.interpolate(14.9, 10), -3.81, delta);
         assertEquals(definedThroughMathFunction.interpolate(1.3, 0), 6.34, delta);
         assertEquals(definedThroughMathFunction.interpolate(10.8, 8), -3.19, delta);
+        assertThrows(InterpolationException.class, () -> definedThroughList.interpolate(-4., 0));
+        assertThrows(InterpolationException.class, () -> definedThroughList.interpolate(9., 0));
+        assertThrows(InterpolationException.class, () -> definedThroughMathFunction.interpolate(-4, 0));
+        assertThrows(InterpolationException.class, () -> definedThroughMathFunction.interpolate(-20.36, 0));
     }
 
     @Test
-    public void testApply(){
+    public void testApply() {
         LinkedListTabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(valuesX, valuesY);
         LinkedListTabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 0, 20, 15);
         assertEquals(definedThroughList.apply(-1.5), 0.31, delta);
@@ -185,19 +187,21 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testIteratorThroughWhile(){
+    public void testIteratorThroughWhile() {
         LinkedListTabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(valuesX, valuesY);
         Iterator<Point> iterator = definedThroughList.iterator();
         int i = 0;
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Point point = iterator.next();
             assertEquals(point.x, definedThroughList.getX(i++));
         }
+        assertEquals(i,7);
         assertThrows(NoSuchElementException.class, () -> iterator.next());
         i = 0;
         for (Point point : definedThroughList) {
             assertEquals(point.x, definedThroughList.getX(i++));
         }
+        assertEquals(i,7);
         assertThrows(NoSuchElementException.class, () -> iterator.next());
     }
 
