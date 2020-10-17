@@ -4,6 +4,9 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedListTabulatedFunctionTest {
     private final double[] valuesX = new double[]{-3., -2., -1., 0., 1., 2., 3.};
     private final double[] valuesY = new double[]{0.143, 2.185, -1.557, 0., 1.557, -2.185, -0.143};
@@ -175,6 +178,23 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(definedThroughMathFunction.apply(-5.0), -24.439, delta);
 
 
+    }
+
+    @Test
+    public void testIteratorThroughWhile(){
+        LinkedListTabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(valuesX, valuesY);
+        Iterator<Point> iterator = definedThroughList.iterator();
+        int i = 0;
+        while(iterator.hasNext()) {
+            Point point = iterator.next();
+            assertEquals(point.x, definedThroughList.getX(i++));
+        }
+        assertThrows(NoSuchElementException.class, () -> {Point point = iterator.next();});
+        i = 0;
+        for (Point point : definedThroughList) {
+            assertEquals(point.x, definedThroughList.getX(i++));
+        }
+        assertThrows(NoSuchElementException.class, () -> {Point point = iterator.next();});
     }
 
 }
