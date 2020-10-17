@@ -189,6 +189,7 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(DefinedThroughMathFunction.getY(i++), myPoint.y, 0.001);
         }
         assertEquals(DefinedThroughMathFunction.getCount(), i);
+        assertThrows(NoSuchElementException.class, myIterator::next);
     }
 
     @Test
