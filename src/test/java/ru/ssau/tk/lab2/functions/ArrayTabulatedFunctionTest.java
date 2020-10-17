@@ -1,8 +1,12 @@
 package ru.ssau.tk.lab2.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.lab2.exceptions.ArrayIsNotSortedException;
+import ru.ssau.tk.lab2.exceptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.lab2.exceptions.InterpolationException;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 
@@ -15,8 +19,13 @@ public class ArrayTabulatedFunctionTest {
     public void testConstructor() {
         assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{1}, new double[]{1}));
         assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{}, new double[]{}));
-        assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{1, 5}, new double[]{1}));
+        assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{-1}, new double[]{9}));
+        assertThrows(DifferentLengthOfArraysException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{1, 5, 6}, new double[]{1, 5}));
+        assertThrows(DifferentLengthOfArraysException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{1, 2, 3}, new double[]{1, 1, 1, 2}));
+        assertThrows(ArrayIsNotSortedException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{1, 5, 2}, new double[]{1, 5, 10}));
+        assertThrows(ArrayIsNotSortedException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughArray(new double[]{10, 9, 8}, new double[]{1, 5, 10}));
         assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunc, 10, 5, 15));
+        assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunc, 2, 2, 15));
         assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunc, 5, 6, 1));
         assertThrows(IllegalArgumentException.class, () -> ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunc, 5, 5, 2));
     }
@@ -39,10 +48,9 @@ public class ArrayTabulatedFunctionTest {
         for (int i = 0; i < 21; i++) {
             assertEquals(definedThroughMathFunction.getX(i), i * 20. / 20, 0.001);
         }
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.getX(9));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.getX(-1));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getX(18));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getX(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.getX(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.getX(100000));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.getX(56516));
     }
 
     @Test
@@ -55,10 +63,9 @@ public class ArrayTabulatedFunctionTest {
         for (int i = 0; i < 21; i++) {
             assertEquals(definedThroughMathFunction.getY(i), Math.pow(i * 20. / 20, 2), 0.001);
         }
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.getY(9));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.getY(-1));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getY(18));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.getY(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.getY(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.getY(100000));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.getY(56516));
     }
 
     @Test
@@ -69,10 +76,9 @@ public class ArrayTabulatedFunctionTest {
         definedThroughMathFunction.setY(0, 1009.);
         assertEquals(definedThroughArrays.getY(5), 100500., 0.001);
         assertEquals(definedThroughMathFunction.getY(0), 1009., 0.001);
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.setY(9, 100500));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.setY(-1, 100500));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.setY(18, 100500));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.setY(-1, 100500));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.setY(9, 100500));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughArrays.setY(-1, 100500));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> definedThroughMathFunction.setY(-1, 100500));
     }
 
     @Test
@@ -117,10 +123,6 @@ public class ArrayTabulatedFunctionTest {
         ArrayTabulatedFunction definedThroughMathFunction = ArrayTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(sqrFunc, 0, 20, 21);
         assertEquals(definedThroughArrays.floorIndexOfX(30.), 7);
         assertEquals(definedThroughMathFunction.floorIndexOfX(20.1), 21);
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.floorIndexOfX(-4.0));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughArrays.floorIndexOfX(-18.98));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.floorIndexOfX(-13.69));
-        assertThrows(IllegalArgumentException.class, () -> definedThroughMathFunction.floorIndexOfX(-1));
     }
 
     @Test
@@ -151,7 +153,7 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(definedThroughArrays.interpolate(0.5, 3), 0.5, 0.001);
         assertEquals(definedThroughMathFunction.interpolate(14.9, 14), 222.1, 0.001);
         assertEquals(definedThroughMathFunction.interpolate(1.3, 1), 1.9, 0.001);
-        assertEquals(definedThroughMathFunction.interpolate(10.8, 8), 111.6, 0.001);
+        assertEquals(definedThroughMathFunction.interpolate(10.8, 10), 116.8, 0.001);
     }
 
     @Test
