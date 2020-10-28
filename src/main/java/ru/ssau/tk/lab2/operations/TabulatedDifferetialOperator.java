@@ -5,7 +5,7 @@ import ru.ssau.tk.lab2.functions.factory.*;
 
 public class TabulatedDifferetialOperator implements DifferentialOperator<TabulatedFunction> {
     private TabulatedFunctionFactory factory;
-    
+
     @Override
     public TabulatedFunction derive(TabulatedFunction function) {
         int count = function.getCount();
