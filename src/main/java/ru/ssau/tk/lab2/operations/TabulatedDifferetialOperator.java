@@ -17,6 +17,14 @@ public class TabulatedDifferetialOperator implements DifferentialOperator<Tabula
         return 0;
     }
 
+    public void setFactory(TabulatedFunctionFactory factory){
+        this.factory = factory;
+    }
+
+    public Class getFactory(){
+        return factory.getClass();
+    }
+
     public TabulatedDifferetialOperator(TabulatedFunctionFactory factory){
         this.factory = factory;
     }
