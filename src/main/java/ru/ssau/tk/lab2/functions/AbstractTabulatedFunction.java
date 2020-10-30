@@ -1,8 +1,9 @@
 package ru.ssau.tk.lab2.functions;
 
 import ru.ssau.tk.lab2.exceptions.*;
+import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
-public abstract class AbstractTabulatedFunction implements TabulatedFunction {
+public abstract class AbstractTabulatedFunction extends Object implements TabulatedFunction {
     protected int count;
 
     protected abstract int floorIndexOfX(double x);
@@ -44,5 +45,21 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
                 throw new ArrayIsNotSortedException("xValues array isn't sorted");
             }
         }
+    }
+
+    @Override
+    public String toString (){
+        StringBuilder stringBuilder = new StringBuilder(this.getClass().getSimpleName());
+        stringBuilder.append(this.count);
+        stringBuilder.append("\n");
+        for (Point currentPoint : TabulatedFunctionOperationService.asPoints(this)){
+            stringBuilder.append('[');
+            stringBuilder.append(currentPoint.x);
+            stringBuilder.append(',');
+            stringBuilder.append(' ');
+            stringBuilder.append(currentPoint.y);
+            stringBuilder.append("]\n");
+        }
+        return (stringBuilder.toString());
     }
 }
