@@ -48,17 +48,18 @@ public abstract class AbstractTabulatedFunction extends Object implements Tabula
     }
 
     @Override
-    public String toString (){
+    public String toString() {
         StringBuilder stringBuilder = new StringBuilder(this.getClass().getSimpleName());
+        stringBuilder.append("; size = ");
         stringBuilder.append(this.count);
-        stringBuilder.append("\n");
-        for (Point currentPoint : TabulatedFunctionOperationService.asPoints(this)){
+        for (Point currentPoint : TabulatedFunctionOperationService.asPoints(this)) {
+            stringBuilder.append("\n");
             stringBuilder.append('[');
             stringBuilder.append(currentPoint.x);
             stringBuilder.append(',');
             stringBuilder.append(' ');
             stringBuilder.append(currentPoint.y);
-            stringBuilder.append("]\n");
+            stringBuilder.append("]");
         }
         return (stringBuilder.toString());
     }
