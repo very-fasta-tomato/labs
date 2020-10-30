@@ -46,14 +46,14 @@ public class TabulatedDifferetialOperatorTest {
         TabulatedFunction derivedArrayFunction = firstOperator.derive(firstFunction);
         TabulatedFunction derivedLinkedListFunction = thirdOperator.derive(secondFunction);
         int count = derivedArrayFunction.getCount();
-        for (int i = 0; i<count; i++){
+        for (int i = 0; i < count; i++) {
             assertEquals(derivedArrayFunction.getY(i), derivedYValues[i], 1.);
             assertEquals(derivedLinkedListFunction.getY(i), derivedYValues[i], 1.);
         }
         derivedArrayFunction = firstOperator.derive(newFirstFunction);
         derivedLinkedListFunction = thirdOperator.derive(newSecondFunction);
         count = derivedArrayFunction.getCount();
-        for (int i = 0; i<count; i++){
+        for (int i = 0; i < count; i++) {
             assertEquals(derivedArrayFunction.getY(i), newDerivedYValues[i], 1.);
             assertEquals(derivedLinkedListFunction.getY(i), newDerivedYValues[i], 1.);
         }
