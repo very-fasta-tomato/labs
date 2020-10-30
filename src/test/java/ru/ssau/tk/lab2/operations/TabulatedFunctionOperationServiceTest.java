@@ -80,11 +80,46 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.y, valuesY[i] + valuesYSecond[i++]);
         }
 
-        TabulatedFunction testMultipyOfArrays = new TabulatedFunctionOperationService().multiply(arrayFunction, arrayFunction);
+        TabulatedFunction testMultiplyOfArrays = new TabulatedFunctionOperationService().multiply(arrayFunction, arrayFunction);
         i = 0;
-        for (Point point : testMultipyOfArrays) {
+        for (Point point : testMultiplyOfArrays) {
             assertEquals(point.x, valuesX[i]);
-            assertEquals(point.y, valuesY[i] + valuesY[i++]);
+            assertEquals(point.y, valuesY[i] * valuesY[i++]);
+        }
+
+        TabulatedFunction testMultiplyOfLists = new TabulatedFunctionOperationService().multiply(listFunction, listFunction);
+        i = 0;
+        for (Point point : testMultiplyOfLists) {
+            assertEquals(point.x, valuesX[i]);
+            assertEquals(point.y, valuesYSecond[i] * valuesYSecond[i++]);
+        }
+
+        TabulatedFunction testMultiplyOfArrayAndList = new TabulatedFunctionOperationService().multiply(arrayFunction, listFunction);
+        i = 0;
+        for (Point point : testMultiplyOfArrayAndList) {
+            assertEquals(point.x, valuesX[i]);
+            assertEquals(point.y, valuesY[i] * valuesYSecond[i++]);
+        }
+
+        TabulatedFunction testDivisionOfArrays = new TabulatedFunctionOperationService().division(arrayFunction, arrayFunction);
+        i = 0;
+        for (Point point : testDivisionOfArrays) {
+            assertEquals(point.x, valuesX[i]);
+            assertEquals(point.y, valuesY[i] / valuesY[i++]);
+        }
+
+        TabulatedFunction testDivisionOfLists = new TabulatedFunctionOperationService().division(listFunction, listFunction);
+        i = 0;
+        for (Point point : testDivisionOfLists) {
+            assertEquals(point.x, valuesX[i]);
+            assertEquals(point.y, valuesYSecond[i] / valuesYSecond[i++]);
+        }
+
+        TabulatedFunction testDivisionOfArrayAndList = new TabulatedFunctionOperationService().division(arrayFunction, listFunction);
+        i = 0;
+        for (Point point : testDivisionOfArrayAndList) {
+            assertEquals(point.x, valuesX[i]);
+            assertEquals(point.y, valuesY[i] / valuesYSecond[i++]);
         }
     }
 
