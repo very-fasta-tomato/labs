@@ -35,7 +35,7 @@ public class AbstractTabulatedFunctionTest {
     }
 
     @Test
-    public void testToString(){
+    public void testToString() {
         TabulatedFunctionFactory listFactory = new LinkedListTabulatedFunctionFactory();
         TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
         TabulatedFunction listFunction = listFactory.create(new double[]{-1., 0., 1., 2.}, new double[]{-5., 0., 5., 12.});
