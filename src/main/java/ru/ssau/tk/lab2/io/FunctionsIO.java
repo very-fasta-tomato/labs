@@ -17,8 +17,9 @@ final class FunctionsIO {
         }
         out.flush();
     }
-    /*
+/*
     static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory){
         DataInputStream in = new DataInputStream(inputStream);
+        int count = in.readInt();
     }*/
 }
