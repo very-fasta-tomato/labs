@@ -3,7 +3,7 @@ package ru.ssau.tk.lab2.io;
 import ru.ssau.tk.lab2.functions.TabulatedFunction;
 import ru.ssau.tk.lab2.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.lab2.functions.factory.LinkedListTabulatedFunctionFactory;
-import ru.ssau.tk.lab2.operations.TabulatedDifferetialOperator;
+import ru.ssau.tk.lab2.operations.TabulatedDifferentialOperator;
 
 import java.io.*;
 
@@ -20,8 +20,8 @@ public class TabulatedFunctionFileInputStream {
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Введите размер и значения функции:");
             TabulatedFunction function = FunctionsIO.readTabulatedFunction(in, new LinkedListTabulatedFunctionFactory());
-            TabulatedDifferetialOperator differetialOperator = new TabulatedDifferetialOperator();
-            TabulatedFunction derivedFunction = differetialOperator.derive(function);
+            TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator();
+            TabulatedFunction derivedFunction = differentialOperator.derive(function);
             System.out.println(derivedFunction.toString());
         }
         catch (IOException e){

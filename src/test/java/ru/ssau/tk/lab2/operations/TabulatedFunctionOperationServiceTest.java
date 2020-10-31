@@ -12,8 +12,8 @@ public class TabulatedFunctionOperationServiceTest {
     private final double[] valuesX = new double[]{-27, -8, -1, 0, 1, 8, 27};
     private final double[] valuesY = new double[]{-3, -2, -1, -0, 1, 2, 3};
     private final double[] valuesYSecond = new double[]{1, 2, 3, 4, 5, 6, 7};
-    ArrayTabulatedFunction arrayFunction = new ArrayTabulatedFunction(valuesX, valuesY);
-    LinkedListTabulatedFunction listFunction = new LinkedListTabulatedFunction(valuesX, valuesYSecond);
+    TabulatedFunction arrayFunction = new ArrayTabulatedFunction(valuesX, valuesY);
+    TabulatedFunction listFunction = new LinkedListTabulatedFunction(valuesX, valuesYSecond);
     TabulatedFunctionOperationService service = new TabulatedFunctionOperationService();
 
     @Test

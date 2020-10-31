@@ -11,9 +11,4 @@ public class RightSteppingDifferentialOperator extends SteppingDifferentialOpera
     public MathFunction derive(MathFunction function) {
         return x -> (function.apply(x + step) - function.apply(x)) / step;
     }
-
-    @Override
-    public double apply(double x) {
-        return x;
-    }
 }

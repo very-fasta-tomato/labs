@@ -15,14 +15,6 @@ public class TabulatedFunctionOperationService {
         this.factory = new ArrayTabulatedFunctionFactory();
     }
 
-    public TabulatedFunctionFactory getFactory() {
-        return factory;
-    }
-
-    public void setFactory(TabulatedFunctionFactory factory) {
-        this.factory = factory;
-    }
-
     public static Point[] asPoints(TabulatedFunction tabulatedFunction) {
         int i = 0;
         Point[] points = new Point[tabulatedFunction.getCount()];
@@ -70,5 +62,13 @@ public class TabulatedFunctionOperationService {
 
     public TabulatedFunction division(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, ((u, v) -> u / v));
+    }
+
+    public TabulatedFunctionFactory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(TabulatedFunctionFactory factory) {
+        this.factory = factory;
     }
 }
