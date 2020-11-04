@@ -7,12 +7,12 @@ import ru.ssau.tk.lab2.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.lab2.functions.LinkedListTabulatedFunction;
 
 public class TabulatedFunctionFactoryTest {
-    final static double[] xValuesOne = new double[]{-2, -1, 0, 1, 2};
-    final static double[] xValuesTwo = new double[]{0, 0, 0};
-    final static double[] yValuesOne = new double[]{-2, -1, 0, 1, 2};
-    final static double[] yValuesTwo = new double[]{0, 0, 0};
-    final static TabulatedFunctionFactory factory1 = new ArrayTabulatedFunctionFactory();
-    final static TabulatedFunctionFactory factory2 = new LinkedListTabulatedFunctionFactory();
+    private final static double[] xValuesOne = new double[]{-2, -1, 0, 1, 2};
+    private final static double[] xValuesTwo = new double[]{0, 0, 0};
+    private final static double[] yValuesOne = new double[]{-2, -1, 0, 1, 2};
+    private final static double[] yValuesTwo = new double[]{0, 0, 0};
+    private final static TabulatedFunctionFactory factory1 = new ArrayTabulatedFunctionFactory();
+    private final static TabulatedFunctionFactory factory2 = new LinkedListTabulatedFunctionFactory();
 
     @Test
     public void arrayFactoryTest() {

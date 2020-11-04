@@ -3,27 +3,29 @@ package ru.ssau.tk.lab2.operations;
 import static org.testng.Assert.*;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.lab2.functions.ArrayTabulatedFunction;
+import ru.ssau.tk.lab2.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.lab2.functions.TabulatedFunction;
 import ru.ssau.tk.lab2.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.lab2.functions.factory.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.lab2.functions.factory.TabulatedFunctionFactory;
 
 public class TabulatedDifferentialOperatorTest {
-    static TabulatedFunctionFactory arrayTabulatedFunctionFactory = new ArrayTabulatedFunctionFactory();
-    static TabulatedFunctionFactory linkedListTabulatedFunctionFactory = new LinkedListTabulatedFunctionFactory();
+    private static final TabulatedFunctionFactory arrayTabulatedFunctionFactory = new ArrayTabulatedFunctionFactory();
+    private static final TabulatedFunctionFactory linkedListTabulatedFunctionFactory = new LinkedListTabulatedFunctionFactory();
     private static final double[] xValues = new double[]{-3., -2., -1., 0., 1., 2., 3.};
     private static final double[] yValues = new double[]{9., 4., 1., 0., 1., 4., 9.};
-    private static final double[] derivedYValues = new double[]{-6., -4., -2., 0., 2., 4., 9.};
+    private static final double[] derivedYValues = new double[]{-6., -4., -2., 0., 2., 4., 6.};
     private static final double[] newXValues = new double[]{4., 9., 16., 25., 36.};
     private static final double[] newYValues = new double[]{8., 27., 64., 125., 216.};
-    private static final double[] newDerivedYValues = new double[]{3., 4.5, 6., 7.5, 216.};
-    final static TabulatedFunction firstFunction = arrayTabulatedFunctionFactory.create(xValues, yValues);
-    final static TabulatedFunction secondFunction = linkedListTabulatedFunctionFactory.create(xValues, yValues);
-    final static TabulatedFunction newFirstFunction = arrayTabulatedFunctionFactory.create(newXValues, newYValues);
-    final static TabulatedFunction newSecondFunction = linkedListTabulatedFunctionFactory.create(newXValues, newYValues);
-    static TabulatedDifferentialOperator firstOperator = new TabulatedDifferentialOperator();
-    static TabulatedDifferentialOperator secondOperator = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
-    static TabulatedDifferentialOperator thirdOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
+    private static final double[] newDerivedYValues = new double[]{3., 4.5, 6., 7.5, 9.};
+    private final static TabulatedFunction firstFunction = arrayTabulatedFunctionFactory.create(xValues, yValues);
+    private final static TabulatedFunction secondFunction = linkedListTabulatedFunctionFactory.create(xValues, yValues);
+    private final static TabulatedFunction newFirstFunction = arrayTabulatedFunctionFactory.create(newXValues, newYValues);
+    private final static TabulatedFunction newSecondFunction = linkedListTabulatedFunctionFactory.create(newXValues, newYValues);
+    private static final TabulatedDifferentialOperator firstOperator = new TabulatedDifferentialOperator();
+    private static final TabulatedDifferentialOperator secondOperator = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
+    private static final TabulatedDifferentialOperator thirdOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
 
     @Test
     public void testGetFactory() {
@@ -44,19 +46,23 @@ public class TabulatedDifferentialOperatorTest {
 
     @Test
     public void testDerive() {
-        TabulatedFunction derivedArrayFunction = firstOperator.derive(firstFunction);
+        TabulatedFunction derivedDefaultArrayFunction = firstOperator.derive(firstFunction);
+        TabulatedFunction derivedArrayFunction = secondOperator.derive(firstFunction);
         TabulatedFunction derivedLinkedListFunction = thirdOperator.derive(secondFunction);
-        assertTrue(firstOperator.getFactory() instanceof ArrayTabulatedFunctionFactory);
-        assertTrue(thirdOperator.getFactory() instanceof LinkedListTabulatedFunctionFactory);
+        assertTrue(derivedDefaultArrayFunction instanceof ArrayTabulatedFunction);
+        assertTrue(derivedArrayFunction instanceof ArrayTabulatedFunction);
+        assertTrue(derivedLinkedListFunction instanceof LinkedListTabulatedFunction);
         int count = derivedArrayFunction.getCount();
         for (int i = 0; i < count; i++) {
             assertEquals(derivedArrayFunction.getY(i), derivedYValues[i], 1.);
             assertEquals(derivedLinkedListFunction.getY(i), derivedYValues[i], 1.);
         }
-        derivedArrayFunction = firstOperator.derive(newFirstFunction);
+        derivedDefaultArrayFunction = firstOperator.derive(newFirstFunction);
+        derivedArrayFunction = secondOperator.derive(newFirstFunction);
         derivedLinkedListFunction = thirdOperator.derive(newSecondFunction);
-        assertTrue(firstOperator.getFactory() instanceof ArrayTabulatedFunctionFactory);
-        assertTrue(thirdOperator.getFactory() instanceof LinkedListTabulatedFunctionFactory);
+        assertTrue(derivedDefaultArrayFunction instanceof ArrayTabulatedFunction);
+        assertTrue(derivedArrayFunction instanceof ArrayTabulatedFunction);
+        assertTrue(derivedLinkedListFunction instanceof LinkedListTabulatedFunction);
         count = derivedArrayFunction.getCount();
         for (int i = 0; i < count; i++) {
             assertEquals(derivedArrayFunction.getY(i), newDerivedYValues[i], 1.);
