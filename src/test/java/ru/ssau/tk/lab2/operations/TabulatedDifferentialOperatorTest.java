@@ -15,10 +15,10 @@ public class TabulatedDifferentialOperatorTest {
     private static final TabulatedFunctionFactory linkedListTabulatedFunctionFactory = new LinkedListTabulatedFunctionFactory();
     private static final double[] xValues = new double[]{-3., -2., -1., 0., 1., 2., 3.};
     private static final double[] yValues = new double[]{9., 4., 1., 0., 1., 4., 9.};
-    private static final double[] derivedYValues = new double[]{-6., -4., -2., 0., 2., 4., 6.};
+    private static final double[] derivedYValues = new double[]{-5., -3., -1., 1., 3., 5., 5.};
     private static final double[] newXValues = new double[]{4., 9., 16., 25., 36.};
     private static final double[] newYValues = new double[]{8., 27., 64., 125., 216.};
-    private static final double[] newDerivedYValues = new double[]{3., 4.5, 6., 7.5, 9.};
+    private static final double[] newDerivedYValues = new double[]{3.8, 5.28, 6.77, 8.27, 8.27};
     private final static TabulatedFunction firstFunction = arrayTabulatedFunctionFactory.create(xValues, yValues);
     private final static TabulatedFunction secondFunction = linkedListTabulatedFunctionFactory.create(xValues, yValues);
     private final static TabulatedFunction newFirstFunction = arrayTabulatedFunctionFactory.create(newXValues, newYValues);
@@ -54,8 +54,8 @@ public class TabulatedDifferentialOperatorTest {
         assertTrue(derivedLinkedListFunction instanceof LinkedListTabulatedFunction);
         int count = derivedArrayFunction.getCount();
         for (int i = 0; i < count; i++) {
-            assertEquals(derivedArrayFunction.getY(i), derivedYValues[i], 1.);
-            assertEquals(derivedLinkedListFunction.getY(i), derivedYValues[i], 1.);
+            assertEquals(derivedArrayFunction.getY(i), derivedYValues[i], 0.01);
+            assertEquals(derivedLinkedListFunction.getY(i), derivedYValues[i], 0.01);
         }
         derivedDefaultArrayFunction = firstOperator.derive(newFirstFunction);
         derivedArrayFunction = secondOperator.derive(newFirstFunction);
@@ -65,8 +65,8 @@ public class TabulatedDifferentialOperatorTest {
         assertTrue(derivedLinkedListFunction instanceof LinkedListTabulatedFunction);
         count = derivedArrayFunction.getCount();
         for (int i = 0; i < count; i++) {
-            assertEquals(derivedArrayFunction.getY(i), newDerivedYValues[i], 1.);
-            assertEquals(derivedLinkedListFunction.getY(i), newDerivedYValues[i], 1.);
+            assertEquals(derivedArrayFunction.getY(i), newDerivedYValues[i], 0.01);
+            assertEquals(derivedLinkedListFunction.getY(i), newDerivedYValues[i], 0.01);
         }
     }
 }
