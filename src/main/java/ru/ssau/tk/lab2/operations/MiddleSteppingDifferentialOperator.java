@@ -3,7 +3,7 @@ package ru.ssau.tk.lab2.operations;
 import ru.ssau.tk.lab2.functions.*;
 
 public class MiddleSteppingDifferentialOperator extends SteppingDifferentialOperator {
-    MiddleSteppingDifferentialOperator(double step) {
+    public MiddleSteppingDifferentialOperator(double step) {
         super(step);
     }
 
