@@ -2,13 +2,10 @@ package ru.ssau.tk.lab2.functions;
 
 import ru.ssau.tk.lab2.exceptions.*;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
-    private static final long serialVersionUID = 1074624182789088648L;
-
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private static class Node {
         public Node next;
         public Node prev;
