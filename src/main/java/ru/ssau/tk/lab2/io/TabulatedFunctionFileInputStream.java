@@ -20,7 +20,7 @@ public class TabulatedFunctionFileInputStream {
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Введите размер и значения функции:");
             TabulatedFunction function = FunctionsIO.readTabulatedFunction(in, new LinkedListTabulatedFunctionFactory());
-            TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator();
+            TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
             TabulatedFunction derivedFunction = differentialOperator.derive(function);
             System.out.println(derivedFunction.toString());
         }
