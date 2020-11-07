@@ -3,11 +3,13 @@ package ru.ssau.tk.lab2.functions;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.io.Serializable;
 
 import ru.ssau.tk.lab2.exceptions.*;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
 
+    private static final long serialVersionUID = 5420970248259192851L;
     private final double[] xValues;
     private final double[] yValues;
 
