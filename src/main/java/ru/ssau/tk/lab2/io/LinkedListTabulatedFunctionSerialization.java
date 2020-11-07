@@ -16,10 +16,9 @@ public class LinkedListTabulatedFunctionSerialization {
             TabulatedFunction newFunction = new LinkedListTabulatedFunction(xValues, yValues);
             TabulatedFunction onceDerivedFunction = operator.derive(newFunction);
             TabulatedFunction twiceDerivedFunction = operator.derive(onceDerivedFunction);
-            //FunctionsIO.serialize(out, newFunction);
-            //FunctionsIO.serialize(out, onceDerivedFunction);
-            //FunctionsIO.serialize(out, twiceDerivedFunction);
-            out.close();
+            FunctionsIO.serialize(out, newFunction);
+            FunctionsIO.serialize(out, onceDerivedFunction);
+            FunctionsIO.serialize(out, twiceDerivedFunction);
         }
         catch (IOException e){
             e.printStackTrace();
@@ -31,9 +30,9 @@ public class LinkedListTabulatedFunctionSerialization {
             TabulatedFunction onceDerivedFunction = FunctionsIO.deserialize(in);
             TabulatedFunction function = FunctionsIO.deserialize(in);
             in.close();
-            function.toString();
-            onceDerivedFunction.toString();
-            twiceDerivedFunction.toString();
+            System.out.println(function.toString());
+            System.out.println(onceDerivedFunction.toString());
+            System.out.println(twiceDerivedFunction.toString());
         }
         catch (IOException | ClassNotFoundException e ){
             e.printStackTrace();
