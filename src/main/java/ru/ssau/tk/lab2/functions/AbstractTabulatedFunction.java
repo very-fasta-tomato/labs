@@ -3,7 +3,10 @@ package ru.ssau.tk.lab2.functions;
 import ru.ssau.tk.lab2.exceptions.*;
 import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
-public abstract class AbstractTabulatedFunction extends Object implements TabulatedFunction {
+import java.io.Serializable;
+
+public abstract class AbstractTabulatedFunction extends Object implements TabulatedFunction, Serializable {
+    private static final long serialVersionUID = -553513615978669795L;
     protected int count;
 
     protected abstract int floorIndexOfX(double x);

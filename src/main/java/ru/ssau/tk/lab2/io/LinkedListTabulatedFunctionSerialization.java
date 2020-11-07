@@ -26,9 +26,9 @@ public class LinkedListTabulatedFunctionSerialization {
         
         try (BufferedInputStream in = new BufferedInputStream(new FileInputStream("output/serialized linked list functions.bin"))){
 
-            TabulatedFunction twiceDerivedFunction = FunctionsIO.deserialize(in);
-            TabulatedFunction onceDerivedFunction = FunctionsIO.deserialize(in);
             TabulatedFunction function = FunctionsIO.deserialize(in);
+            TabulatedFunction onceDerivedFunction = FunctionsIO.deserialize(in);
+            TabulatedFunction twiceDerivedFunction = FunctionsIO.deserialize(in);
             in.close();
             System.out.println(function.toString());
             System.out.println(onceDerivedFunction.toString());

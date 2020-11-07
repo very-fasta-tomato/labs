@@ -9,7 +9,8 @@ import java.util.NoSuchElementException;
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
     private static final long serialVersionUID = 1074624182789088648L;
 
-    private static class Node {
+    private static class Node implements Serializable{
+        private static final long serialVersionUID = 5836562115791187615L;
         public Node next;
         public Node prev;
         public double x;
