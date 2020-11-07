@@ -9,7 +9,7 @@ import java.io.*;
 
 public class LinkedListTabulatedFunctionSerialization {
     public static void main(String[] args) {
-        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream("output/serialized linked list functions.bin"))){
+        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream("output/serialized linked list functions.bin"))) {
             final double[] xValues = {-3., -2., -1., 0., 1., 2., 3.};
             final double[] yValues = {9., 4., 1., 0., 1., 4., 9.};
             final TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
@@ -19,22 +19,19 @@ public class LinkedListTabulatedFunctionSerialization {
             FunctionsIO.serialize(out, newFunction);
             FunctionsIO.serialize(out, onceDerivedFunction);
             FunctionsIO.serialize(out, twiceDerivedFunction);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream("output/serialized linked list functions.bin"))){
+
+        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream("output/serialized linked list functions.bin"))) {
 
             TabulatedFunction function = FunctionsIO.deserialize(in);
             TabulatedFunction onceDerivedFunction = FunctionsIO.deserialize(in);
             TabulatedFunction twiceDerivedFunction = FunctionsIO.deserialize(in);
-            in.close();
             System.out.println(function.toString());
             System.out.println(onceDerivedFunction.toString());
             System.out.println(twiceDerivedFunction.toString());
-        }
-        catch (IOException | ClassNotFoundException e ){
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

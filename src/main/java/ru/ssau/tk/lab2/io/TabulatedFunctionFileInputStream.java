@@ -9,11 +9,10 @@ import java.io.*;
 
 public class TabulatedFunctionFileInputStream {
     public static void main(String[] args) {
-        try(BufferedInputStream in = new BufferedInputStream(new FileInputStream("input/binary function.bin"))) {
+        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream("input/binary function.bin"))) {
             TabulatedFunction newFunction = FunctionsIO.readTabulatedFunction(in, new ArrayTabulatedFunctionFactory());
             System.out.println(newFunction.toString());
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         try {
@@ -23,8 +22,7 @@ public class TabulatedFunctionFileInputStream {
             TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
             TabulatedFunction derivedFunction = differentialOperator.derive(function);
             System.out.println(derivedFunction.toString());
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
