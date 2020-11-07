@@ -4,7 +4,6 @@ import ru.ssau.tk.lab2.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.lab2.functions.TabulatedFunction;
 import ru.ssau.tk.lab2.functions.factory.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.lab2.operations.TabulatedDifferentialOperator;
-import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import java.io.*;
 
@@ -17,9 +16,9 @@ public class LinkedListTabulatedFunctionSerialization {
             TabulatedFunction newFunction = new LinkedListTabulatedFunction(xValues, yValues);
             TabulatedFunction onceDerivedFunction = operator.derive(newFunction);
             TabulatedFunction twiceDerivedFunction = operator.derive(onceDerivedFunction);
-            FunctionsIO.serialize(out, newFunction);
-            FunctionsIO.serialize(out, onceDerivedFunction);
-            FunctionsIO.serialize(out, twiceDerivedFunction);
+            //FunctionsIO.serialize(out, newFunction);
+            //FunctionsIO.serialize(out, onceDerivedFunction);
+            //FunctionsIO.serialize(out, twiceDerivedFunction);
             out.close();
         }
         catch (IOException e){

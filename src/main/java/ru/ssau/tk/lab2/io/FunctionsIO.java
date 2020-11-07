@@ -68,17 +68,6 @@ final class FunctionsIO {
         return factory.create(xValues, yValues);
     }
 
-   /* static TabulatedFunction readTabulatedFunction(BufferedReader inputStream, TabulatedFunctionFactory factory) throws IOException {
-        int count = Integer.parseInt(inputStream.readLine());
-        double[] xValues = new double[count];
-        double[] yValues = new double[count];
-        for (int i = 0; i < count; i++) {
-            xValues[i] = Double.parseDouble(inputStream.readLine());
-            yValues[i] = Double.parseDouble(inputStream.readLine());
-        }
-        return factory.create(xValues, yValues);
-    }*/
-
     static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
         ObjectInputStream in = new ObjectInputStream(stream);
         Object deserializedFunction = in.readObject();
