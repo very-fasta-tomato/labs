@@ -3,7 +3,11 @@ package ru.ssau.tk.lab2.concurrent;
 import ru.ssau.tk.lab2.functions.TabulatedFunction;
 
 public class ReadWriteTask implements Runnable{
-    private TabulatedFunction tabulatedFunction;
+    private final TabulatedFunction tabulatedFunction;
+
+    public ReadWriteTask (TabulatedFunction tabulatedFunction){
+        this.tabulatedFunction = tabulatedFunction;
+    }
 
     @Override
     public void run() {
