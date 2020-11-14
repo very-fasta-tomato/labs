@@ -5,10 +5,10 @@ import ru.ssau.tk.lab2.functions.TabulatedFunction;
 
 import java.util.Iterator;
 
-public class SynchonizedTabuletedFunction implements TabulatedFunction {
+public class SynchronizedTabuletedFunction implements TabulatedFunction {
     private final TabulatedFunction tabulatedFunction;
 
-    public SynchonizedTabuletedFunction(TabulatedFunction tabulatedFunction) {
+    public SynchronizedTabuletedFunction(TabulatedFunction tabulatedFunction) {
         this.tabulatedFunction = tabulatedFunction;
     }
 
