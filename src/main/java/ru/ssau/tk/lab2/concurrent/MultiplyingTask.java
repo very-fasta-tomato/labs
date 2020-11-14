@@ -4,11 +4,13 @@ import ru.ssau.tk.lab2.functions.TabulatedFunction;
 
 public class MultiplyingTask implements Runnable {
     private final TabulatedFunction tabulatedFunction;
+
     public MultiplyingTask(TabulatedFunction tabulatedFunction) {
         this.tabulatedFunction = tabulatedFunction;
     }
+
     public void run() {
-        for (int i = 0; i < tabulatedFunction.getCount(); i++){
+        for (int i = 0; i < tabulatedFunction.getCount(); i++) {
             double currentX = tabulatedFunction.getX(i);
             double currentY = tabulatedFunction.getY(i);
             System.out.println(Thread.currentThread().getName() + "i =" + i + " x = " + currentX + " old y = " + currentY);
