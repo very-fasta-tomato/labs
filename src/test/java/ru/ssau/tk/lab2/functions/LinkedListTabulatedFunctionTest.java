@@ -165,7 +165,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testInterlate() {
+    public void testInterpolate() {
         LinkedListTabulatedFunction definedThroughList = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughList(valuesX, valuesY);
         LinkedListTabulatedFunction definedThroughMathFunction = LinkedListTabulatedFunction.createTabulatedFunctionDefinedThroughMathFunction(tanFunc, 0, 20, 15);
         assertEquals(definedThroughList.interpolate(-1.5, 0), 3.2, delta);

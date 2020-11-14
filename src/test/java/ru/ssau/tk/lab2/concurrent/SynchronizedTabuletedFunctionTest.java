@@ -3,6 +3,8 @@ package ru.ssau.tk.lab2.concurrent;
 import org.testng.annotations.Test;
 import ru.ssau.tk.lab2.functions.*;
 
+import java.util.Iterator;
+
 import static org.testng.Assert.*;
 
 public class SynchronizedTabuletedFunctionTest {
@@ -73,7 +75,39 @@ public class SynchronizedTabuletedFunctionTest {
     }
 
     @Test
-    public void testIterator() {
+    public void testIteratorThroughWile() {
+        Iterator<Point> iteratorOfArray = synchronizedArray.iterator();
+        int i = 0;
+        while (iteratorOfArray.hasNext()) {
+            Point currentPoint = iteratorOfArray.next();
+            assertEquals(synchronizedArray.getX(i), currentPoint.x, 0.001);
+            assertEquals(synchronizedArray.getY(i++), currentPoint.y, 0.001);
+        }
+        assertEquals(synchronizedArray.getCount(), i);
+        Iterator<Point> iteratorOfLinkedList = synchronizedArray.iterator();
+        i = 0;
+        while (iteratorOfLinkedList.hasNext()) {
+            Point currentPoint = iteratorOfLinkedList.next();
+            assertEquals(synchronizedLinkedList.getX(i), currentPoint.x, 0.001);
+            assertEquals(synchronizedLinkedList.getY(i++), currentPoint.y, 0.001);
+        }
+        assertEquals(synchronizedLinkedList.getCount(), i);
+    }
+
+    @Test
+    public void testIteratorThroughForEach(){
+        int i = 0;
+        for (Point currentPoint : synchronizedArray) {
+            assertEquals(currentPoint.x, synchronizedArray.getX(i), 0.001);
+            assertEquals(currentPoint.y, synchronizedArray.getY(i++), 0.001);
+        }
+        assertEquals(synchronizedArray.getCount(), i);
+        i = 0;
+        for (Point currentPoint : synchronizedLinkedList) {
+            assertEquals(currentPoint.x, synchronizedLinkedList.getX(i), 0.001);
+            assertEquals(currentPoint.y, synchronizedLinkedList.getY(i++), 0.001);
+        }
+        assertEquals(synchronizedLinkedList.getCount(), i);
     }
 
     @Test
