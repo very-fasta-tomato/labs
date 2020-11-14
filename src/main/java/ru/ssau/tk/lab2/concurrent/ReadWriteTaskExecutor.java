@@ -15,9 +15,6 @@ public class ReadWriteTaskExecutor {
         }
         for (Thread currentTread: threadList){
             currentTread.start();
-            synchronized (currentTread){
-                
-            }
         }
         try{
             Thread.sleep(1000);
