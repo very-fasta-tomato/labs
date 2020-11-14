@@ -14,52 +14,72 @@ public class SynchonizedTabuletedFunction implements TabulatedFunction {
 
 
     @Override
-    synchronized public int getCount() {
-        return tabulatedFunction.getCount();
+    public int getCount() {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.getCount();
+        }
     }
 
     @Override
-    synchronized public double getX(int index) {
-        return tabulatedFunction.getX(index);
+    public double getX(int index) {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.getX(index);
+        }
     }
 
     @Override
-    synchronized public double getY(int index) {
-        return tabulatedFunction.getY(index);
+    public double getY(int index) {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.getY(index);
+        }
     }
 
     @Override
-    synchronized public void setY(int index, double value) {
-        tabulatedFunction.setY(index, value);
+    public void setY(int index, double value) {
+        synchronized (tabulatedFunction) {
+            tabulatedFunction.setY(index, value);
+        }
     }
 
     @Override
-    synchronized public int indexOfX(double x) {
-        return tabulatedFunction.indexOfX(x);
+    public int indexOfX(double x) {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.indexOfX(x);
+        }
     }
 
     @Override
-    synchronized public int indexOfY(double y) {
-        return tabulatedFunction.indexOfY(y);
+    public int indexOfY(double y) {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.indexOfY(y);
+        }
     }
 
     @Override
-    synchronized public double leftBound() {
-        return tabulatedFunction.leftBound();
+    public double leftBound() {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.leftBound();
+        }
     }
 
     @Override
-    synchronized public double rightBound() {
-        return tabulatedFunction.rightBound();
+    public double rightBound() {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.rightBound();
+        }
     }
 
     @Override
-    synchronized public Iterator<Point> iterator() {
-        return null;
+    public Iterator<Point> iterator() {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.iterator();
+        }
     }
 
     @Override
-    synchronized public double apply(double x) {
-        return tabulatedFunction.apply(x);
+    public double apply(double x) {
+        synchronized (tabulatedFunction) {
+            return tabulatedFunction.apply(x);
+        }
     }
 }
