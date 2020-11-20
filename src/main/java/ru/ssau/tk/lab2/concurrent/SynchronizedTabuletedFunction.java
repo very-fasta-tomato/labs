@@ -13,6 +13,9 @@ public class SynchronizedTabuletedFunction implements TabulatedFunction {
     public SynchronizedTabuletedFunction(TabulatedFunction tabulatedFunction) {
         this.tabulatedFunction = tabulatedFunction;
     }
+    public interface Operation<T> {
+        T apply();
+    }
 
 
     @Override
