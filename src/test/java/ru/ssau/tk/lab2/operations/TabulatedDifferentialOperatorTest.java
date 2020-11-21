@@ -79,14 +79,14 @@ public class TabulatedDifferentialOperatorTest {
         TabulatedDifferentialOperator differentialOperator1 = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
         TabulatedFunction diffFunctionArray = differentialOperator1.deriveSynchronously(arrayTabulatedFunction);
 
-        assertEquals(diffFunctionList.getX(0), 1, 0.001);
-        assertEquals(diffFunctionList.getX(4), 5, 0.001);
-        assertEquals(diffFunctionList.getY(0), 2, 0.001);
-        assertEquals(diffFunctionList.getY(4), 2, 0.001);
+        assertEquals(diffFunctionList.getX(0), -3, 0.001);
+        assertEquals(diffFunctionList.getX(4), 1, 0.001);
+        assertEquals(diffFunctionList.getY(0), -5, 0.001);
+        assertEquals(diffFunctionList.getY(4), 3, 0.001);
 
-        assertEquals(diffFunctionArray.getX(0), 1, 0.001);
-        assertEquals(diffFunctionArray.getX(4), 5, 0.001);
-        assertEquals(diffFunctionArray.getY(0), 2, 0.001);
-        assertEquals(diffFunctionArray.getY(4), 2, 0.001);
+        assertEquals(diffFunctionArray.getX(0), -3, 0.001);
+        assertEquals(diffFunctionArray.getX(4), 1, 0.001);
+        assertEquals(diffFunctionArray.getY(0), -5, 0.001);
+        assertEquals(diffFunctionArray.getY(4), 3, 0.001);
     }
 }

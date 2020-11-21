@@ -143,7 +143,7 @@ public class SynchronizedTabulatedFunctionTest {
     @Test
     public void testDoSynchronously() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 7);
-        assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 7);
+        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 11);
+        assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 5.0);
     }
 }
