@@ -6,15 +6,25 @@ import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
-public class SynchronizedTabuletedFunction implements TabulatedFunction {
+public class SynchronizedTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction tabulatedFunction;
+    private final Object object;
 
-    public SynchronizedTabuletedFunction(TabulatedFunction tabulatedFunction) {
+    public SynchronizedTabulatedFunction(TabulatedFunction tabulatedFunction, Object object) {
         this.tabulatedFunction = tabulatedFunction;
+        this.object = Objects.requireNonNull(object, "object must not be null");
     }
+
     public interface Operation<T> {
-        T apply();
+        T apply(SynchronizedTabulatedFunction synchronizedTabuletedFunction);
+    }
+
+    public <T> T doSynchronously(Operation<? extends T> operation) {
+        synchronized (object) {
+            return operation.apply(this);
+        }
     }
 
 

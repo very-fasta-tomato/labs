@@ -2,6 +2,7 @@ package ru.ssau.tk.lab2.operations;
 
 import ru.ssau.tk.lab2.functions.*;
 import ru.ssau.tk.lab2.functions.factory.*;
+import ru.ssau.tk.lab2.concurrent.SynchronizedTabulatedFunction;
 
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
     private TabulatedFunctionFactory factory;
@@ -36,5 +37,16 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
     public TabulatedFunctionFactory getFactory() {
         return factory;
     }
+
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function) {
+        Object object = new Object();
+
+        if (function instanceof SynchronizedTabulatedFunction) {
+            return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
+        }
+        SynchronizedTabulatedFunction syncFunc = new SynchronizedTabulatedFunction(function, object);
+        return syncFunc.doSynchronously(this::derive);
+    }
+
 
 }
