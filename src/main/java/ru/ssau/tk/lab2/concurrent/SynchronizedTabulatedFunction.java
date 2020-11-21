@@ -10,11 +10,9 @@ import java.util.Objects;
 
 public class SynchronizedTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction tabulatedFunction;
-    private final Object object;
 
-    public SynchronizedTabulatedFunction(TabulatedFunction tabulatedFunction, Object object) {
+    public SynchronizedTabulatedFunction(TabulatedFunction tabulatedFunction) {
         this.tabulatedFunction = tabulatedFunction;
-        this.object = Objects.requireNonNull(object, "object must not be null");
     }
 
     public interface Operation<T> {
@@ -22,7 +20,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
     }
 
     public <T> T doSynchronously(Operation<? extends T> operation) {
-        synchronized (object) {
+        synchronized (tabulatedFunction) {
             return operation.apply(this);
         }
     }

@@ -39,12 +39,11 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
     }
 
     public TabulatedFunction deriveSynchronously(TabulatedFunction function) {
-        Object object = new Object();
 
         if (function instanceof SynchronizedTabulatedFunction) {
             return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
         }
-        SynchronizedTabulatedFunction syncFunc = new SynchronizedTabulatedFunction(function, object);
+        SynchronizedTabulatedFunction syncFunc = new SynchronizedTabulatedFunction(function);
         return syncFunc.doSynchronously(this::derive);
     }
 

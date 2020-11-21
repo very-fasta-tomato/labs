@@ -10,9 +10,9 @@ import static org.testng.Assert.*;
 public class SynchronizedTabuletedFunctionTest {
     private static final MathFunction sqrFunction = new SqrFunction();
     private static final TabulatedFunction linkedlistTabulatedFunction = new LinkedListTabulatedFunction(sqrFunction, -5, 5, 11);
-    private static final TabulatedFunction synchronizedLinkedList = new SynchronizedTabuletedFunction(linkedlistTabulatedFunction);
+    private static final TabulatedFunction synchronizedLinkedList = new SynchronizedTabulatedFunction(linkedlistTabulatedFunction);
     private static final TabulatedFunction arrayTabulatedFunction = new ArrayTabulatedFunction(sqrFunction, -5, 5, 11);
-    private static final TabulatedFunction synchronizedArray = new SynchronizedTabuletedFunction(arrayTabulatedFunction);
+    private static final TabulatedFunction synchronizedArray = new SynchronizedTabulatedFunction(arrayTabulatedFunction);
 
     @Test
     public void testGetCount() {
