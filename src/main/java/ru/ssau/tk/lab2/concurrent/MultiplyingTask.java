@@ -4,15 +4,9 @@ import ru.ssau.tk.lab2.functions.TabulatedFunction;
 
 public class MultiplyingTask implements Runnable {
     private final TabulatedFunction tabulatedFunction;
-    private Runnable postRunAction;
 
     public MultiplyingTask(TabulatedFunction tabulatedFunction) {
         this.tabulatedFunction = tabulatedFunction;
-    }
-
-    public MultiplyingTask(TabulatedFunction func, Runnable postRunAction) {
-        this.tabulatedFunction = func;
-        this.postRunAction = postRunAction;
     }
 
     public void run() {
