@@ -1,10 +1,8 @@
 package ru.ssau.tk.lab2.ui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Index extends JFrame{
+public class Index extends JFrame {
     final private static int buttonWidth = 100;
     final private static int buttonHeight = 30;
 
