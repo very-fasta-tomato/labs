@@ -16,12 +16,7 @@ public class Index extends JFrame{
         panel.setLayout(null);
         JButton exitButton = new JButton("Exit");
         exitButton.setBounds(520, 410, buttonWidth, buttonHeight);
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exitButton.addActionListener(e -> index.dispose());
         panel.add(exitButton);
         index.getContentPane().add(panel);
         index.setVisible(true);
