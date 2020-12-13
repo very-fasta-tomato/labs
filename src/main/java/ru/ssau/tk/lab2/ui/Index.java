@@ -7,9 +7,9 @@ import ru.ssau.tk.lab2.functions.factory.*;
 public class Index extends JFrame {
     final private static int buttonWidth = 100;
     final private static int buttonHeight = 30;
-    static TabulatedFunctionFactory factory;
-    static TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
-    static TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
+    public static TabulatedFunctionFactory factory;
+    private static TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
+    private static TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
 
     public static void main(String[] args) {
         JFrame index = new JFrame("Tabulated functions calculator");
