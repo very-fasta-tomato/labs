@@ -1,15 +1,16 @@
 package ru.ssau.tk.lab2.ui;
 
 import javax.swing.*;
+
 import ru.ssau.tk.lab2.functions.*;
 import ru.ssau.tk.lab2.functions.factory.*;
 
 public class Index extends JFrame {
-    final private static int buttonWidth = 100;
-    final private static int buttonHeight = 30;
+    public static int buttonWidth = 100;
+    public static int buttonHeight = 30;
     public static TabulatedFunctionFactory factory;
-    private static TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
-    private static TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
+    private static final TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
+    private static final TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
 
     public static void main(String[] args) {
         JFrame index = new JFrame("Tabulated functions calculator");
@@ -23,22 +24,33 @@ public class Index extends JFrame {
         exitButton.setBounds(520, 380, buttonWidth, buttonHeight);
         exitButton.addActionListener(e -> index.dispose());
 
+        JButton OperationServiceButton = new JButton("Tabulated function operation service");
+        OperationServiceButton.setBounds(10, 100, 250, buttonHeight);
+        OperationServiceButton.addActionListener(e -> {
+            JDialog operationServiceDialog = new FunctionOperationService(index);
+            operationServiceDialog.setVisible(true);
+        });
+
         JMenu menuFile = new JMenu("File");
         JMenuItem menuExit = new JMenuItem("Exit");
         menuExit.addActionListener(e -> index.dispose());
         menuFile.add(menuExit);
 
         JLabel factoryLabel = new JLabel("Array function factory");
-        factoryLabel.setBounds(100, 10, 320, 30);
+        factoryLabel.setBounds(10, 10, 320, 30);
 
         JMenu menuOptions = new JMenu("Options");
         JMenu menuFactory = new JMenu("Factory");
         JMenuItem menuArrayFactory = new JMenuItem("Array");
         JMenuItem menuLinkedListFactory = new JMenuItem("Linked list");
-        menuArrayFactory.addActionListener(e -> {factory = arrayFactory;
-            factoryLabel.setText("Array function factory");});
-        menuLinkedListFactory.addActionListener(e -> {factory = linkedListFactory;
-            factoryLabel.setText("Linked list function factory");});
+        menuArrayFactory.addActionListener(e -> {
+            factory = arrayFactory;
+            factoryLabel.setText("Array function factory");
+        });
+        menuLinkedListFactory.addActionListener(e -> {
+            factory = linkedListFactory;
+            factoryLabel.setText("Linked list function factory");
+        });
         menuFactory.add(menuArrayFactory);
         menuFactory.add(menuLinkedListFactory);
         menuOptions.add(menuFactory);
@@ -48,6 +60,7 @@ public class Index extends JFrame {
 
         panel.add(exitButton);
         panel.add(factoryLabel);
+        panel.add(OperationServiceButton);
         index.getContentPane().add(panel);
         index.setJMenuBar(menuBar);
         index.setVisible(true);
