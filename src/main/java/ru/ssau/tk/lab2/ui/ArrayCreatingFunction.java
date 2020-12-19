@@ -1,9 +1,12 @@
 package ru.ssau.tk.lab2.ui;
 
+import ru.ssau.tk.lab2.functions.TabulatedFunction;
+
 import javax.swing.*;
 
 public class ArrayCreatingFunction extends JDialog {
     JPanel panel = new JPanel();
+    static TabulatedFunction tabulatedFunction;
 
     public ArrayCreatingFunction(JFrame owner){
         super(owner, "array", true);

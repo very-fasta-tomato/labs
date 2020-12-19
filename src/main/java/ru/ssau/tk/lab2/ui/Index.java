@@ -6,9 +6,9 @@ import ru.ssau.tk.lab2.functions.*;
 import ru.ssau.tk.lab2.functions.factory.*;
 
 public class Index extends JFrame {
-    public static int buttonWidth = 100;
-    public static int buttonHeight = 30;
-    public static TabulatedFunctionFactory factory;
+    static int buttonWidth = 100;
+    static int buttonHeight = 30;
+    static TabulatedFunctionFactory factory;
     private static final TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
     private static final TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
 
