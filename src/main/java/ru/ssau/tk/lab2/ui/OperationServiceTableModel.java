@@ -9,14 +9,9 @@ public class OperationServiceTableModel extends AbstractTableModel {
     private int rowCount;
     private TabulatedFunction tabulatedFunction;
 
-    /*public OperationServiceTableModel (TabulatedFunction tabulatedFunction){
-        this.tabulatedFunction = tabulatedFunction;
-        this.rowCount = tabulatedFunction.getCount();
-    }*/
-
     @Override
     public int getRowCount() {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -32,4 +27,16 @@ public class OperationServiceTableModel extends AbstractTableModel {
             default -> null;
         };
     }
+
+    @Override
+    public String getColumnName(int column) {
+        switch (column) {
+            case 0:
+                return "Index";
+            case 1:
+                return "Value";
+        }
+        return super.getColumnName(column);
+    }
+
 }
