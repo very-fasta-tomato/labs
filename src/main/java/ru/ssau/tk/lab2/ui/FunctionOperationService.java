@@ -111,6 +111,21 @@ public class FunctionOperationService extends JDialog {
         JButton safeButton3 = new JButton("Safe");
         safeButton3.setBounds(605, 360, Index.buttonWidth, Index.buttonHeight);
 
+        JTable firstFunctionTable = new JTable(new OperationTableModel());
+        firstFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane firstTableScrollPane = new JScrollPane(firstFunctionTable);
+        firstTableScrollPane.setBounds(10, 50, 250, 260);
+
+        JTable secondFunctionTable = new JTable(new OperationTableModel());
+        secondFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane secondTableScrollPane = new JScrollPane(secondFunctionTable);
+        secondTableScrollPane.setBounds(270, 50, 250, 260);
+
+        JTable resultFunctionTable = new JTable(new ResultTableModel());
+        resultFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane resultTableScrollPane = new JScrollPane(resultFunctionTable);
+        resultTableScrollPane.setBounds(530, 50, 250, 260);
+
         panel.add(exitButton);
         panel.add(createButton1);
         panel.add(safeButton1);
@@ -120,6 +135,9 @@ public class FunctionOperationService extends JDialog {
         panel.add(loadButton2);
         panel.add(safeButton3);
         panel.add(calculateButton);
+        panel.add(firstTableScrollPane);
+        panel.add(secondTableScrollPane);
+        panel.add(resultTableScrollPane);
         this.setJMenuBar(menuBar);
         getContentPane().add(panel);
     }
