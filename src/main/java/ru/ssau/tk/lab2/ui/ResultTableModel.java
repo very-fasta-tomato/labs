@@ -1,9 +1,21 @@
 package ru.ssau.tk.lab2.ui;
 
+import ru.ssau.tk.lab2.functions.TabulatedFunction;
+
 import javax.swing.table.AbstractTableModel;
 
 public class ResultTableModel extends AbstractTableModel {
-    static int rowCount = 0;
+    int rowCount;
+    TabulatedFunction tabulatedFunction;
+
+    public ResultTableModel (){
+        this.rowCount = 0;
+    }
+
+    public ResultTableModel (TabulatedFunction tabulatedFunction){
+        this.tabulatedFunction = tabulatedFunction;
+        this.rowCount = tabulatedFunction.getCount();
+    }
 
     @Override
     public int getRowCount() {
@@ -17,7 +29,17 @@ public class ResultTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return 0;
+        if (rowCount != 0){
+            return switch (columnIndex){
+                case 0 -> rowIndex;
+                case 1 -> tabulatedFunction.getX(rowIndex);
+                case 2 -> tabulatedFunction.getY(rowIndex);
+                default -> "not stated";
+            };
+        }
+        else {
+            return 0;
+        }
     }
 
     @Override

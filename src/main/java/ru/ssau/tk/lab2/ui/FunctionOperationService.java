@@ -4,12 +4,15 @@ import ru.ssau.tk.lab2.functions.*;
 import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FunctionOperationService extends JDialog {
     JPanel panel = new JPanel();
     TabulatedFunctionOperationService functionOperationService = new TabulatedFunctionOperationService(Index.factory);
-    static TabulatedFunction firstTabulatedFunction;
-    static TabulatedFunction secondTabulatedFunction;
+    TabulatedFunction firstTabulatedFunction;
+    TabulatedFunction secondTabulatedFunction;
     TabulatedFunction resultTabulatedFunction;
     TypeOfCreatingFunction type;
     CalculateOperation calculateOperation;
@@ -49,6 +52,21 @@ public class FunctionOperationService extends JDialog {
         menuBar.add(menuCreating);
         menuBar.add(menuCalculatingOperation);
 
+        JTable firstFunctionTable = new JTable(new OperationTableModel());
+        firstFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane firstTableScrollPane = new JScrollPane(firstFunctionTable);
+        firstTableScrollPane.setBounds(10, 50, 250, 260);
+
+        JTable secondFunctionTable = new JTable(new OperationTableModel());
+        secondFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane secondTableScrollPane = new JScrollPane(secondFunctionTable);
+        secondTableScrollPane.setBounds(270, 50, 250, 260);
+
+        JTable resultFunctionTable = new JTable(new ResultTableModel());
+        resultFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane resultTableScrollPane = new JScrollPane(resultFunctionTable);
+        resultTableScrollPane.setBounds(530, 50, 250, 260);
+
         JButton exitButton = new JButton("Exit");
         exitButton.setBounds(780, 400, Index.buttonWidth, Index.buttonHeight);
         exitButton.addActionListener(e -> this.dispose());
@@ -57,13 +75,24 @@ public class FunctionOperationService extends JDialog {
         createButton1.setBounds(85, 320, Index.buttonWidth, Index.buttonHeight);
         createButton1.addActionListener(e -> {
             if (type == TypeOfCreatingFunction.ARRAY) {
-                JDialog arrayCreatingFunctionDialig = new ArrayCreatingFunction(owner);
-                arrayCreatingFunctionDialig.setVisible(true);
-                firstTabulatedFunction = ArrayCreatingFunction.tabulatedFunction;
+                JDialog arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
+                arrayCreatingFunctionDialog.setVisible(true);
+                arrayCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        firstTabulatedFunction = ArrayCreatingFunction.tabulatedFunction;
+                    }
+                });
+                //firstFunctionTable = new JTable(new OperationTableModel(firstTabulatedFunction));
             } else {
-                JDialog mathFunctionCreatingFunctionDialig = new MathFunctionCreatingFunction(owner);
-                mathFunctionCreatingFunctionDialig.setVisible(true);
-                firstTabulatedFunction = MathFunctionCreatingFunction.tabulatedFunction;
+                JDialog mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
+                mathFunctionCreatingFunctionDialog.setVisible(true);
+                mathFunctionCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        secondTabulatedFunction = MathFunctionCreatingFunction.tabulatedFunction;
+                    }
+                });
             }
         });
 
@@ -77,13 +106,24 @@ public class FunctionOperationService extends JDialog {
         createButton2.setBounds(345, 320, Index.buttonWidth, Index.buttonHeight);
         createButton2.addActionListener(e -> {
             if (type == TypeOfCreatingFunction.ARRAY) {
-                JDialog arrayCreatingFunctionDialig = new ArrayCreatingFunction(owner);
-                arrayCreatingFunctionDialig.setVisible(true);
-                secondTabulatedFunction = ArrayCreatingFunction.tabulatedFunction;
+                JDialog arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
+                arrayCreatingFunctionDialog.setVisible(true);
+                arrayCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        secondTabulatedFunction = ArrayCreatingFunction.tabulatedFunction;
+                    }
+                });
+
             } else {
-                JDialog mathFunctionCreatingFunctionDialig = new MathFunctionCreatingFunction(owner);
-                mathFunctionCreatingFunctionDialig.setVisible(true);
-                secondTabulatedFunction = MathFunctionCreatingFunction.tabulatedFunction;
+                JDialog mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
+                mathFunctionCreatingFunctionDialog.setVisible(true);
+                mathFunctionCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        secondTabulatedFunction = MathFunctionCreatingFunction.tabulatedFunction;
+                    }
+                });
             }
         });
 
@@ -110,21 +150,6 @@ public class FunctionOperationService extends JDialog {
 
         JButton safeButton3 = new JButton("Safe");
         safeButton3.setBounds(605, 360, Index.buttonWidth, Index.buttonHeight);
-
-        JTable firstFunctionTable = new JTable(new OperationTableModel());
-        firstFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane firstTableScrollPane = new JScrollPane(firstFunctionTable);
-        firstTableScrollPane.setBounds(10, 50, 250, 260);
-
-        JTable secondFunctionTable = new JTable(new OperationTableModel());
-        secondFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane secondTableScrollPane = new JScrollPane(secondFunctionTable);
-        secondTableScrollPane.setBounds(270, 50, 250, 260);
-
-        JTable resultFunctionTable = new JTable(new ResultTableModel());
-        resultFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane resultTableScrollPane = new JScrollPane(resultFunctionTable);
-        resultTableScrollPane.setBounds(530, 50, 250, 260);
 
         panel.add(exitButton);
         panel.add(createButton1);
