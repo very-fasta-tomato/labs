@@ -8,13 +8,13 @@ public class OperationTableModel extends AbstractTableModel {
     int rowCount;
     TabulatedFunction tabulatedFunction;
 
-    public OperationTableModel (TabulatedFunction tabulatedFunction){
-        this.tabulatedFunction = tabulatedFunction;
-        this.rowCount = tabulatedFunction.getCount();
-    }
-
-    public OperationTableModel (){
-        this.rowCount = 0;
+    public OperationTableModel(TabulatedFunction tabulatedFunction) {
+        if (tabulatedFunction != null) {
+            this.tabulatedFunction = tabulatedFunction;
+            this.rowCount = tabulatedFunction.getCount();
+        } else {
+            rowCount = 0;
+        }
     }
 
     @Override
@@ -29,22 +29,21 @@ public class OperationTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (rowCount != 0){
-                return switch (columnIndex){
-                    case 0 -> rowIndex;
-                    case 1 -> tabulatedFunction.getX(rowIndex);
-                    case 2 -> tabulatedFunction.getY(rowIndex);
-                    default -> "not stated";
-                };
-        }
-        else {
+        if (rowCount != 0) {
+            return switch (columnIndex) {
+                case 0 -> rowIndex;
+                case 1 -> tabulatedFunction.getX(rowIndex);
+                case 2 -> tabulatedFunction.getY(rowIndex);
+                default -> "not stated";
+            };
+        } else {
             return 0;
         }
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if ((columnIndex == 0) || (columnIndex == 1)){
+        if ((columnIndex == 0) || (columnIndex == 1)) {
             return;
         }
         tabulatedFunction.setY(rowIndex, (double) aValue);
@@ -56,7 +55,7 @@ public class OperationTableModel extends AbstractTableModel {
     }
 
     @Override
-    public String getColumnName(int columnIndex){
+    public String getColumnName(int columnIndex) {
         return switch (columnIndex) {
             case 0 -> "№";
             case 1 -> "X";

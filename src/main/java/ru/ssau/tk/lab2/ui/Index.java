@@ -8,9 +8,9 @@ import ru.ssau.tk.lab2.functions.factory.*;
 public class Index extends JFrame {
     static int buttonWidth = 100;
     static int buttonHeight = 30;
-    static TabulatedFunctionFactory factory;
     private static final TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
     private static final TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
+    static TabulatedFunctionFactory factory = arrayFactory;
 
     public static void main(String[] args) {
         JFrame index = new JFrame("Tabulated functions calculator");

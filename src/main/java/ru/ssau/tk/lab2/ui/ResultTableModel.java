@@ -8,13 +8,13 @@ public class ResultTableModel extends AbstractTableModel {
     int rowCount;
     TabulatedFunction tabulatedFunction;
 
-    public ResultTableModel (){
-        this.rowCount = 0;
-    }
-
-    public ResultTableModel (TabulatedFunction tabulatedFunction){
-        this.tabulatedFunction = tabulatedFunction;
-        this.rowCount = tabulatedFunction.getCount();
+    public ResultTableModel(TabulatedFunction tabulatedFunction) {
+        if (tabulatedFunction != null) {
+            this.tabulatedFunction = tabulatedFunction;
+            this.rowCount = tabulatedFunction.getCount();
+        } else {
+            rowCount = 0;
+        }
     }
 
     @Override

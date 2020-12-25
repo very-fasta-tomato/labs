@@ -4,15 +4,15 @@ import ru.ssau.tk.lab2.functions.*;
 import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class FunctionOperationService extends JDialog {
     JPanel panel = new JPanel();
     TabulatedFunctionOperationService functionOperationService = new TabulatedFunctionOperationService(Index.factory);
-    TabulatedFunction firstTabulatedFunction;
-    TabulatedFunction secondTabulatedFunction;
+    static TabulatedFunction firstTabulatedFunction;
+    static TabulatedFunction secondTabulatedFunction;
     TabulatedFunction resultTabulatedFunction;
     TypeOfCreatingFunction type;
     CalculateOperation calculateOperation;
@@ -52,17 +52,20 @@ public class FunctionOperationService extends JDialog {
         menuBar.add(menuCreating);
         menuBar.add(menuCalculatingOperation);
 
-        JTable firstFunctionTable = new JTable(new OperationTableModel());
+        AbstractTableModel firstTableModel = new OperationTableModel(firstTabulatedFunction);
+        JTable firstFunctionTable = new JTable(firstTableModel);
         firstFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane firstTableScrollPane = new JScrollPane(firstFunctionTable);
         firstTableScrollPane.setBounds(10, 50, 250, 260);
 
-        JTable secondFunctionTable = new JTable(new OperationTableModel());
+        AbstractTableModel secondTableModel = new OperationTableModel(secondTabulatedFunction);
+        JTable secondFunctionTable = new JTable(secondTableModel);
         secondFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane secondTableScrollPane = new JScrollPane(secondFunctionTable);
         secondTableScrollPane.setBounds(270, 50, 250, 260);
 
-        JTable resultFunctionTable = new JTable(new ResultTableModel());
+        AbstractTableModel resultTableModel = new ResultTableModel(resultTabulatedFunction);
+        JTable resultFunctionTable = new JTable(resultTableModel);
         resultFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane resultTableScrollPane = new JScrollPane(resultFunctionTable);
         resultTableScrollPane.setBounds(530, 50, 250, 260);
@@ -77,22 +80,11 @@ public class FunctionOperationService extends JDialog {
             if (type == TypeOfCreatingFunction.ARRAY) {
                 JDialog arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
                 arrayCreatingFunctionDialog.setVisible(true);
-                arrayCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        firstTabulatedFunction = ArrayCreatingFunction.tabulatedFunction;
-                    }
-                });
-                //firstFunctionTable = new JTable(new OperationTableModel(firstTabulatedFunction));
+                ArrayCreatingFunction.isFirstFunction = true;
             } else {
                 JDialog mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
                 mathFunctionCreatingFunctionDialog.setVisible(true);
-                mathFunctionCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        secondTabulatedFunction = MathFunctionCreatingFunction.tabulatedFunction;
-                    }
-                });
+                MathFunctionCreatingFunction.isFirstFunction = true;
             }
         });
 
@@ -108,22 +100,11 @@ public class FunctionOperationService extends JDialog {
             if (type == TypeOfCreatingFunction.ARRAY) {
                 JDialog arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
                 arrayCreatingFunctionDialog.setVisible(true);
-                arrayCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        secondTabulatedFunction = ArrayCreatingFunction.tabulatedFunction;
-                    }
-                });
-
+                ArrayCreatingFunction.isFirstFunction = false;
             } else {
                 JDialog mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
                 mathFunctionCreatingFunctionDialog.setVisible(true);
-                mathFunctionCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        secondTabulatedFunction = MathFunctionCreatingFunction.tabulatedFunction;
-                    }
-                });
+                MathFunctionCreatingFunction.isFirstFunction = false;
             }
         });
 
