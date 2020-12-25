@@ -46,7 +46,8 @@ public class OperationTableModel extends AbstractTableModel {
         if ((columnIndex == 0) || (columnIndex == 1)) {
             return;
         }
-        tabulatedFunction.setY(rowIndex, (double) aValue);
+
+        tabulatedFunction.setY(rowIndex, Double.parseDouble(aValue.toString()));
     }
 
     @Override

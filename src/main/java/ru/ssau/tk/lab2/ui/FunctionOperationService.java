@@ -10,12 +10,12 @@ import java.awt.event.WindowEvent;
 
 public class FunctionOperationService extends JDialog {
     JPanel panel = new JPanel();
-    TabulatedFunctionOperationService functionOperationService = new TabulatedFunctionOperationService(Index.factory);
+    static TabulatedFunctionOperationService functionOperationService;
     static TabulatedFunction firstTabulatedFunction;
     static TabulatedFunction secondTabulatedFunction;
     TabulatedFunction resultTabulatedFunction;
     TypeOfCreatingFunction type;
-    CalculateOperation calculateOperation;
+    CalculateOperation calculateOperation = CalculateOperation.SUM;
 
     public FunctionOperationService(JFrame owner) {
         super(owner, "Tabulated function operation service", true);
@@ -78,13 +78,27 @@ public class FunctionOperationService extends JDialog {
         createButton1.setBounds(85, 320, Index.buttonWidth, Index.buttonHeight);
         createButton1.addActionListener(e -> {
             if (type == TypeOfCreatingFunction.ARRAY) {
-                JDialog arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
+                ArrayCreatingFunction arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
                 arrayCreatingFunctionDialog.setVisible(true);
-                ArrayCreatingFunction.isFirstFunction = true;
+                arrayCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        firstTabulatedFunction = arrayCreatingFunctionDialog.getTabulatedFunction();
+                        firstTableModel.fireTableDataChanged();
+
+                    }
+                });
             } else {
-                JDialog mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
+                MathFunctionCreatingFunction mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
                 mathFunctionCreatingFunctionDialog.setVisible(true);
-                MathFunctionCreatingFunction.isFirstFunction = true;
+                mathFunctionCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        firstTabulatedFunction = mathFunctionCreatingFunctionDialog.getTabulatedFunction();
+                        firstTableModel.fireTableDataChanged();
+
+                    }
+                });
             }
         });
 
@@ -98,13 +112,27 @@ public class FunctionOperationService extends JDialog {
         createButton2.setBounds(345, 320, Index.buttonWidth, Index.buttonHeight);
         createButton2.addActionListener(e -> {
             if (type == TypeOfCreatingFunction.ARRAY) {
-                JDialog arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
+                ArrayCreatingFunction arrayCreatingFunctionDialog = new ArrayCreatingFunction(owner);
                 arrayCreatingFunctionDialog.setVisible(true);
-                ArrayCreatingFunction.isFirstFunction = false;
+                arrayCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        secondTabulatedFunction = arrayCreatingFunctionDialog.getTabulatedFunction();
+                        secondTableModel.fireTableDataChanged();
+
+                    }
+                });
             } else {
-                JDialog mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
+                MathFunctionCreatingFunction mathFunctionCreatingFunctionDialog = new MathFunctionCreatingFunction(owner);
                 mathFunctionCreatingFunctionDialog.setVisible(true);
-                MathFunctionCreatingFunction.isFirstFunction = false;
+                mathFunctionCreatingFunctionDialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        secondTabulatedFunction = mathFunctionCreatingFunctionDialog.getTabulatedFunction();
+                        secondTableModel.fireTableDataChanged();
+
+                    }
+                });
             }
         });
 
@@ -127,6 +155,7 @@ public class FunctionOperationService extends JDialog {
                 case DIVISION -> resultTabulatedFunction =
                         functionOperationService.division(firstTabulatedFunction, secondTabulatedFunction);
             }
+            resultTableModel.fireTableDataChanged();
         });
 
         JButton safeButton3 = new JButton("Safe");
@@ -144,6 +173,7 @@ public class FunctionOperationService extends JDialog {
         panel.add(firstTableScrollPane);
         panel.add(secondTableScrollPane);
         panel.add(resultTableScrollPane);
+        setLocationRelativeTo(null);
         this.setJMenuBar(menuBar);
         getContentPane().add(panel);
     }
