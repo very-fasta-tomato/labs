@@ -13,7 +13,7 @@ public class FunctionOperationService extends JDialog {
     static TabulatedFunctionOperationService functionOperationService;
     static TabulatedFunction firstTabulatedFunction;
     static TabulatedFunction secondTabulatedFunction;
-    TabulatedFunction resultTabulatedFunction;
+    static TabulatedFunction resultTabulatedFunction;
     TypeOfCreatingFunction type;
     CalculateOperation calculateOperation = CalculateOperation.SUM;
 
@@ -84,8 +84,8 @@ public class FunctionOperationService extends JDialog {
                     @Override
                     public void windowClosed(WindowEvent e) {
                         firstTabulatedFunction = arrayCreatingFunctionDialog.getTabulatedFunction();
+                        
                         firstTableModel.fireTableDataChanged();
-
                     }
                 });
             } else {
@@ -96,7 +96,6 @@ public class FunctionOperationService extends JDialog {
                     public void windowClosed(WindowEvent e) {
                         firstTabulatedFunction = mathFunctionCreatingFunctionDialog.getTabulatedFunction();
                         firstTableModel.fireTableDataChanged();
-
                     }
                 });
             }
@@ -119,7 +118,6 @@ public class FunctionOperationService extends JDialog {
                     public void windowClosed(WindowEvent e) {
                         secondTabulatedFunction = arrayCreatingFunctionDialog.getTabulatedFunction();
                         secondTableModel.fireTableDataChanged();
-
                     }
                 });
             } else {
@@ -130,7 +128,6 @@ public class FunctionOperationService extends JDialog {
                     public void windowClosed(WindowEvent e) {
                         secondTabulatedFunction = mathFunctionCreatingFunctionDialog.getTabulatedFunction();
                         secondTableModel.fireTableDataChanged();
-
                     }
                 });
             }
@@ -146,16 +143,27 @@ public class FunctionOperationService extends JDialog {
         calculateButton.setBounds(605, 320, Index.buttonWidth, Index.buttonHeight);
         calculateButton.addActionListener(e -> {
             switch (calculateOperation) {
-                case SUM -> resultTabulatedFunction =
-                        functionOperationService.sum(firstTabulatedFunction, secondTabulatedFunction);
-                case SUBTRACT -> resultTabulatedFunction =
-                        functionOperationService.subtract(firstTabulatedFunction, secondTabulatedFunction);
-                case MULTIPLY -> resultTabulatedFunction =
-                        functionOperationService.multiply(firstTabulatedFunction, secondTabulatedFunction);
-                case DIVISION -> resultTabulatedFunction =
-                        functionOperationService.division(firstTabulatedFunction, secondTabulatedFunction);
+                case SUM -> {
+                    resultTabulatedFunction =
+                            functionOperationService.sum(firstTabulatedFunction, secondTabulatedFunction);
+                    resultTableModel.fireTableDataChanged();
+                }
+                case SUBTRACT -> {
+                    resultTabulatedFunction =
+                            functionOperationService.subtract(firstTabulatedFunction, secondTabulatedFunction);
+                    resultTableModel.fireTableDataChanged();
+                }
+                case MULTIPLY -> {
+                    resultTabulatedFunction =
+                            functionOperationService.multiply(firstTabulatedFunction, secondTabulatedFunction);
+                    resultTableModel.fireTableDataChanged();
+                }
+                case DIVISION -> {
+                    resultTabulatedFunction =
+                            functionOperationService.division(firstTabulatedFunction, secondTabulatedFunction);
+                    resultTableModel.fireTableDataChanged();
+                }
             }
-            resultTableModel.fireTableDataChanged();
         });
 
         JButton safeButton3 = new JButton("Safe");
