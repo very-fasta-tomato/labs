@@ -1,8 +1,11 @@
 package ru.ssau.tk.lab2.ui;
 
 import ru.ssau.tk.lab2.functions.*;
+import ru.ssau.tk.lab2.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.lab2.functions.factory.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.lab2.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.lab2.io.FunctionsIO;
+import ru.ssau.tk.lab2.operations.TabulatedDifferentialOperator;
 import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
@@ -10,10 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FunctionOperationService extends JDialog {
     JPanel panel = new JPanel();
@@ -85,10 +85,14 @@ public class FunctionOperationService extends JDialog {
         JFileChooser fileChooserOpen = new JFileChooser();
         fileChooserOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooserOpen.setDialogTitle("Open file");
-        fileChooserOpen.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "txt"));
-        fileChooserOpen.addChoosableFileFilter(new FileNameExtensionFilter("Byte files", "bin"));
+        fileChooserOpen.addChoosableFileFilter(new FileNameExtensionFilter("Serialized functions", "bin"));
         fileChooserOpen.setAcceptAllFileFilterUsed(false);
 
+        JFileChooser fileChooserSave = new JFileChooser();
+        fileChooserSave.setDialogTitle("Save file");
+        fileChooserSave.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooserSave.addChoosableFileFilter(new FileNameExtensionFilter("Serialized functions", "bin"));
+        fileChooserSave.setAcceptAllFileFilterUsed(false);
 
         JButton exitButton = new JButton("Exit");
         exitButton.setBounds(780, 400, Index.buttonWidth, Index.buttonHeight);
@@ -127,17 +131,28 @@ public class FunctionOperationService extends JDialog {
             fileChooserOpen.showOpenDialog(this);
             File file = fileChooserOpen.getSelectedFile();
             if (file != null) {
-                try (BufferedReader inFunction = new BufferedReader(new FileReader(file))) {
-                    firstTabulatedFunction = FunctionsIO.readTabulatedFunction(inFunction, factory);
-                    firstTableModel.fireTableDataChanged();
-                } catch (IOException err) {
+                try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                    firstTabulatedFunction = FunctionsIO.deserialize(in);
+                } catch (IOException | ClassNotFoundException err) {
                     err.printStackTrace();
                 }
+                firstTableModel.fireTableDataChanged();
             }
         });
 
         JButton safeButton1 = new JButton("Safe");
         safeButton1.setBounds(85, 400, Index.buttonWidth, Index.buttonHeight);
+        safeButton1.addActionListener(e -> {
+            fileChooserSave.showSaveDialog(this);
+            File file = fileChooserSave.getSelectedFile();
+            if (file != null){
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
+                    FunctionsIO.serialize(out, firstTabulatedFunction);
+                } catch (IOException err) {
+                    err.printStackTrace();
+                }
+            }
+        });
 
         JButton createButton2 = new JButton("Create");
         createButton2.setBounds(345, 320, Index.buttonWidth, Index.buttonHeight);
@@ -171,17 +186,28 @@ public class FunctionOperationService extends JDialog {
             fileChooserOpen.showOpenDialog(this);
             File file = fileChooserOpen.getSelectedFile();
             if (file != null) {
-                try (BufferedReader inFunction = new BufferedReader(new FileReader(file))) {
-                    secondTabulatedFunction = FunctionsIO.readTabulatedFunction(inFunction, factory);
-                    secondTableModel.fireTableDataChanged();
-                } catch (IOException err) {
+                try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                    secondTabulatedFunction = FunctionsIO.deserialize(in);
+                } catch (IOException | ClassNotFoundException err) {
                     err.printStackTrace();
                 }
+                secondTableModel.fireTableDataChanged();
             }
         });
 
         JButton safeButton2 = new JButton("Safe");
         safeButton2.setBounds(345, 400, Index.buttonWidth, Index.buttonHeight);
+        safeButton2.addActionListener(e -> {
+            fileChooserSave.showSaveDialog(this);
+            File file = fileChooserSave.getSelectedFile();
+            if (file != null){
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
+                    FunctionsIO.serialize(out, secondTabulatedFunction);
+                } catch (IOException err) {
+                    err.printStackTrace();
+                }
+            }
+        });
 
         JButton calculateButton = new JButton("Calculate");
         calculateButton.setBounds(605, 320, Index.buttonWidth, Index.buttonHeight);
@@ -212,6 +238,17 @@ public class FunctionOperationService extends JDialog {
 
         JButton safeButton3 = new JButton("Safe");
         safeButton3.setBounds(605, 360, Index.buttonWidth, Index.buttonHeight);
+        safeButton3.addActionListener(e -> {
+            fileChooserSave.showSaveDialog(this);
+            File file = fileChooserSave.getSelectedFile();
+            if (file != null){
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
+                    FunctionsIO.serialize(out, resultTabulatedFunction);
+                } catch (IOException err) {
+                    err.printStackTrace();
+                }
+            }
+        });
 
         panel.add(exitButton);
         panel.add(createButton1);
