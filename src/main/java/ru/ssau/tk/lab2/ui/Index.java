@@ -2,9 +2,7 @@ package ru.ssau.tk.lab2.ui;
 
 import javax.swing.*;
 
-import ru.ssau.tk.lab2.functions.*;
 import ru.ssau.tk.lab2.functions.factory.*;
-import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 public class Index extends JFrame {
     static int buttonWidth = 100;
@@ -15,7 +13,6 @@ public class Index extends JFrame {
 
 
     public static void main(String[] args) {
-        FunctionOperationService.functionOperationService = new TabulatedFunctionOperationService(factory);
         JFrame index = new JFrame("Tabulated functions calculator");
         index.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         index.setSize(640, 480);
@@ -48,12 +45,10 @@ public class Index extends JFrame {
         JMenuItem menuLinkedListFactory = new JMenuItem("Linked list");
         menuArrayFactory.addActionListener(e -> {
             factory = arrayFactory;
-            FunctionOperationService.functionOperationService = new TabulatedFunctionOperationService(factory);
             factoryLabel.setText("Array function factory");
         });
         menuLinkedListFactory.addActionListener(e -> {
             factory = linkedListFactory;
-            FunctionOperationService.functionOperationService = new TabulatedFunctionOperationService(factory);
             factoryLabel.setText("Linked list function factory");
         });
         menuFactory.add(menuArrayFactory);

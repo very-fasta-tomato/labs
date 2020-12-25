@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class MathFunctionCreatingFunction extends JDialog {
     JPanel panel = new JPanel();
-    TabulatedFunction tabulatedFunction = new ArrayTabulatedFunction(new double[] {1., 2., 3.}, new double[] {1., 5., 6.});
+    TabulatedFunction tabulatedFunction;
 
     public MathFunctionCreatingFunction(JFrame owner){
         super(owner, "math function", true);

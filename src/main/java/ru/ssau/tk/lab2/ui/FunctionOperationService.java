@@ -1,19 +1,28 @@
 package ru.ssau.tk.lab2.ui;
 
 import ru.ssau.tk.lab2.functions.*;
+import ru.ssau.tk.lab2.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.lab2.io.FunctionsIO;
 import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class FunctionOperationService extends JDialog {
     JPanel panel = new JPanel();
-    static TabulatedFunctionOperationService functionOperationService;
+
     static TabulatedFunction firstTabulatedFunction;
     static TabulatedFunction secondTabulatedFunction;
     static TabulatedFunction resultTabulatedFunction;
+    static TabulatedFunctionFactory factory;
+    TabulatedFunctionOperationService functionOperationService;
     TypeOfCreatingFunction type;
     CalculateOperation calculateOperation = CalculateOperation.SUM;
 
@@ -22,6 +31,9 @@ public class FunctionOperationService extends JDialog {
         setSize(900, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         panel.setLayout(null);
+
+        factory = Index.factory;
+        functionOperationService = new TabulatedFunctionOperationService(factory);
 
         JMenu menuFile = new JMenu("File");
         JMenuItem menuExit = new JMenuItem("Exit");
@@ -70,6 +82,14 @@ public class FunctionOperationService extends JDialog {
         JScrollPane resultTableScrollPane = new JScrollPane(resultFunctionTable);
         resultTableScrollPane.setBounds(530, 50, 250, 260);
 
+        JFileChooser fileChooserOpen = new JFileChooser();
+        fileChooserOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooserOpen.setDialogTitle("Open file");
+        fileChooserOpen.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+        fileChooserOpen.addChoosableFileFilter(new FileNameExtensionFilter("Byte files", "bin"));
+        fileChooserOpen.setAcceptAllFileFilterUsed(false);
+
+
         JButton exitButton = new JButton("Exit");
         exitButton.setBounds(780, 400, Index.buttonWidth, Index.buttonHeight);
         exitButton.addActionListener(e -> this.dispose());
@@ -103,6 +123,18 @@ public class FunctionOperationService extends JDialog {
 
         JButton loadButton1 = new JButton("Load");
         loadButton1.setBounds(85, 360, Index.buttonWidth, Index.buttonHeight);
+        loadButton1.addActionListener(e -> {
+            fileChooserOpen.showOpenDialog(this);
+            File file = fileChooserOpen.getSelectedFile();
+            if (file != null) {
+                try (BufferedReader inFunction = new BufferedReader(new FileReader(file))) {
+                    firstTabulatedFunction = FunctionsIO.readTabulatedFunction(inFunction, factory);
+                    firstTableModel.fireTableDataChanged();
+                } catch (IOException err) {
+                    err.printStackTrace();
+                }
+            }
+        });
 
         JButton safeButton1 = new JButton("Safe");
         safeButton1.setBounds(85, 400, Index.buttonWidth, Index.buttonHeight);
@@ -135,6 +167,18 @@ public class FunctionOperationService extends JDialog {
 
         JButton loadButton2 = new JButton("Load");
         loadButton2.setBounds(345, 360, Index.buttonWidth, Index.buttonHeight);
+        loadButton2.addActionListener(e -> {
+            fileChooserOpen.showOpenDialog(this);
+            File file = fileChooserOpen.getSelectedFile();
+            if (file != null) {
+                try (BufferedReader inFunction = new BufferedReader(new FileReader(file))) {
+                    secondTabulatedFunction = FunctionsIO.readTabulatedFunction(inFunction, factory);
+                    secondTableModel.fireTableDataChanged();
+                } catch (IOException err) {
+                    err.printStackTrace();
+                }
+            }
+        });
 
         JButton safeButton2 = new JButton("Safe");
         safeButton2.setBounds(345, 400, Index.buttonWidth, Index.buttonHeight);
