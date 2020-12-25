@@ -31,6 +31,13 @@ public class Index extends JFrame {
             operationServiceDialog.setVisible(true);
         });
 
+        JButton derivingServiceButton = new JButton("Deriving operation service");
+        derivingServiceButton.setBounds(10, 150, 250, buttonHeight);
+        derivingServiceButton.addActionListener(e -> {
+            JDialog derivingServiceDialog = new DerivingOperationService(index);
+            derivingServiceDialog.setVisible(true);
+        });
+
         JMenu menuFile = new JMenu("File");
         JMenuItem menuExit = new JMenuItem("Exit");
         menuExit.addActionListener(e -> index.dispose());
@@ -61,6 +68,7 @@ public class Index extends JFrame {
         panel.add(exitButton);
         panel.add(factoryLabel);
         panel.add(OperationServiceButton);
+        panel.add(derivingServiceButton);
         index.getContentPane().add(panel);
         index.setJMenuBar(menuBar);
         index.setVisible(true);

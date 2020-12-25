@@ -1,11 +1,8 @@
 package ru.ssau.tk.lab2.ui;
 
 import ru.ssau.tk.lab2.functions.*;
-import ru.ssau.tk.lab2.functions.factory.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.lab2.functions.factory.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.lab2.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.lab2.io.FunctionsIO;
-import ru.ssau.tk.lab2.operations.TabulatedDifferentialOperator;
 import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
