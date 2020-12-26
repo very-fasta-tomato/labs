@@ -8,6 +8,7 @@ import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
@@ -79,6 +80,23 @@ public class FunctionOperationService extends JDialog {
         JScrollPane resultTableScrollPane = new JScrollPane(resultFunctionTable);
         resultTableScrollPane.setBounds(530, 50, 250, 260);
 
+        JLabel firstTableLabel = new JLabel("First tabulated function");
+        firstTableLabel.setBounds(10, 10, 250, 30);
+        firstTableLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel secondTableLabel = new JLabel("Second tabulated function");
+        secondTableLabel.setBounds(270, 10, 250, 30);
+        secondTableLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel resultTableLabel = new JLabel("Result tabulated function");
+        resultTableLabel.setBounds(530, 10, 250, 30);
+        resultTableLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel alarmLabel = new JLabel("");
+        alarmLabel.setBounds(530, 400, 250, 30);
+        alarmLabel.setForeground(Color.RED);
+        alarmLabel.setHorizontalAlignment(JLabel.CENTER);
+
         JFileChooser fileChooserOpen = new JFileChooser();
         fileChooserOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooserOpen.setDialogTitle("Open file");
@@ -134,6 +152,7 @@ public class FunctionOperationService extends JDialog {
                 } catch (IOException | ClassNotFoundException err) {
                     err.printStackTrace();
                 }
+
                 firstTableModel.setTabulatedFunction(firstTabulatedFunction);
                 firstTableModel.fireTableDataChanged();
             }
@@ -144,7 +163,7 @@ public class FunctionOperationService extends JDialog {
         safeButton1.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
-            if (file != null){
+            if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, firstTabulatedFunction);
                 } catch (IOException err) {
@@ -202,7 +221,7 @@ public class FunctionOperationService extends JDialog {
         safeButton2.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
-            if (file != null){
+            if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, secondTabulatedFunction);
                 } catch (IOException err) {
@@ -214,22 +233,23 @@ public class FunctionOperationService extends JDialog {
         JButton calculateButton = new JButton("Calculate");
         calculateButton.setBounds(605, 320, Index.buttonWidth, Index.buttonHeight);
         calculateButton.addActionListener(e -> {
-            switch (calculateOperation) {
-                case SUM -> {
-                    resultTabulatedFunction =
-                            functionOperationService.sum(firstTabulatedFunction, secondTabulatedFunction);
-                }
-                case SUBTRACT -> {
-                    resultTabulatedFunction =
-                            functionOperationService.subtract(firstTabulatedFunction, secondTabulatedFunction);
-                }
-                case MULTIPLY -> {
-                    resultTabulatedFunction =
-                            functionOperationService.multiply(firstTabulatedFunction, secondTabulatedFunction);
-                }
-                case DIVISION -> {
-                    resultTabulatedFunction =
-                            functionOperationService.division(firstTabulatedFunction, secondTabulatedFunction);
+            if ((firstTabulatedFunction == null) && (secondTabulatedFunction == null)) {
+                alarmLabel.setText("Incorrect operand tabulated function!");
+            } else {
+                if (firstTabulatedFunction.getCount() != secondTabulatedFunction.getCount()){
+                    alarmLabel.setText("Different count of points!");
+                } else {
+                    alarmLabel.setText("");
+                    switch (calculateOperation) {
+                        case SUM -> resultTabulatedFunction =
+                                functionOperationService.sum(firstTabulatedFunction, secondTabulatedFunction);
+                        case SUBTRACT -> resultTabulatedFunction =
+                                functionOperationService.subtract(firstTabulatedFunction, secondTabulatedFunction);
+                        case MULTIPLY -> resultTabulatedFunction =
+                                functionOperationService.multiply(firstTabulatedFunction, secondTabulatedFunction);
+                        case DIVISION -> resultTabulatedFunction =
+                                functionOperationService.division(firstTabulatedFunction, secondTabulatedFunction);
+                    }
                 }
             }
             resultTableModel.setTabulatedFunction(resultTabulatedFunction);
@@ -241,7 +261,7 @@ public class FunctionOperationService extends JDialog {
         safeButton3.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
-            if (file != null){
+            if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, resultTabulatedFunction);
                 } catch (IOException err) {
@@ -262,6 +282,10 @@ public class FunctionOperationService extends JDialog {
         panel.add(firstTableScrollPane);
         panel.add(secondTableScrollPane);
         panel.add(resultTableScrollPane);
+        panel.add(firstTableLabel);
+        panel.add(secondTableLabel);
+        panel.add(resultTableLabel);
+        panel.add(alarmLabel);
         setLocationRelativeTo(null);
         this.setJMenuBar(menuBar);
         getContentPane().add(panel);
