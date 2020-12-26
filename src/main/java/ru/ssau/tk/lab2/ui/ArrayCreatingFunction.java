@@ -3,20 +3,17 @@ package ru.ssau.tk.lab2.ui;
 import ru.ssau.tk.lab2.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.lab2.functions.TabulatedFunction;
 
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-
 
 public class ArrayCreatingFunction extends JDialog {
     JPanel panel = new JPanel();
     TabulatedFunction tabulatedFunction;
     int amountOfPoints;
-
+    ArrayList<String>xValues=new ArrayList<>();
+    ArrayList<String>yValues=new ArrayList<>();
 
     public ArrayCreatingFunction(JFrame owner) {
         super(owner, "array", true);
@@ -32,13 +29,13 @@ public class ArrayCreatingFunction extends JDialog {
         completeButton.setBounds(200, 60, 80, 20);
         table.setVisible(false);
         completeButton.setVisible(false);
-        nextButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                amountOfPoints = Integer.parseInt(textField.getText());
-                table.setVisible(true);
-                completeButton.setVisible(true);
-            }
+        nextButton.addActionListener(e -> {
+            amountOfPoints = Integer.parseInt(textField.getText());
+            table.setVisible(true);
+            completeButton.setVisible(true);
+        });
+        completeButton.addActionListener(e -> {
+
         });
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane tableScrollPane = new JScrollPane(table);
@@ -65,12 +62,20 @@ public class ArrayCreatingFunction extends JDialog {
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (amountOfPoints != 0) {
                 return switch (columnIndex) {
-                    case 1 -> "";
-                    case 2 -> "";
+                    case 0-> xValues.get(rowIndex);
+                    case 1-> yValues.get(rowIndex);
                     default -> "not stated";
-                };
-            } else {
+            };
+            }else {
                 return 0;
+            }
+        }
+
+        @Override
+        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+            switch (columnIndex){
+                case 0->xValues.add(String.valueOf(aValue));
+                case 1->yValues.add(String.valueOf(aValue));
             }
         }
 
@@ -83,7 +88,10 @@ public class ArrayCreatingFunction extends JDialog {
             };
         }
 
-
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return true;
+        }
     }
 
     public TabulatedFunction getTabulatedFunction() {
