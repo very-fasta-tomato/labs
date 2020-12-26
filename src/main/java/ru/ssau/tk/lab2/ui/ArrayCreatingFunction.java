@@ -1,9 +1,6 @@
 package ru.ssau.tk.lab2.ui;
 
-import ru.ssau.tk.lab2.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.lab2.functions.TabulatedFunction;
-
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -37,7 +34,8 @@ public class ArrayCreatingFunction extends JDialog {
             completeButton.setVisible(true);
         });
         completeButton.addActionListener(e -> {
-
+            tabulatedFunction = Index.factory.create(xValues, yValues);
+            this.dispose();
         });
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane tableScrollPane = new JScrollPane(table);
@@ -64,20 +62,20 @@ public class ArrayCreatingFunction extends JDialog {
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (amountOfPoints != 0) {
                 return switch (columnIndex) {
-                    case 0-> xValues[rowIndex];
-                    case 1-> yValues[rowIndex];
+                    case 0 -> xValues[rowIndex];
+                    case 1 -> yValues[rowIndex];
                     default -> "not stated";
-            };
-            }else {
+                };
+            } else {
                 return 0;
             }
         }
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            switch (columnIndex){
-                case 0->xValues[rowIndex] = Double.parseDouble(aValue.toString());
-                case 1->yValues[rowIndex] = Double.parseDouble(aValue.toString());
+            switch (columnIndex) {
+                case 0 -> xValues[rowIndex] = Double.parseDouble(aValue.toString());
+                case 1 -> yValues[rowIndex] = Double.parseDouble(aValue.toString());
             }
         }
 
