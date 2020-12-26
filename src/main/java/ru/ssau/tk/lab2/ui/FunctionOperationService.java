@@ -149,7 +149,7 @@ public class FunctionOperationService extends JDialog {
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     firstTabulatedFunction = FunctionsIO.deserialize(in);
                 } catch (IOException | ClassNotFoundException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on loading");
                 }
 
                 firstTableModel.setTabulatedFunction(firstTabulatedFunction);
@@ -157,16 +157,16 @@ public class FunctionOperationService extends JDialog {
             }
         });
 
-        JButton safeButton1 = new JButton("Safe");
-        safeButton1.setBounds(85, 400, Index.buttonWidth, Index.buttonHeight);
-        safeButton1.addActionListener(e -> {
+        JButton saveButton1 = new JButton("Save");
+        saveButton1.setBounds(85, 400, Index.buttonWidth, Index.buttonHeight);
+        saveButton1.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
             if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, firstTabulatedFunction);
                 } catch (IOException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on saving");
                 }
             }
         });
@@ -208,23 +208,23 @@ public class FunctionOperationService extends JDialog {
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     secondTabulatedFunction = FunctionsIO.deserialize(in);
                 } catch (IOException | ClassNotFoundException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on loading");
                 }
                 secondTableModel.setTabulatedFunction(secondTabulatedFunction);
                 secondTableModel.fireTableDataChanged();
             }
         });
 
-        JButton safeButton2 = new JButton("Safe");
-        safeButton2.setBounds(345, 400, Index.buttonWidth, Index.buttonHeight);
-        safeButton2.addActionListener(e -> {
+        JButton saveButton2 = new JButton("Save");
+        saveButton2.setBounds(345, 400, Index.buttonWidth, Index.buttonHeight);
+        saveButton2.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
             if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, secondTabulatedFunction);
                 } catch (IOException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on saving");
                 }
             }
         });
@@ -255,28 +255,28 @@ public class FunctionOperationService extends JDialog {
             resultTableModel.fireTableDataChanged();
         });
 
-        JButton safeButton3 = new JButton("Safe");
-        safeButton3.setBounds(605, 360, Index.buttonWidth, Index.buttonHeight);
-        safeButton3.addActionListener(e -> {
+        JButton saveButton3 = new JButton("Save");
+        saveButton3.setBounds(605, 360, Index.buttonWidth, Index.buttonHeight);
+        saveButton3.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
             if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, resultTabulatedFunction);
                 } catch (IOException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on saving");
                 }
             }
         });
 
         panel.add(exitButton);
         panel.add(createButton1);
-        panel.add(safeButton1);
+        panel.add(saveButton1);
         panel.add(loadButton1);
         panel.add(createButton2);
-        panel.add(safeButton2);
+        panel.add(saveButton2);
         panel.add(loadButton2);
-        panel.add(safeButton3);
+        panel.add(saveButton3);
         panel.add(calculateButton);
         panel.add(firstTableScrollPane);
         panel.add(secondTableScrollPane);

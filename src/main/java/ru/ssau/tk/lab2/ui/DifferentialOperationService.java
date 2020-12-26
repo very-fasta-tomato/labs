@@ -124,7 +124,7 @@ public class DifferentialOperationService extends JDialog {
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     tabulatedFunction = FunctionsIO.deserialize(in);
                 } catch (IOException | ClassNotFoundException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on loading");
                 }
 
                 functionTableModel.setTabulatedFunction(tabulatedFunction);
@@ -132,16 +132,16 @@ public class DifferentialOperationService extends JDialog {
             }
         });
 
-        JButton safeButton1 = new JButton("Safe");
-        safeButton1.setBounds(85, 400, Index.buttonWidth, Index.buttonHeight);
-        safeButton1.addActionListener(e -> {
+        JButton saveButton1 = new JButton("Save");
+        saveButton1.setBounds(85, 400, Index.buttonWidth, Index.buttonHeight);
+        saveButton1.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
             if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, tabulatedFunction);
                 } catch (IOException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on saving");
                 }
             }
         });
@@ -158,16 +158,16 @@ public class DifferentialOperationService extends JDialog {
             }
         });
 
-        JButton safeButton2 = new JButton("Safe");
-        safeButton2.setBounds(345, 360, Index.buttonWidth, Index.buttonHeight);
-        safeButton2.addActionListener(e -> {
+        JButton saveButton2 = new JButton("Save");
+        saveButton2.setBounds(345, 360, Index.buttonWidth, Index.buttonHeight);
+        saveButton2.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
             File file = fileChooserSave.getSelectedFile();
             if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, derivedTabulatedFunction);
                 } catch (IOException err) {
-                    err.printStackTrace();
+                    alarmLabel.setText("Error on saving");
                 }
             }
         });
@@ -179,10 +179,10 @@ public class DifferentialOperationService extends JDialog {
         panel.add(exitButton);
         panel.add(createButton);
         panel.add(loadButton);
-        panel.add(safeButton1);
+        panel.add(saveButton1);
         panel.add(alarmLabel);
         panel.add(deriveButton);
-        panel.add(safeButton2);
+        panel.add(saveButton2);
         this.setJMenuBar(menuBar);
         getContentPane().add(panel);
     }
