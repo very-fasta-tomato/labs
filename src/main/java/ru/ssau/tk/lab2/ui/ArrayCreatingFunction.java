@@ -12,8 +12,8 @@ public class ArrayCreatingFunction extends JDialog {
     JPanel panel = new JPanel();
     TabulatedFunction tabulatedFunction;
     int amountOfPoints;
-    ArrayList<String>xValues=new ArrayList<>();
-    ArrayList<String>yValues=new ArrayList<>();
+    double[] xValues;
+    double[] yValues;
 
     public ArrayCreatingFunction(JFrame owner) {
         super(owner, "array", true);
@@ -31,6 +31,8 @@ public class ArrayCreatingFunction extends JDialog {
         completeButton.setVisible(false);
         nextButton.addActionListener(e -> {
             amountOfPoints = Integer.parseInt(textField.getText());
+            xValues = new double[amountOfPoints];
+            yValues = new double[amountOfPoints];
             table.setVisible(true);
             completeButton.setVisible(true);
         });
@@ -62,8 +64,8 @@ public class ArrayCreatingFunction extends JDialog {
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (amountOfPoints != 0) {
                 return switch (columnIndex) {
-                    case 0-> xValues.get(rowIndex);
-                    case 1-> yValues.get(rowIndex);
+                    case 0-> xValues[rowIndex];
+                    case 1-> yValues[rowIndex];
                     default -> "not stated";
             };
             }else {
@@ -74,8 +76,8 @@ public class ArrayCreatingFunction extends JDialog {
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
             switch (columnIndex){
-                case 0->xValues.add(String.valueOf(aValue));
-                case 1->yValues.add(String.valueOf(aValue));
+                case 0->xValues[rowIndex] = Double.parseDouble(aValue.toString());
+                case 1->yValues[rowIndex] = Double.parseDouble(aValue.toString());
             }
         }
 
