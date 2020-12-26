@@ -16,7 +16,6 @@ public class ArrayCreatingFunction extends JDialog {
     JPanel panel = new JPanel();
     TabulatedFunction tabulatedFunction;
     int amountOfPoints;
-    private JTable table;
 
 
     public ArrayCreatingFunction(JFrame owner) {
@@ -24,7 +23,7 @@ public class ArrayCreatingFunction extends JDialog {
         setSize(800, 800);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         panel.setLayout(null);
-        JTextField textField = new JTextField("amount of points", 10);
+        JTextField textField = new JTextField("", 10);
         textField.setBounds(10, 10, 200, 30);
         JButton nextButton = new JButton("OK");
         nextButton.setBounds(60, 60, 80, 20);
@@ -34,11 +33,14 @@ public class ArrayCreatingFunction extends JDialog {
                 amountOfPoints = Integer.parseInt(textField.getText());
                 JTable table = new JTable(new Model());
                 table.setBounds(70, 200, 300, 400);
+                JButton completeButton = new JButton("Finish");
+                completeButton.setBounds(200, 60, 80, 20);
+                panel.add(new JScrollPane(table));
+                panel.add(completeButton);
             }
         });
         panel.add(textField);
         panel.add(nextButton);
-        panel.add(new JScrollPane(table));
         getContentPane().add(panel);
     }
 
