@@ -18,8 +18,11 @@ public class OperationTableModel extends AbstractTableModel {
     }
 
     public void setTabulatedFunction(TabulatedFunction tabulatedFunction){
-        this.tabulatedFunction = tabulatedFunction;
-        this.rowCount = tabulatedFunction.getCount();
+        if (tabulatedFunction != null){
+            this.tabulatedFunction = tabulatedFunction;
+            this.rowCount = tabulatedFunction.getCount();
+        }
+
     }
 
     @Override
