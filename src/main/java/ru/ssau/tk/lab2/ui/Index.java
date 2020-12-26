@@ -34,7 +34,7 @@ public class Index extends JFrame {
         JButton derivingServiceButton = new JButton("Deriving operation service");
         derivingServiceButton.setBounds(10, 150, 250, buttonHeight);
         derivingServiceButton.addActionListener(e -> {
-            JDialog derivingServiceDialog = new DerivingOperationService(index);
+            JDialog derivingServiceDialog = new DifferentialOperationService(index);
             derivingServiceDialog.setVisible(true);
         });
 
