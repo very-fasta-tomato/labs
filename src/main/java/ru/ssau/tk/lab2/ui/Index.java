@@ -1,8 +1,13 @@
 package ru.ssau.tk.lab2.ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import ru.ssau.tk.lab2.functions.factory.*;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Index extends JFrame {
     static int buttonWidth = 100;
@@ -17,8 +22,9 @@ public class Index extends JFrame {
         index.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         index.setSize(640, 480);
 
-        JPanel panel = new JPanel();
+        JPanel panel = new BgPanel();
         panel.setLayout(null);
+
 
         JButton exitButton = new JButton("Exit");
         exitButton.setBounds(520, 380, buttonWidth, buttonHeight);
@@ -72,5 +78,15 @@ public class Index extends JFrame {
         index.getContentPane().add(panel);
         index.setJMenuBar(menuBar);
         index.setVisible(true);
+    }
+
+    static class BgPanel extends JPanel{
+        public void paintComponent(Graphics g){
+            Image im = null;
+            try {
+                im = ImageIO.read(new File("C:\\Users\\Admin\\Documents\\GitHub\\labs\\Shark.jpg"));
+            } catch (IOException e) {}
+            g.drawImage(im, 0, 0, null);
+        }
     }
 }
