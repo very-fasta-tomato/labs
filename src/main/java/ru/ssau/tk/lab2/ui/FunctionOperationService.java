@@ -7,7 +7,6 @@ import ru.ssau.tk.lab2.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
