@@ -44,6 +44,12 @@ public class Index extends JFrame {
             derivingServiceDialog.setVisible(true);
         });
 
+        JButton graphWindowButton = new JButton("Graphic tabulated function");
+        graphWindowButton.setBounds(10, 200, 250, buttonHeight);
+        graphWindowButton.addActionListener(e -> {
+
+        });
+
         JMenu menuFile = new JMenu("File");
         JMenuItem menuExit = new JMenuItem("Exit");
         menuExit.addActionListener(e -> index.dispose());
@@ -75,6 +81,7 @@ public class Index extends JFrame {
         panel.add(factoryLabel);
         panel.add(OperationServiceButton);
         panel.add(derivingServiceButton);
+        panel.add(graphWindowButton);
         index.getContentPane().add(panel);
         index.setJMenuBar(menuBar);
         index.setVisible(true);
