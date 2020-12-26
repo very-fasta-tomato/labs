@@ -61,19 +61,19 @@ public class FunctionOperationService extends JDialog {
         menuBar.add(menuCreating);
         menuBar.add(menuCalculatingOperation);
 
-        AbstractTableModel firstTableModel = new OperationTableModel(firstTabulatedFunction);
+        OperationTableModel firstTableModel = new OperationTableModel(firstTabulatedFunction);
         JTable firstFunctionTable = new JTable(firstTableModel);
         firstFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane firstTableScrollPane = new JScrollPane(firstFunctionTable);
         firstTableScrollPane.setBounds(10, 50, 250, 260);
 
-        AbstractTableModel secondTableModel = new OperationTableModel(secondTabulatedFunction);
+        OperationTableModel secondTableModel = new OperationTableModel(secondTabulatedFunction);
         JTable secondFunctionTable = new JTable(secondTableModel);
         secondFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane secondTableScrollPane = new JScrollPane(secondFunctionTable);
         secondTableScrollPane.setBounds(270, 50, 250, 260);
 
-        AbstractTableModel resultTableModel = new ResultTableModel(resultTabulatedFunction);
+        ResultTableModel resultTableModel = new ResultTableModel(resultTabulatedFunction);
         JTable resultFunctionTable = new JTable(resultTableModel);
         resultFunctionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane resultTableScrollPane = new JScrollPane(resultFunctionTable);
@@ -105,7 +105,7 @@ public class FunctionOperationService extends JDialog {
                     @Override
                     public void windowClosed(WindowEvent e) {
                         firstTabulatedFunction = arrayCreatingFunctionDialog.getTabulatedFunction();
-                        
+                        firstTableModel.setTabulatedFunction(firstTabulatedFunction);
                         firstTableModel.fireTableDataChanged();
                     }
                 });
@@ -116,6 +116,7 @@ public class FunctionOperationService extends JDialog {
                     @Override
                     public void windowClosed(WindowEvent e) {
                         firstTabulatedFunction = mathFunctionCreatingFunctionDialog.getTabulatedFunction();
+                        firstTableModel.setTabulatedFunction(firstTabulatedFunction);
                         firstTableModel.fireTableDataChanged();
                     }
                 });
@@ -133,6 +134,7 @@ public class FunctionOperationService extends JDialog {
                 } catch (IOException | ClassNotFoundException err) {
                     err.printStackTrace();
                 }
+                firstTableModel.setTabulatedFunction(firstTabulatedFunction);
                 firstTableModel.fireTableDataChanged();
             }
         });
@@ -161,6 +163,7 @@ public class FunctionOperationService extends JDialog {
                     @Override
                     public void windowClosed(WindowEvent e) {
                         secondTabulatedFunction = arrayCreatingFunctionDialog.getTabulatedFunction();
+                        secondTableModel.setTabulatedFunction(secondTabulatedFunction);
                         secondTableModel.fireTableDataChanged();
                     }
                 });
@@ -171,6 +174,7 @@ public class FunctionOperationService extends JDialog {
                     @Override
                     public void windowClosed(WindowEvent e) {
                         secondTabulatedFunction = mathFunctionCreatingFunctionDialog.getTabulatedFunction();
+                        secondTableModel.setTabulatedFunction(secondTabulatedFunction);
                         secondTableModel.fireTableDataChanged();
                     }
                 });
@@ -188,6 +192,7 @@ public class FunctionOperationService extends JDialog {
                 } catch (IOException | ClassNotFoundException err) {
                     err.printStackTrace();
                 }
+                secondTableModel.setTabulatedFunction(secondTabulatedFunction);
                 secondTableModel.fireTableDataChanged();
             }
         });
@@ -213,24 +218,22 @@ public class FunctionOperationService extends JDialog {
                 case SUM -> {
                     resultTabulatedFunction =
                             functionOperationService.sum(firstTabulatedFunction, secondTabulatedFunction);
-                    resultTableModel.fireTableDataChanged();
                 }
                 case SUBTRACT -> {
                     resultTabulatedFunction =
                             functionOperationService.subtract(firstTabulatedFunction, secondTabulatedFunction);
-                    resultTableModel.fireTableDataChanged();
                 }
                 case MULTIPLY -> {
                     resultTabulatedFunction =
                             functionOperationService.multiply(firstTabulatedFunction, secondTabulatedFunction);
-                    resultTableModel.fireTableDataChanged();
                 }
                 case DIVISION -> {
                     resultTabulatedFunction =
                             functionOperationService.division(firstTabulatedFunction, secondTabulatedFunction);
-                    resultTableModel.fireTableDataChanged();
                 }
             }
+            resultTableModel.setTabulatedFunction(resultTabulatedFunction);
+            resultTableModel.fireTableDataChanged();
         });
 
         JButton safeButton3 = new JButton("Safe");

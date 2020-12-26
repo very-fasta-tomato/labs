@@ -17,6 +17,11 @@ public class ResultTableModel extends AbstractTableModel {
         }
     }
 
+    public void setTabulatedFunction(TabulatedFunction tabulatedFunction){
+        this.tabulatedFunction = tabulatedFunction;
+        this.rowCount = tabulatedFunction.getCount();
+    }
+
     @Override
     public int getRowCount() {
         return rowCount;
