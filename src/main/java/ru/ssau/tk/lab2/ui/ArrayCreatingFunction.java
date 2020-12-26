@@ -20,25 +20,31 @@ public class ArrayCreatingFunction extends JDialog {
 
     public ArrayCreatingFunction(JFrame owner) {
         super(owner, "array", true);
-        setSize(800, 800);
+        setSize(350, 600);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         panel.setLayout(null);
         JTextField textField = new JTextField("", 10);
-        textField.setBounds(10, 10, 200, 30);
+        textField.setBounds(10, 10, 50, 30);
         JButton nextButton = new JButton("OK");
-        nextButton.setBounds(60, 60, 80, 20);
+        nextButton.setBounds(10, 60, 80, 20);
+        JTable table = new JTable(new Model());
+        JButton completeButton = new JButton("Finish");
+        completeButton.setBounds(200, 60, 80, 20);
+        table.setVisible(false);
+        completeButton.setVisible(false);
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 amountOfPoints = Integer.parseInt(textField.getText());
-                JTable table = new JTable(new Model());
-                table.setBounds(70, 200, 300, 400);
-                JButton completeButton = new JButton("Finish");
-                completeButton.setBounds(200, 60, 80, 20);
-                panel.add(new JScrollPane(table));
-                panel.add(completeButton);
+                table.setVisible(true);
+                completeButton.setVisible(true);
             }
         });
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane tableScrollPane = new JScrollPane(table);
+        tableScrollPane.setBounds(10, 80, 300, 400);
+        panel.add(tableScrollPane);
+        panel.add(completeButton);
         panel.add(textField);
         panel.add(nextButton);
         getContentPane().add(panel);
@@ -59,9 +65,8 @@ public class ArrayCreatingFunction extends JDialog {
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (amountOfPoints != 0) {
                 return switch (columnIndex) {
-                    case 0 -> rowIndex;
-                    case 1 -> 0;
-                    case 2 -> 0;
+                    case 1 -> "";
+                    case 2 -> "";
                     default -> "not stated";
                 };
             } else {
@@ -72,9 +77,8 @@ public class ArrayCreatingFunction extends JDialog {
         @Override
         public String getColumnName(int columnIndex) {
             return switch (columnIndex) {
-                case 0 -> "№";
-                case 1 -> "X";
-                case 2 -> "Y";
+                case 0 -> "X";
+                case 1 -> "Y";
                 default -> "not stated";
             };
         }
