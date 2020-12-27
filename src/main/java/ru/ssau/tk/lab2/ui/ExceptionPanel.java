@@ -2,7 +2,7 @@ package ru.ssau.tk.lab2.ui;
 
 import ru.ssau.tk.lab2.exceptions.*;
 
-public class ExceptionPanel extends Exception{
+public class ExceptionPanel extends Exception {
     public ExceptionPanel() {
     }
 
@@ -13,7 +13,8 @@ public class ExceptionPanel extends Exception{
     public ExceptionPanel(NullPointerException message) {
         super(message);
     }
-    public ExceptionPanel(IllegalArgumentException message){
+
+    public ExceptionPanel(IllegalArgumentException message) {
         super("Введите число!");
     }
 }
