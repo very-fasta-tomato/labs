@@ -1,6 +1,14 @@
 package ru.ssau.tk.lab2.ui;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import ru.ssau.tk.lab2.functions.TabulatedFunction;
 import ru.ssau.tk.lab2.functions.TypeOfCreatingFunction;
 import ru.ssau.tk.lab2.functions.factory.TabulatedFunctionFactory;
@@ -11,17 +19,31 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.Ellipse2D;
 import java.io.*;
 
-public class GraphicTabulatedFunctionService extends JDialog {
+public class GraphTabulatedFunctionService extends JDialog {
+
     JPanel panel = new JPanel();
+    JMenuBar menuBar = new JMenuBar();
+    JLabel functionTableLabel = new JLabel("Tabulated function");
+    JLabel alarmLabel = new JLabel("");
+    JButton createButton = new JButton("Create");
+    JButton loadButton = new JButton("Load");
+    JButton saveButton1 = new JButton("Save");
+    JButton exitButton = new JButton("Exit");
+    OperationTableModel functionTableModel;
+    JTable functionTable;
+    JScrollPane functionTableScrollPane;
+    File file;
+    boolean loadedFromFile = false;
 
     TabulatedFunction tabulatedFunction;
     TypeOfCreatingFunction type;
     TabulatedFunctionFactory factory;
 
-    public GraphicTabulatedFunctionService(JFrame owner){
-        super(owner, "Tabulated function operation service", true);
+    public GraphTabulatedFunctionService(JFrame owner){
+        super(owner, "Graph Tabulated Function Service", true);
         setSize(1000, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         panel.setLayout(null);
@@ -39,7 +61,6 @@ public class GraphicTabulatedFunctionService extends JDialog {
         array.addActionListener(e -> type = TypeOfCreatingFunction.ARRAY);
         menuCreating.add(mathFunction);
         menuCreating.add(array);
-        JMenuBar menuBar = new JMenuBar();
         menuBar.add(menuFile);
         menuBar.add(menuCreating);
 
@@ -55,22 +76,19 @@ public class GraphicTabulatedFunctionService extends JDialog {
         fileChooserSave.addChoosableFileFilter(new FileNameExtensionFilter("Serialized functions", "bin"));
         fileChooserSave.setAcceptAllFileFilterUsed(false);
 
-        OperationTableModel functionTableModel = new OperationTableModel(tabulatedFunction);
-        JTable functionTable = new JTable(functionTableModel);
+        functionTableModel = new OperationTableModel(tabulatedFunction);
+        functionTable = new JTable(functionTableModel);
+        functionTableScrollPane = new JScrollPane(functionTable);
         functionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane functionTableScrollPane = new JScrollPane(functionTable);
         functionTableScrollPane.setBounds(10, 50, 250, 260);
 
-        JLabel functionTableLabel = new JLabel("Tabulated function");
         functionTableLabel.setBounds(10, 10, 250, 30);
         functionTableLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        JLabel alarmLabel = new JLabel("");
         alarmLabel.setBounds(270, 400, 250, 30);
         alarmLabel.setForeground(Color.RED);
         alarmLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        JButton createButton = new JButton("Create");
         createButton.setBounds(85, 320, Index.buttonWidth, Index.buttonHeight);
         createButton.addActionListener(e -> {
             if (type == TypeOfCreatingFunction.ARRAY) {
@@ -82,6 +100,8 @@ public class GraphicTabulatedFunctionService extends JDialog {
                         tabulatedFunction = arrayCreatingFunctionDialog.getTabulatedFunction();
                         functionTableModel.setTabulatedFunction(tabulatedFunction);
                         functionTableModel.fireTableDataChanged();
+                        loadedFromFile = false;
+                        createGraph();
                     }
                 });
             } else {
@@ -93,33 +113,34 @@ public class GraphicTabulatedFunctionService extends JDialog {
                         tabulatedFunction = mathFunctionCreatingFunctionDialog.getTabulatedFunction();
                         functionTableModel.setTabulatedFunction(tabulatedFunction);
                         functionTableModel.fireTableDataChanged();
+                        loadedFromFile = false;
+                        createGraph();
                     }
                 });
             }
         });
 
-        JButton loadButton = new JButton("Load");
         loadButton.setBounds(85, 360, Index.buttonWidth, Index.buttonHeight);
         loadButton.addActionListener(e -> {
             fileChooserOpen.showOpenDialog(this);
-            File file = fileChooserOpen.getSelectedFile();
+            file = fileChooserOpen.getSelectedFile();
             if (file != null) {
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     tabulatedFunction = FunctionsIO.deserialize(in);
                 } catch (IOException | ClassNotFoundException err) {
                     alarmLabel.setText("Error on loading");
                 }
-
+                loadedFromFile = true;
                 functionTableModel.setTabulatedFunction(tabulatedFunction);
                 functionTableModel.fireTableDataChanged();
+                createGraph();
             }
         });
 
-        JButton saveButton1 = new JButton("Save");
         saveButton1.setBounds(85, 400, Index.buttonWidth, Index.buttonHeight);
         saveButton1.addActionListener(e -> {
             fileChooserSave.showSaveDialog(this);
-            File file = fileChooserSave.getSelectedFile();
+            file = fileChooserSave.getSelectedFile();
             if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, tabulatedFunction);
@@ -129,10 +150,50 @@ public class GraphicTabulatedFunctionService extends JDialog {
             }
         });
 
-        JButton exitButton = new JButton("Exit");
         exitButton.setBounds(870, 400, Index.buttonWidth, Index.buttonHeight);
         exitButton.addActionListener(e -> this.dispose());
 
+        addToPanel();
+    }
+
+    private XYDataset createDataset() {
+        XYSeries graph = new XYSeries("Graph");
+        for (int i = 0; i < tabulatedFunction.getCount(); i++){
+            graph.add(tabulatedFunction.getX(i), tabulatedFunction.getY(i));
+        }
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(graph);
+        return dataset;
+    }
+
+    private JFreeChart createChart(XYDataset dataset) {
+        JFreeChart chart;
+        if (loadedFromFile){
+             chart = ChartFactory.createXYLineChart(file.getName(), "X", "Y", dataset);
+        } else {
+            chart = ChartFactory.createXYLineChart("Tabulated function", "X", "Y", dataset);
+        }
+        chart.removeLegend();
+        XYPlot plot = (XYPlot) chart.getPlot();
+        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
+        renderer.setSeriesShapesVisible(0, true);
+        renderer.setSeriesShape(0, new Ellipse2D.Double(-4.0, -4.0, 8.0, 8.0));
+        renderer.setSeriesFillPaint(0, Color.RED);
+        renderer.setUseFillPaint(true);
+        NumberAxis xAxis = (NumberAxis) plot.getDomainAxis();
+        xAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        return chart;
+    }
+
+    private void createGraph(){
+        JFreeChart chart = createChart(createDataset());
+        ChartPanel graphPanel = new ChartPanel(chart);
+        graphPanel.setBounds(270, 50, 700, 300);
+        setContentPane(graphPanel);
+        //addToPanel();
+    }
+
+    private void addToPanel(){
         panel.add(functionTableScrollPane);
         panel.add(functionTableLabel);
         panel.add(exitButton);

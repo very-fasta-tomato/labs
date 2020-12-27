@@ -44,11 +44,11 @@ public class Index extends JFrame {
             derivingServiceDialog.setVisible(true);
         });
 
-        JButton graphWindowButton = new JButton("Graphic tabulated function service");
+        JButton graphWindowButton = new JButton("Graph tabulated function service");
         graphWindowButton.setBounds(10, 200, 250, buttonHeight);
         graphWindowButton.addActionListener(e -> {
-            JDialog graphicTabulatedFunction = new GraphicTabulatedFunctionService(index);
-            graphicTabulatedFunction.setVisible(true);
+            JDialog graphTabulatedFunctionService = new GraphTabulatedFunctionService(index);
+            graphTabulatedFunctionService.setVisible(true);
         });
 
         JMenu menuFile = new JMenu("File");
@@ -91,12 +91,13 @@ public class Index extends JFrame {
         index.setVisible(true);
     }
 
-    static class BgPanel extends JPanel{
-        public void paintComponent(Graphics g){
+    static class BgPanel extends JPanel {
+        public void paintComponent(Graphics g) {
             Image im = null;
             try {
                 im = ImageIO.read(new File("C:\\Users\\Admin\\Documents\\GitHub\\labs\\Shark.jpg"));
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
             g.drawImage(im, 0, 0, null);
         }
     }
