@@ -44,10 +44,11 @@ public class Index extends JFrame {
             derivingServiceDialog.setVisible(true);
         });
 
-        JButton graphWindowButton = new JButton("Graphic tabulated function");
+        JButton graphWindowButton = new JButton("Graphic tabulated function service");
         graphWindowButton.setBounds(10, 200, 250, buttonHeight);
         graphWindowButton.addActionListener(e -> {
-
+            JDialog graphicTabulatedFunction = new GraphicTabulatedFunctionService(index);
+            graphicTabulatedFunction.setVisible(true);
         });
 
         JMenu menuFile = new JMenu("File");
@@ -55,8 +56,11 @@ public class Index extends JFrame {
         menuExit.addActionListener(e -> index.dispose());
         menuFile.add(menuExit);
 
-        JLabel factoryLabel = new JLabel("Array function factory");
-        factoryLabel.setBounds(10, 10, 320, 30);
+        JLabel factoryLabel = new JLabel("<html>Creating function factory: Array function factory");
+        factoryLabel.setBounds(10, 10, 250, 80);
+        factoryLabel.setFont(new Font("Cocoon", Font.BOLD, 20));
+        factoryLabel.setVerticalAlignment(JLabel.NORTH);
+        factoryLabel.setHorizontalAlignment(JLabel.CENTER);
 
         JMenu menuOptions = new JMenu("Options");
         JMenu menuFactory = new JMenu("Factory");
@@ -64,11 +68,11 @@ public class Index extends JFrame {
         JMenuItem menuLinkedListFactory = new JMenuItem("Linked list");
         menuArrayFactory.addActionListener(e -> {
             factory = arrayFactory;
-            factoryLabel.setText("Array function factory");
+            factoryLabel.setText("<html>Creating function factory: Array function factory");
         });
         menuLinkedListFactory.addActionListener(e -> {
             factory = linkedListFactory;
-            factoryLabel.setText("Linked list function factory");
+            factoryLabel.setText("<html>Creating function factory: Linked list function factory");
         });
         menuFactory.add(menuArrayFactory);
         menuFactory.add(menuLinkedListFactory);
