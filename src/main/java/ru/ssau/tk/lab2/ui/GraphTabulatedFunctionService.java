@@ -32,11 +32,12 @@ public class GraphTabulatedFunctionService extends JDialog {
     JButton loadButton = new JButton("Load");
     JButton saveButton1 = new JButton("Save");
     JButton exitButton = new JButton("Exit");
-    OperationTableModel functionTableModel;
+    ResultTableModel functionTableModel;
     JTable functionTable;
     JScrollPane functionTableScrollPane;
     File file;
     boolean loadedFromFile = false;
+    ChartPanel graphPanel;
 
     TabulatedFunction tabulatedFunction;
     TypeOfCreatingFunction type;
@@ -76,7 +77,7 @@ public class GraphTabulatedFunctionService extends JDialog {
         fileChooserSave.addChoosableFileFilter(new FileNameExtensionFilter("Serialized functions", "bin"));
         fileChooserSave.setAcceptAllFileFilterUsed(false);
 
-        functionTableModel = new OperationTableModel(tabulatedFunction);
+        functionTableModel = new ResultTableModel(tabulatedFunction);
         functionTable = new JTable(functionTableModel);
         functionTableScrollPane = new JScrollPane(functionTable);
         functionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -186,11 +187,14 @@ public class GraphTabulatedFunctionService extends JDialog {
     }
 
     private void createGraph(){
+        if (graphPanel != null){
+            getContentPane().remove(graphPanel);
+        }
         JFreeChart chart = createChart(createDataset());
-        ChartPanel graphPanel = new ChartPanel(chart);
+        graphPanel = new ChartPanel(chart);
         graphPanel.setBounds(270, 50, 700, 300);
-        setContentPane(graphPanel);
-        //addToPanel();
+        getContentPane().add(graphPanel);
+        addToPanel();
     }
 
     private void addToPanel(){
