@@ -31,6 +31,7 @@ public class GraphTabulatedFunctionService extends JDialog {
     JButton createButton = new JButton("Create");
     JButton loadButton = new JButton("Load");
     JButton saveButton1 = new JButton("Save");
+    JSlider xSlider = new JSlider();
     JButton exitButton = new JButton("Exit");
     ResultTableModel functionTableModel;
     JTable functionTable;
@@ -43,7 +44,7 @@ public class GraphTabulatedFunctionService extends JDialog {
     TypeOfCreatingFunction type;
     TabulatedFunctionFactory factory;
 
-    public GraphTabulatedFunctionService(JFrame owner){
+    public GraphTabulatedFunctionService(JFrame owner) {
         super(owner, "Graph Tabulated Function Service", true);
         setSize(1000, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -159,7 +160,7 @@ public class GraphTabulatedFunctionService extends JDialog {
 
     private XYDataset createDataset() {
         XYSeries graph = new XYSeries("Graph");
-        for (int i = 0; i < tabulatedFunction.getCount(); i++){
+        for (int i = 0; i < tabulatedFunction.getCount(); i++) {
             graph.add(tabulatedFunction.getX(i), tabulatedFunction.getY(i));
         }
         XYSeriesCollection dataset = new XYSeriesCollection();
@@ -169,8 +170,8 @@ public class GraphTabulatedFunctionService extends JDialog {
 
     private JFreeChart createChart(XYDataset dataset) {
         JFreeChart chart;
-        if (loadedFromFile){
-             chart = ChartFactory.createXYLineChart(file.getName(), "X", "Y", dataset);
+        if (loadedFromFile) {
+            chart = ChartFactory.createXYLineChart(file.getName(), "X", "Y", dataset);
         } else {
             chart = ChartFactory.createXYLineChart("Tabulated function", "X", "Y", dataset);
         }
@@ -186,8 +187,8 @@ public class GraphTabulatedFunctionService extends JDialog {
         return chart;
     }
 
-    private void createGraph(){
-        if (graphPanel != null){
+    private void createGraph() {
+        if (graphPanel != null) {
             getContentPane().remove(graphPanel);
         }
         JFreeChart chart = createChart(createDataset());
@@ -197,7 +198,7 @@ public class GraphTabulatedFunctionService extends JDialog {
         addToPanel();
     }
 
-    private void addToPanel(){
+    private void addToPanel() {
         panel.add(functionTableScrollPane);
         panel.add(functionTableLabel);
         panel.add(exitButton);
@@ -205,7 +206,24 @@ public class GraphTabulatedFunctionService extends JDialog {
         panel.add(loadButton);
         panel.add(saveButton1);
         panel.add(alarmLabel);
+        panel.add(xSlider);
         this.setJMenuBar(menuBar);
         getContentPane().add(panel);
+    }
+
+    private void setSlider(){
+        int min = (int) (Math.round(tabulatedFunction.leftBound()) * 100);
+        int max = (int) (Math.round(tabulatedFunction.rightBound()) * 100);
+        int currentX = min;
+        xSlider.setMinimum(min);
+        xSlider.setMaximum(max);
+        xSlider.setMinorTickSpacing(1);
+        xSlider.setMinorTickSpacing(10);
+        xSlider.setPaintTicks(true);
+        xSlider.setValue(min);
+        xSlider.setBounds(270, 600, 700, 100);
+        xSlider.addChangeListener(e -> {
+            
+        });
     }
 }
