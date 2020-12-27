@@ -27,12 +27,13 @@ public class GraphTabulatedFunctionService extends JDialog {
     JPanel panel = new JPanel();
     JMenuBar menuBar = new JMenuBar();
     JLabel functionTableLabel = new JLabel("Tabulated function");
-    JLabel alarmLabel = new JLabel("");
     JButton createButton = new JButton("Create");
     JButton loadButton = new JButton("Load");
     JButton saveButton1 = new JButton("Save");
-    JSlider xSlider = new JSlider();
     JButton exitButton = new JButton("Exit");
+    JButton findButton = new JButton("Find Y-coordinate");
+    JTextField xField = new JTextField("Enter X-coordinate of point");
+    JLabel yLabel = new JLabel("<html>Here will be Y-coordinate of point");
     ResultTableModel functionTableModel;
     JTable functionTable;
     JScrollPane functionTableScrollPane;
@@ -87,10 +88,6 @@ public class GraphTabulatedFunctionService extends JDialog {
         functionTableLabel.setBounds(10, 10, 250, 30);
         functionTableLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        alarmLabel.setBounds(270, 400, 250, 30);
-        alarmLabel.setForeground(Color.RED);
-        alarmLabel.setHorizontalAlignment(JLabel.CENTER);
-
         createButton.setBounds(85, 320, Index.buttonWidth, Index.buttonHeight);
         createButton.addActionListener(e -> {
             if (type == TypeOfCreatingFunction.ARRAY) {
@@ -130,7 +127,6 @@ public class GraphTabulatedFunctionService extends JDialog {
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     tabulatedFunction = FunctionsIO.deserialize(in);
                 } catch (IOException | ClassNotFoundException err) {
-                    alarmLabel.setText("Error on loading");
                 }
                 loadedFromFile = true;
                 functionTableModel.setTabulatedFunction(tabulatedFunction);
@@ -147,10 +143,26 @@ public class GraphTabulatedFunctionService extends JDialog {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, tabulatedFunction);
                 } catch (IOException err) {
-                    alarmLabel.setText("Error on saving");
                 }
             }
         });
+
+        xField.setBounds(270, 370, 200, 30);
+        xField.setVisible(false);
+
+        yLabel.setBounds(480, 370, 200, 30);
+        yLabel.setVisible(false);
+
+        findButton.setBounds(690, 370, 150, Index.buttonHeight);
+        findButton.addActionListener(e -> {
+            try {
+                double currentX = tabulatedFunction.apply(Double.parseDouble(xField.getText()));
+                yLabel.setText(Double.toString(currentX));
+            } catch(Exception err){
+                yLabel.setText("Incorrect enter of X!");
+            }
+        });
+        findButton.setVisible(false);
 
         exitButton.setBounds(870, 400, Index.buttonWidth, Index.buttonHeight);
         exitButton.addActionListener(e -> this.dispose());
@@ -196,6 +208,9 @@ public class GraphTabulatedFunctionService extends JDialog {
         graphPanel.setBounds(270, 50, 700, 300);
         getContentPane().add(graphPanel);
         addToPanel();
+        xField.setVisible(true);
+        yLabel.setVisible(true);
+        findButton.setVisible(true);
     }
 
     private void addToPanel() {
@@ -205,25 +220,10 @@ public class GraphTabulatedFunctionService extends JDialog {
         panel.add(createButton);
         panel.add(loadButton);
         panel.add(saveButton1);
-        panel.add(alarmLabel);
-        panel.add(xSlider);
+        panel.add(xField);
+        panel.add(yLabel);
+        panel.add(findButton);
         this.setJMenuBar(menuBar);
         getContentPane().add(panel);
-    }
-
-    private void setSlider(){
-        int min = (int) (Math.round(tabulatedFunction.leftBound()) * 100);
-        int max = (int) (Math.round(tabulatedFunction.rightBound()) * 100);
-        int currentX = min;
-        xSlider.setMinimum(min);
-        xSlider.setMaximum(max);
-        xSlider.setMinorTickSpacing(1);
-        xSlider.setMinorTickSpacing(10);
-        xSlider.setPaintTicks(true);
-        xSlider.setValue(min);
-        xSlider.setBounds(270, 600, 700, 100);
-        xSlider.addChangeListener(e -> {
-            
-        });
     }
 }
