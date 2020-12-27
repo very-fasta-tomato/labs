@@ -47,8 +47,8 @@ public class Index extends JFrame {
         JButton graphWindowButton = new JButton("Graph tabulated function service");
         graphWindowButton.setBounds(10, 200, 250, buttonHeight);
         graphWindowButton.addActionListener(e -> {
-            JDialog graphTabulatedFunctionService = new GraphTabulatedFunctionService(index);
-            graphTabulatedFunctionService.setVisible(true);
+            //JDialog graphTabulatedFunctionService = new GraphTabulatedFunctionService(index);
+            //graphTabulatedFunctionService.setVisible(true);
         });
 
         JMenu menuFile = new JMenu("File");

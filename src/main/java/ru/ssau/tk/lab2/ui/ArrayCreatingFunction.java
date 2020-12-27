@@ -27,7 +27,15 @@ public class ArrayCreatingFunction extends JDialog {
         table.setVisible(false);
         completeButton.setVisible(false);
         nextButton.addActionListener(e -> {
-            amountOfPoints = Integer.parseInt(textField.getText());
+            try {
+                amountOfPoints = Integer.parseInt(textField.getText());
+            } catch (NumberFormatException exception) {
+                new ExceptionWindow(new ExceptionPanel(exception));
+            } catch (NullPointerException exception) {
+                new ExceptionWindow(new ExceptionPanel(exception));
+            } catch (IllegalArgumentException exception) {
+                new ExceptionWindow(new ExceptionPanel(exception));
+            }
             xValues = new double[amountOfPoints];
             yValues = new double[amountOfPoints];
             table.setVisible(true);
