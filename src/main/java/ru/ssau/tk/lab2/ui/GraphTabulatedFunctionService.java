@@ -126,7 +126,7 @@ public class GraphTabulatedFunctionService extends JDialog {
             if (file != null) {
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     tabulatedFunction = FunctionsIO.deserialize(in);
-                } catch (IOException | ClassNotFoundException err) {
+                } catch (IOException | ClassNotFoundException ignored) {
                 }
                 loadedFromFile = true;
                 functionTableModel.setTabulatedFunction(tabulatedFunction);
@@ -142,7 +142,7 @@ public class GraphTabulatedFunctionService extends JDialog {
             if (file != null) {
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file + ".bin"))) {
                     FunctionsIO.serialize(out, tabulatedFunction);
-                } catch (IOException err) {
+                } catch (IOException ignored) {
                 }
             }
         });
@@ -158,7 +158,7 @@ public class GraphTabulatedFunctionService extends JDialog {
             try {
                 double currentX = tabulatedFunction.apply(Double.parseDouble(xField.getText()));
                 yLabel.setText(Double.toString(currentX));
-            } catch(Exception err){
+            } catch (Exception err) {
                 yLabel.setText("Incorrect enter of X!");
             }
         });
@@ -183,7 +183,8 @@ public class GraphTabulatedFunctionService extends JDialog {
     private JFreeChart createChart(XYDataset dataset) {
         JFreeChart chart;
         if (loadedFromFile) {
-            chart = ChartFactory.createXYLineChart(file.getName(), "X", "Y", dataset);
+            chart = ChartFactory.createXYLineChart(
+                    file.getName().substring(0, file.getName().length() - 4), "X", "Y", dataset);
         } else {
             chart = ChartFactory.createXYLineChart("Tabulated function", "X", "Y", dataset);
         }
