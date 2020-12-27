@@ -7,3 +7,4 @@ output
 META-INF/MANIFEST.MF
 out/artifacts/groupeone_labs_jar/groupeone-labs.jar
 GraphTabulatedFunctionService.java
+GraphTabulatedFunctionService.class
