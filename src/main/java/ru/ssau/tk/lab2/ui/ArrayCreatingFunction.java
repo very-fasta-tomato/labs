@@ -29,6 +29,13 @@ public class ArrayCreatingFunction extends JDialog {
         nextButton.addActionListener(e -> {
             try {
                 amountOfPoints = Integer.parseInt(textField.getText());
+                if (amountOfPoints <= 1) {
+                    completeButton.addActionListener(e1 -> {
+                        JOptionPane.showMessageDialog(ArrayCreatingFunction.this,
+                                "Колличество точек должно быть больше 1",
+                                "Eror", JOptionPane.INFORMATION_MESSAGE);
+                    });
+                };
             } catch (NumberFormatException exception) {
                 new ExceptionWindow(new ExceptionPanel(exception));
             } catch (NullPointerException exception) {

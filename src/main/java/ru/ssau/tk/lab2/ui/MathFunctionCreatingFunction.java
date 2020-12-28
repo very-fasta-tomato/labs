@@ -56,6 +56,13 @@ public class MathFunctionCreatingFunction extends JDialog {
                 count = Integer.parseInt(textFieldCount.getText());
                 from = Double.parseDouble(textFieldFrom.getText());
                 to = Double.parseDouble(textFieldTo.getText());
+                if (count <= 1) {
+                    finalButton.addActionListener(e1 -> {
+                        JOptionPane.showMessageDialog(MathFunctionCreatingFunction.this,
+                                "Колличество точек должно быть больше 1",
+                                "Eror", JOptionPane.INFORMATION_MESSAGE);
+                    });
+                };
             } catch (NumberFormatException exception) {
                 new ExceptionWindow(new ExceptionPanel(exception));
             } catch (NullPointerException exception) {
